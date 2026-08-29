@@ -2,26 +2,15 @@ using UnityEngine;
 using TMPro;
 
 public class ChoiceManager : MonoBehaviour
-{   
+{
     public static ChoiceManager Instance;
 
     public GameObject leftChoice;
     public GameObject rightChoice;
 
-    [SerializeField] public string[] goodChoices = new string[]
-    {
-        
-    };
-
-    [SerializeField] public string[] mediumChoices = new string[]
-    {
-
-    };
-
-    [SerializeField] public string[] badChoices = new string[]
-    {   
-
-    };
+    [SerializeField] public string[] goodChoices;
+    [SerializeField] public string[] mediumChoices;
+    [SerializeField] public string[] badChoices;
 
     [Header("แต่ละ tier ส่งผลต่อ sanity เท่าไหร่")]
     public int goodSanityValue = 10;
@@ -42,16 +31,17 @@ public class ChoiceManager : MonoBehaviour
         leftOption = leftChoice.GetComponent<ChoiceOption>();
         rightOption = rightChoice.GetComponent<ChoiceOption>();
 
-        NextChoices();
+        HideBothChoices(); // เริ่มเกมมาต้องซ่อนไว้ก่อน รอ DialogueManager สั่งโชว์
     }
-    
+
     public void HideBothChoices()
     {
         leftChoice.SetActive(false);
         rightChoice.SetActive(false);
     }
 
-    public void NextChoices()
+    // เปลี่ยนชื่อจาก NextChoices -> ShowChoices ให้สื่อว่า "โชว์ครั้งนี้" ไม่ใช่ "วนไปเรื่อยๆ"
+    public void ShowChoices()
     {
         leftChoice.SetActive(true);
         rightChoice.SetActive(true);
@@ -60,10 +50,9 @@ public class ChoiceManager : MonoBehaviour
         SetupOneChoice(rightText, rightOption);
     }
 
-    // สุ่ม tier ให้ 1 ฝั่ง แล้วเซ็ตข้อความ + ค่า sanity ให้เลย
     private void SetupOneChoice(TextMeshProUGUI text, ChoiceOption option)
     {
-        int tier = PickTier(); // 0 = good, 1 = medium, 2 = bad
+        int tier = PickTier();
 
         if (tier == 0)
         {
@@ -82,15 +71,13 @@ public class ChoiceManager : MonoBehaviour
         }
     }
 
-    // สุ่มว่าจะได้ tier ไหน โดยถ่วงน้ำหนักตาม sanity ปัจจุบัน
     private int PickTier()
     {
         int currentSanity = SanityManager.Instance.GetCurrentSanity();
 
-        // sanity สูง -> goodWeight เยอะ, sanity ต่ำ -> badWeight เยอะ
         int goodWeight = currentSanity;
         int badWeight = 100 - currentSanity;
-        int mediumWeight = 50; // คงที่ไว้ก่อน ปรับได้ตามใจ
+        int mediumWeight = 50;
 
         int totalWeight = goodWeight + mediumWeight + badWeight;
         int roll = Random.Range(0, totalWeight);
@@ -109,5 +96,12 @@ public class ChoiceManager : MonoBehaviour
             return "";
 
         return arr[Random.Range(0, arr.Length)];
+    }
+
+    // เรียกจาก ChoiceOption.Confirm() หลังผู้เล่นชี้ค้างครบเวลา
+    public void OnChoiceConfirmed()
+    {
+        HideBothChoices();
+        DialogueManager.Instance.ContinueAfterChoice(); // กลับไปพิมพ์บรรทัดถัดไปต่อ ไม่วนสุ่ม choice ใหม่ทันที
     }
 }
