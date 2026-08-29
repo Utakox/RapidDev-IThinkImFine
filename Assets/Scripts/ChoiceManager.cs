@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 
 public class ChoiceManager : MonoBehaviour
-{
+{   
     public static ChoiceManager Instance;
 
     public GameObject leftChoice;
@@ -10,7 +10,7 @@ public class ChoiceManager : MonoBehaviour
 
     [SerializeField] public string[] goodChoices = new string[]
     {
-
+        
     };
 
     [SerializeField] public string[] mediumChoices = new string[]
@@ -19,7 +19,7 @@ public class ChoiceManager : MonoBehaviour
     };
 
     [SerializeField] public string[] badChoices = new string[]
-    {
+    {   
 
     };
 
@@ -44,7 +44,7 @@ public class ChoiceManager : MonoBehaviour
 
         NextChoices();
     }
-
+    
     public void HideBothChoices()
     {
         leftChoice.SetActive(false);

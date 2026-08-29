@@ -10,7 +10,7 @@ public class SanityManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ChangeSanity(int amount)
+    public void ChangeSanity(int amount)//now this function is called from ChoiceOption.cs when a choice is made, and it will change the sanity of the current character accordingly
     {
         EachCharacter current = CharacterManager.Instance.GetCurrentCharacter();
         current.ChangeSanity(amount);
