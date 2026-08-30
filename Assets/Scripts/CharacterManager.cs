@@ -33,19 +33,28 @@ public class CharacterManager : MonoBehaviour
     // เรียกจาก DialogueManager ตอนตัวละครคนปัจจุบันจบตาแล้ว
     public void NextCharacter()
     {
-        TransitionManager.Instance.PlayTransition(() =>
-        {
-            characters[currentIndex].gameObject.SetActive(false);
-
-            currentIndex++;
-            if (currentIndex >= characters.Length)
+        // onBlack: ทำงานตอนจอดำสนิท (สลับ GameObject ตัวละครตอนมองไม่เห็น)
+        // onComplete: ทำงานตอนจอเฟดกลับมาใสสนิทแล้วเท่านั้น (ค่อยเริ่ม dialogue กันข้อความพิมพ์ไปตอนจอยังดำ)
+        TransitionManager.Instance.PlayTransition(
+            onBlack: () =>
             {
-                Debug.Log("ตัวละครหมดแล้ว จบเกม");
-                return;
-            }
+                characters[currentIndex].gameObject.SetActive(false);
+                currentIndex++;
 
-            characters[currentIndex].gameObject.SetActive(true);
-            DialogueManager.Instance.StartCharacter(characters[currentIndex]);
-        });
+                if (currentIndex >= characters.Length)
+                    return; // จบเกม ไม่ต้องเปิดตัวละครถัดไป
+
+                characters[currentIndex].gameObject.SetActive(true);
+            },
+            onComplete: () =>
+            {
+                if (currentIndex >= characters.Length)
+                {
+                    Debug.Log("ตัวละครหมดแล้ว จบเกม");
+                    return;
+                }
+
+                DialogueManager.Instance.StartCharacter(characters[currentIndex]);
+            });
     }
 }

@@ -24,6 +24,9 @@ public class CharacterRuntime : MonoBehaviour
     // เพราะ asset ใช้ร่วมกันได้หลายที่ ถ้าลบออกจาก asset ถาวรจะพังตอนรันใหม่/เล่นซ้ำ)
     private readonly HashSet<ChoiceOptionData> usedChoices = new HashSet<ChoiceOptionData>();
 
+    // เก็บว่า sanity dialogue trigger อันไหนของตัวละครนี้เคยเล่นไปแล้วบ้าง (ครั้งเดียวต่อคน เหมือนกัน)
+    private readonly HashSet<SanityDialogueTrigger> triggeredSanityDialogues = new HashSet<SanityDialogueTrigger>();
+
     private void Awake()
     {
         faceImage = GetComponent<Image>();
@@ -54,7 +57,7 @@ public class CharacterRuntime : MonoBehaviour
     private void UpdateSanityText()
     {
         if (sanityText == null) return;
-        sanityText.text = $"{data.characterName}: {Sanity}";
+        sanityText.text = $"Sanity: {Sanity}";
     }
 
     // เรียกตอนสุ่ม choice เพื่อเช็คว่าอันนี้เคยถูกตัวละครคนนี้เลือกไปแล้วหรือยัง
@@ -67,5 +70,17 @@ public class CharacterRuntime : MonoBehaviour
     public void MarkChoiceUsed(ChoiceOptionData choice)
     {
         usedChoices.Add(choice);
+    }
+
+    // เรียกจาก DialogueManager เพื่อเช็คว่า sanity trigger อันนี้เคยเล่นให้ตัวละครคนนี้ไปแล้วหรือยัง
+    public bool HasTriggeredSanityDialogue(SanityDialogueTrigger trigger)
+    {
+        return triggeredSanityDialogues.Contains(trigger);
+    }
+
+    // เรียกตอนเล่น sanity trigger นี้ไปแล้ว กันไม่ให้เล่นซ้ำอีกสำหรับตัวละครคนนี้
+    public void MarkSanityDialogueTriggered(SanityDialogueTrigger trigger)
+    {
+        triggeredSanityDialogues.Add(trigger);
     }
 }

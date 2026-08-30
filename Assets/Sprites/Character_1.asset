@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Sam
   startingSanity: 100
-  faceHigh: {fileID: 7328463893023569842, guid: 3acc011d64dfa6541a75f1a4efd8f1c1, type: 3}
+  faceHigh: {fileID: -3209833726738011397, guid: 8fbe0661441f7ad4cbe9fe8b8ab046be, type: 3}
   faceMid: {fileID: 7328463893023569842, guid: 3acc011d64dfa6541a75f1a4efd8f1c1, type: 3}
   faceLow: {fileID: -7573167006996615963, guid: 56bfeedfab24a92499437a3f54d06842, type: 3}
   faceBroken: {fileID: -4235970982670264726, guid: f4da8932a0717dd41b612dc4bf2fc8b9, type: 3}
@@ -22,6 +22,11 @@ MonoBehaviour:
   - text: "I didn't even want to come here. My mom gave up a shift at the diner for
       this appointment, which means we\u2019re down eighty bucks just so I can sit
       in this chair. So, I guess I need to get 'fixed' quickly."
+  sanityDialogueTriggers:
+  - sanityThreshold: 50
+    direction: 1
+    dialogue:
+    - text: test
   goodChoices:
   - choiceText: Good Choices
     sanityChange: 20
@@ -33,7 +38,7 @@ MonoBehaviour:
     - text: su koi
   badChoices:
   - choiceText: Bad
-    sanityChange: -20
+    sanityChange: -80
     afterDialogue:
     - text: hate it
   - choiceText: Very bad

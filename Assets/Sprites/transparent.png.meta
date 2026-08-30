@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 60780214bbf82454dbd5eca83aa19cf1
+guid: 8fbe0661441f7ad4cbe9fe8b8ab046be
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5174173694450231997
-    second: SadMaythee_0
+      213: -3209833726738011397
+    second: transparent_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SadMaythee_0
+      name: transparent_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 346
-        height: 444
+        x: 42
+        y: 12
+        width: 831
+        height: 1007
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3459f185074a138b0800000000000000
-      internalID: -5174173694450231997
+      spriteID: bfa66b16b316473d0800000000000000
+      internalID: -3209833726738011397
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SadMaythee_0: -5174173694450231997
+      transparent_0: -3209833726738011397
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

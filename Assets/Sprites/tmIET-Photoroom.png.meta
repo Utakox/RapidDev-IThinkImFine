@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 12b1ab03ef501164383432c61a5e7509
+guid: 32822fc3f94a884409405872837912f9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4704656494638898255
-    second: HappyMaythee_0
+      213: -952418453795498732
+    second: tmIET-Photoroom_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HappyMaythee_0
+      name: tmIET-Photoroom_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 345
-        height: 445
+        width: 1280
+        height: 193
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1b360de28d3b5beb0800000000000000
-      internalID: -4704656494638898255
+      spriteID: 4151eff567458c2f0800000000000000
+      internalID: -952418453795498732
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      HappyMaythee_0: -4704656494638898255
+      tmIET-Photoroom_0: -952418453795498732
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

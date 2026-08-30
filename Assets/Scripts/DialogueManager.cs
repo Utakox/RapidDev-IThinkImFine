@@ -53,7 +53,7 @@ public class DialogueManager : MonoBehaviour
         PlayCurrentLine();
     }
 
-   private void PlayCurrentLine()
+    private void PlayCurrentLine()
     {
         if (currentLines == null || lineIndex >= currentLines.Length)
         {
@@ -64,9 +64,7 @@ public class DialogueManager : MonoBehaviour
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
 
-        // เช็ค sanity ปัจจุบันของตัวละคร ณ ตอนนี้ ก่อนตัดสินใจว่าจะพูดบทปกติหรือบทสำรอง
-        string lineText = currentLines[lineIndex].GetText(currentCharacter.Sanity);
-        typingCoroutine = StartCoroutine(TypeText(lineText));
+        typingCoroutine = StartCoroutine(TypeText(currentLines[lineIndex].text));
     }
 
     private IEnumerator TypeText(string text)
@@ -90,6 +88,11 @@ public class DialogueManager : MonoBehaviour
     // เช็คเองว่าตอนนี้ควรสุ่มจาก pool ไหน (ปกติ / วิกฤต / จบดี) หรือหมดจริงแล้วควรจบตา
     private void PlayNextChoiceRound()
     {
+        // เช็คก่อนว่ามี sanity dialogue trigger ที่ยังไม่เคยเล่นไหม ถ้ามี เล่นก่อน แล้วค่อยวนกลับมาที่นี่ใหม่
+        // (วนกลับมาเช็คซ้ำ เผื่อ sanity กระโดดข้ามหลายเกณฑ์พร้อมกันในตาเดียว จะได้เล่นครบทุกอันที่เข้าเกณฑ์)
+        if (TryPlaySanityDialogue(PlayNextChoiceRound))
+            return;
+
         dialogueText.text = "";
 
         CharacterData data = currentCharacter.data;
@@ -119,6 +122,30 @@ public class DialogueManager : MonoBehaviour
 
         // 3) ไม่เหลือ choice ให้เลือกอีกแล้วจริงๆ (ทั้ง pool ปกติและ special) จบตาตัวละครนี้
         EndTurn();
+    }
+
+    // เช็คว่าตอนนี้ sanity ตรงกับ trigger ไหนที่ยังไม่เคยเล่นให้ตัวละครนี้ไหม
+    // ถ้าเจอ: mark ว่าเล่นแล้ว, เล่นบทนั้น (จบแล้วเรียก onAfter ต่อ), return true
+    // ถ้าไม่เจอ: return false เฉยๆ ไม่ทำอะไร (ให้ผู้เรียกไปทำ flow ปกติต่อ)
+    private bool TryPlaySanityDialogue(System.Action onAfter)
+    {
+        var triggers = currentCharacter.data.sanityDialogueTriggers;
+        if (triggers == null) return false;
+
+        foreach (var trigger in triggers)
+        {
+            if (currentCharacter.HasTriggeredSanityDialogue(trigger))
+                continue;
+
+            if (!trigger.IsMet(currentCharacter.Sanity))
+                continue;
+
+            currentCharacter.MarkSanityDialogueTriggered(trigger);
+            PlayLines(trigger.dialogue, onAfter);
+            return true;
+        }
+
+        return false;
     }
 
     // เช็คว่า pool นี้ยังมี choice ที่ตัวละครปัจจุบันยังไม่เคยเลือกเหลืออยู่ไหม

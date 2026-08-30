@@ -15,17 +15,23 @@ public class TransitionManager : MonoBehaviour
         Instance = this;
         fadeGroup.alpha = 0f;// เริ่มต้นให้จอดำโปร่งใส
         fadeGroup.blocksRaycasts = false;
+
+        // การันตีว่า panel นี้อยู่บนสุดของ Canvas เสมอ ไม่ต้องพึ่งการลากจัด Hierarchy ด้วยมือ
+        // (กันเคสมีใครมาเพิ่ม UI ใหม่ทีหลังแล้วดันไปอยู่ใต้ Hierarchy กว่านี้โดยไม่ตั้งใจ จนบัง fade ไม่มิด)
+        transform.SetAsLastSibling();
     }
 
     // เฟดจอดำเข้ามาก่อน แล้วค่อยเรียก onBlack (เช่นสลับตัวละคร/เปลี่ยนฉาก) ตอนจอดำสนิทพอดี
-    // จากนั้นเฟดจอดำออกกลับไปให้เห็นฉากใหม่
-    public void PlayTransition(System.Action onBlack)
+    // จากนั้นเฟดจอดำออกกลับไปให้เห็นฉากใหม่ แล้วค่อยเรียก onComplete ตอนจอใสสนิทแล้วเท่านั้น
+    //
+    // สำคัญ: ถ้าจะทำอะไรที่ผู้เล่น "เห็น" ทันที (เช่นเริ่มพิมพ์ dialogue) ให้ใส่ใน onComplete ไม่ใช่ onBlack
+    // เพราะ onBlack ทำงานตอนจอยังดำอยู่ ถ้าเริ่ม dialogue ตรงนั้นจะพิมพ์ไปบางส่วนโดยที่จอยังดำ ไม่มีใครเห็น
+    public void PlayTransition(System.Action onBlack, System.Action onComplete = null)
     {
-        StartCoroutine(TransitionRoutine(onBlack));
+        StartCoroutine(TransitionRoutine(onBlack, onComplete));
     }
 
-    // เฟดจอดำเข้ามาก่อน แล้วค่อยเรียก onBlack (เช่นสลับตัวละคร/เปลี่ยนฉาก) ตอนจอดำสนิทพอดี
-    private IEnumerator TransitionRoutine(System.Action onBlack)
+    private IEnumerator TransitionRoutine(System.Action onBlack, System.Action onComplete)
     {
         fadeGroup.blocksRaycasts = true; // กันคนกดอะไรระหว่างจอดำ
 
@@ -36,6 +42,8 @@ public class TransitionManager : MonoBehaviour
         yield return Fade(1f, 0f); // ดำออก
 
         fadeGroup.blocksRaycasts = false;
+
+        onComplete?.Invoke();
     }
 
     private IEnumerator Fade(float from, float to)
