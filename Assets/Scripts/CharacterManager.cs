@@ -33,16 +33,19 @@ public class CharacterManager : MonoBehaviour
     // เรียกจาก DialogueManager ตอนตัวละครคนปัจจุบันจบตาแล้ว
     public void NextCharacter()
     {
-        characters[currentIndex].gameObject.SetActive(false);
-
-        currentIndex++;
-        if (currentIndex >= characters.Length)
+        TransitionManager.Instance.PlayTransition(() =>
         {
-            Debug.Log("ตัวละครหมดแล้ว จบเกม");
-            return;
-        }
+            characters[currentIndex].gameObject.SetActive(false);
 
-        characters[currentIndex].gameObject.SetActive(true);
-        DialogueManager.Instance.StartCharacter(characters[currentIndex]);
+            currentIndex++;
+            if (currentIndex >= characters.Length)
+            {
+                Debug.Log("ตัวละครหมดแล้ว จบเกม");
+                return;
+            }
+
+            characters[currentIndex].gameObject.SetActive(true);
+            DialogueManager.Instance.StartCharacter(characters[currentIndex]);
+        });
     }
 }
