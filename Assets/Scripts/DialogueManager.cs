@@ -53,7 +53,7 @@ public class DialogueManager : MonoBehaviour
         PlayCurrentLine();
     }
 
-    private void PlayCurrentLine()
+   private void PlayCurrentLine()
     {
         if (currentLines == null || lineIndex >= currentLines.Length)
         {
@@ -64,7 +64,9 @@ public class DialogueManager : MonoBehaviour
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
 
-        typingCoroutine = StartCoroutine(TypeText(currentLines[lineIndex].text));
+        // เช็ค sanity ปัจจุบันของตัวละคร ณ ตอนนี้ ก่อนตัดสินใจว่าจะพูดบทปกติหรือบทสำรอง
+        string lineText = currentLines[lineIndex].GetText(currentCharacter.Sanity);
+        typingCoroutine = StartCoroutine(TypeText(lineText));
     }
 
     private IEnumerator TypeText(string text)
