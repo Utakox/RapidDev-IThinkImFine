@@ -5,23 +5,21 @@ public class ChoiceManager : MonoBehaviour
 {
     public static ChoiceManager Instance;
 
-    public GameObject leftChoice;
-    public GameObject rightChoice;
+    [SerializeField] private GameObject leftChoice;
+    [SerializeField] private GameObject rightChoice;
 
-    private TextMeshProUGUI leftText;
-    private TextMeshProUGUI rightText;
-    private ChoiceOption leftOption;
-    private ChoiceOption rightOption;
-
-    private ChoiceOptionData leftData;
-    private ChoiceOptionData rightData;
+    private TextMeshProUGUI leftText, rightText;
+    private ChoiceOption leftOption, rightOption;
+    private ChoiceOptionData leftData, rightData;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
 
-        leftText = leftChoice.GetComponentInChildren<TextMeshProUGUI>();
-        rightText = rightChoice.GetComponentInChildren<TextMeshProUGUI>();
+        // true = รวม inactive ด้วย กันเคสปุ่มถูกปิดไว้ใน scene แล้วหา component ไม่เจอ
+        leftText = leftChoice.GetComponentInChildren<TextMeshProUGUI>(true);
+        rightText = rightChoice.GetComponentInChildren<TextMeshProUGUI>(true);
         leftOption = leftChoice.GetComponent<ChoiceOption>();
         rightOption = rightChoice.GetComponent<ChoiceOption>();
 
@@ -34,33 +32,38 @@ public class ChoiceManager : MonoBehaviour
         rightChoice.SetActive(false);
     }
 
-    // เรียกจาก DialogueManager พร้อมส่ง choice ที่สุ่มมาแล้วของตัวละครคนปัจจุบัน (ซ้าย/ขวา)
     public void ShowChoices(ChoiceOptionData left, ChoiceOptionData right)
     {
-        if (left == null || right == null)
+        if (left == null && right == null)
         {
-            // เกิดได้ถ้า pool ใน CharacterData (goodChoices/badChoices) ว่างเกินไปจนสุ่มไม่ครบ 2 อัน
-            Debug.LogError("ShowChoices ได้ choice ไม่ครบ 2 อัน เช็ค goodChoices/badChoices ใน CharacterData");
+            Debug.LogError("[ChoiceManager] ไม่มี choice ให้โชว์เลย เช็ค pool ใน CharacterData");
             return;
         }
+
+        // เหลืออันเดียว ให้ยกไปไว้ฝั่งซ้ายเสมอ แล้วซ่อนฝั่งขวา
+        if (left == null) { left = right; right = null; }
 
         leftData = left;
         rightData = right;
 
         leftChoice.SetActive(true);
-        rightChoice.SetActive(true);
-
         leftText.text = left.choiceText;
-        rightText.text = right.choiceText;
-
         leftOption.ResetChoice();
-        rightOption.ResetChoice();
+
+        rightChoice.SetActive(right != null);
+        if (right != null)
+        {
+            rightText.text = right.choiceText;
+            rightOption.ResetChoice();
+        }
     }
 
-    // เรียกจาก ChoiceOption ตอนผู้เล่นชี้ค้างครบเวลา ส่งมาว่าเป็นฝั่งซ้ายหรือขวา
     public void OnChoiceConfirmed(bool isLeftSide)
     {
+        ChoiceOptionData picked = isLeftSide ? leftData : rightData;
+        if (picked == null) return;
+
         HideBothChoices();
-        DialogueManager.Instance.OnChoicePicked(isLeftSide ? leftData : rightData);
+        DialogueManager.Instance.OnChoicePicked(picked);
     }
 }

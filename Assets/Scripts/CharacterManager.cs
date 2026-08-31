@@ -1,28 +1,42 @@
 using UnityEngine;
 
-// จัดการว่าตอนนี้ตัวละครคนไหนกำลังเล่นอยู่ และสลับไปตัวถัดไปเมื่อจบตา
 public class CharacterManager : MonoBehaviour
 {
     public static CharacterManager Instance;
 
-    public CharacterRuntime[] characters; // ลากตัวละครทุกตัวใส่เรียงลำดับ
+    [SerializeField] private CharacterRuntime[] characters;
+
+    [Header("(ไม่ใส่ก็ได้) เรียกตอนเล่นครบทุกตัวละคร")]
+    public UnityEngine.Events.UnityEvent onAllCharactersFinished;
 
     private int currentIndex = 0;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
 
         for (int i = 0; i < characters.Length; i++)
         {
+            if (characters[i] == null)
+            {
+                Debug.LogError($"[CharacterManager] ช่อง characters[{i}] ว่าง");
+                continue;
+            }
             characters[i].gameObject.SetActive(i == 0);
         }
     }
 
     private void Start()
     {
-        // Start() รอให้ Awake ของทุกสคริปต์เสร็จหมดก่อน ปลอดภัยที่จะเรียกข้ามสคริปต์ตรงนี้
-        DialogueManager.Instance.StartCharacter(characters[currentIndex]);
+        if (characters.Length == 0)
+        {
+            Debug.LogError("[CharacterManager] ไม่มีตัวละครเลย");
+            return;
+        }
+
+        // ตัวแรก: จอยังใสอยู่ ให้ NarrationManager เฟดดำเองแล้วเล่า intro
+        BeginCharacter(alreadyBlack: false);
     }
 
     public CharacterRuntime GetCurrent()
@@ -30,31 +44,35 @@ public class CharacterManager : MonoBehaviour
         return characters[currentIndex];
     }
 
-    // เรียกจาก DialogueManager ตอนตัวละครคนปัจจุบันจบตาแล้ว
     public void NextCharacter()
     {
-        // onBlack: ทำงานตอนจอดำสนิท (สลับ GameObject ตัวละครตอนมองไม่เห็น)
-        // onComplete: ทำงานตอนจอเฟดกลับมาใสสนิทแล้วเท่านั้น (ค่อยเริ่ม dialogue กันข้อความพิมพ์ไปตอนจอยังดำ)
-        TransitionManager.Instance.PlayTransition(
-            onBlack: () =>
+        // เฟดดำเข้า -> สลับตัวละครตอนมองไม่เห็น -> ค้างดำไว้ให้ narration เล่นต่อทันที
+        TransitionManager.Instance.FadeToBlack(() =>
+        {
+            characters[currentIndex].gameObject.SetActive(false);
+            currentIndex++;
+
+            if (currentIndex >= characters.Length)
             {
-                characters[currentIndex].gameObject.SetActive(false);
-                currentIndex++;
+                Debug.Log("ตัวละครหมดแล้ว จบเกม");
+                TransitionManager.Instance.SetBlackInstant(true); // ค้างจอดำตอนจบ
+                onAllCharactersFinished?.Invoke();
+                return;
+            }
 
-                if (currentIndex >= characters.Length)
-                    return; // จบเกม ไม่ต้องเปิดตัวละครถัดไป
+            characters[currentIndex].gameObject.SetActive(true);
+            BeginCharacter(alreadyBlack: true);
+        });
+    }
 
-                characters[currentIndex].gameObject.SetActive(true);
-            },
-            onComplete: () =>
-            {
-                if (currentIndex >= characters.Length)
-                {
-                    Debug.Log("ตัวละครหมดแล้ว จบเกม");
-                    return;
-                }
+    // เล่น narration จอดำก่อน แล้วค่อยเริ่มบทพูดปกติ "ตอนจอใสสนิทแล้วเท่านั้น"
+    private void BeginCharacter(bool alreadyBlack)
+    {
+        CharacterRuntime target = characters[currentIndex];
 
-                DialogueManager.Instance.StartCharacter(characters[currentIndex]);
-            });
+        NarrationManager.Instance.PlaySequence(
+            target.data.introNarration,
+            onComplete: () => DialogueManager.Instance.StartCharacter(target),
+            alreadyBlack: alreadyBlack);
     }
 }

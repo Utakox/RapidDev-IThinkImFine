@@ -14,6 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Sam
   startingSanity: 100
+  introNarration:
+    enabled: 1
+    lines:
+    - text: 'Subject 01
+
+
+        Profile: Male, 17 years old.
+
+
+        Condition:
+        Severe sleep deprivation, acute panic, social isolation.
+
+
+        Background:
+        Raised by a struggling single mother. High academic pressure. Financial instability.'
+      typeSpeedOverride: 0.04
+      delayAfterOverride: 2
+      clearBefore: 0
+    typingLoopClip: {fileID: 8300000, guid: 9e68f89e38e555b4a993f6b016f87cf9, type: 3}
+    typingVolume: 1
+    stopSoundBetweenLines: 0
+    holdAfterFinishOverride: -1
+    ambienceOneShot: {fileID: 0}
   faceHigh: {fileID: -3854747056432117878, guid: 1daa36eddfff07246bf297c2238f8c03, type: 3}
   faceMid: {fileID: -4899330942685619882, guid: 65877db9e2a22d049b5015598100c1f0, type: 3}
   faceLow: {fileID: 3034153364746735271, guid: c5126a3f69ba19d40923f84c96276ed6, type: 3}
@@ -22,28 +45,38 @@ MonoBehaviour:
   - text: "I didn't even want to come here. My mom gave up a shift at the diner for
       this appointment, which means we\u2019re down eighty bucks just so I can sit
       in this chair. So, I guess I need to get 'fixed' quickly."
-    typeSpeedOverride: 0.1
+    typeSpeedOverride: 0.06
     delayAfterOverride: 2
-  sanityDialogueTriggers:
-  - sanityThreshold: 50
-    direction: 0
-    dialogue:
-    - text: test
-      typeSpeedOverride: 0
-      delayAfterOverride: 2
+    shakeText: 0
+    shakeIntensity: 6
+    typingLoopOverride: {fileID: 0}
+  sanityDialogueTriggers: []
   goodChoices:
-  - choiceText: Good Choices
+  - choiceText: Offer a glass of water and guide him to match your breathing rhythm
     sanityChange: 20
     afterDialogue:
-    - text: su koi
-      typeSpeedOverride: 0
-      delayAfterOverride: -1
+    - text: (He takes a massive gulp, calming down slightly, though his eyes remain
+        highly guarded)
+      typeSpeedOverride: 0.05
+      delayAfterOverride: 4
+      shakeText: 0
+      shakeIntensity: 6
+      typingLoopOverride: {fileID: 0}
+    - text: Thank you... I just need a minute
+      typeSpeedOverride: 0.05
+      delayAfterOverride: 4
+      shakeText: 0
+      shakeIntensity: 6
+      typingLoopOverride: {fileID: 0}
   - choiceText: Very Good
     sanityChange: 30
     afterDialogue:
     - text: su koi
       typeSpeedOverride: 0
       delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
   badChoices:
   - choiceText: Bad
     sanityChange: -80
@@ -51,12 +84,18 @@ MonoBehaviour:
     - text: hate it
       typeSpeedOverride: 0
       delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
   - choiceText: Very bad
     sanityChange: -30
     afterDialogue:
     - text: hate it
       typeSpeedOverride: 0
       delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
   sanityThreshold: 20
   crisisChoices:
   - choiceText: Call a Guard
@@ -65,6 +104,9 @@ MonoBehaviour:
     - text: Why are you doing this to me..?
       typeSpeedOverride: 0
       delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
   goodEndingChoices:
   - choiceText: Next Patient
     sanityChange: 0
@@ -72,3 +114,6 @@ MonoBehaviour:
     - text: Thank you Doc.
       typeSpeedOverride: 0
       delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}

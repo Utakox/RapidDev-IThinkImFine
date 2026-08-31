@@ -3,36 +3,39 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-// ติดกับ Image ของตัวละครแต่ละตัวใน scene แล้วลาก CharacterData asset ใส่ช่อง Data
-// ตัวนี้ถือ sanity ของตัวเองโดยตรง ไม่ต้องผ่านตัวกลางอีกแล้ว
-//
-// หมายเหตุ: อย่าติด EachCharacter.cs ไว้บน GameObject เดียวกันตัวนี้ เพราะเป็นสคริปต์คู่ขนาน
-// ที่ไม่ได้ถูกเกมใช้งานจริง (CharacterManager อ้างอิงเฉพาะ CharacterRuntime) ถ้าติดพร้อมกันจะทำให้
-// ค่า sanity ที่เห็นใน Inspector ของ EachCharacter ไม่ตรงกับค่าที่เกมใช้เล่นจริง
 public class CharacterRuntime : MonoBehaviour
 {
     public CharacterData data;
 
-    [Header("(ไม่ใส่ก็ได้) ลาก TextMeshPro มาไว้โชว์ค่า Sanity ปัจจุบันของตัวละครนี้ เผื่อเช็คตอนเทส")]
+    [Header("(ไม่ใส่ก็ได้) TMP โชว์ค่า Sanity ตอนเทส")]
     public TextMeshProUGUI sanityText;
 
     public int Sanity { get; private set; }
 
     private Image faceImage;
+    private bool initialized;
 
-    // เก็บว่า choice อันไหนของตัวละครนี้ถูกเลือกไปแล้วบ้าง (เก็บที่ runtime ไม่ได้แก้ asset ตรงๆ
-    // เพราะ asset ใช้ร่วมกันได้หลายที่ ถ้าลบออกจาก asset ถาวรจะพังตอนรันใหม่/เล่นซ้ำ)
     private readonly HashSet<ChoiceOptionData> usedChoices = new HashSet<ChoiceOptionData>();
-
-    // เก็บว่า sanity dialogue trigger อันไหนของตัวละครนี้เคยเล่นไปแล้วบ้าง (ครั้งเดียวต่อคน เหมือนกัน)
     private readonly HashSet<SanityDialogueTrigger> triggeredSanityDialogues = new HashSet<SanityDialogueTrigger>();
 
-    private void Awake()
+    private void Awake() => Init();
+
+    // เรียก Init จาก Awake และเผื่อถูกเปิดใช้งานทีหลัง (ลำดับ Awake ระหว่างสคริปต์ไม่การันตี)
+    private void Init()
     {
+        if (initialized) return;
+
+        if (data == null)
+        {
+            Debug.LogError($"[CharacterRuntime] {name} ยังไม่ได้ลาก CharacterData ใส่");
+            return;
+        }
+
         faceImage = GetComponent<Image>();
-        Sanity = data.startingSanity;
+        Sanity = Mathf.Clamp(data.startingSanity, 0, 100);
         UpdateFace();
         UpdateSanityText();
+        initialized = true;
     }
 
     public void ChangeSanity(int amount)
@@ -44,14 +47,12 @@ public class CharacterRuntime : MonoBehaviour
 
     private void UpdateFace()
     {
-        if (Sanity > 75)
-            faceImage.sprite = data.faceHigh;
-        else if (Sanity > 50)
-            faceImage.sprite = data.faceMid;
-        else if (Sanity > 25)
-            faceImage.sprite = data.faceLow;
-        else
-            faceImage.sprite = data.faceBroken;
+        if (faceImage == null) return;
+
+        if (Sanity > 75)      faceImage.sprite = data.faceHigh;    // 76-100
+        else if (Sanity > 50) faceImage.sprite = data.faceMid;     // 51-75
+        else if (Sanity > 25) faceImage.sprite = data.faceLow;     // 26-50
+        else                  faceImage.sprite = data.faceBroken;  // 0-25
     }
 
     private void UpdateSanityText()
@@ -60,27 +61,8 @@ public class CharacterRuntime : MonoBehaviour
         sanityText.text = $"Sanity: {Sanity}";
     }
 
-    // เรียกตอนสุ่ม choice เพื่อเช็คว่าอันนี้เคยถูกตัวละครคนนี้เลือกไปแล้วหรือยัง
-    public bool HasUsedChoice(ChoiceOptionData choice)
-    {
-        return usedChoices.Contains(choice);
-    }
-
-    // เรียกตอนผู้เล่นเลือก choice นี้ไปแล้ว ตัดออกจากคลังของตัวละครนี้ถาวร (จนกว่าจะรันเกมใหม่)
-    public void MarkChoiceUsed(ChoiceOptionData choice)
-    {
-        usedChoices.Add(choice);
-    }
-
-    // เรียกจาก DialogueManager เพื่อเช็คว่า sanity trigger อันนี้เคยเล่นให้ตัวละครคนนี้ไปแล้วหรือยัง
-    public bool HasTriggeredSanityDialogue(SanityDialogueTrigger trigger)
-    {
-        return triggeredSanityDialogues.Contains(trigger);
-    }
-
-    // เรียกตอนเล่น sanity trigger นี้ไปแล้ว กันไม่ให้เล่นซ้ำอีกสำหรับตัวละครคนนี้
-    public void MarkSanityDialogueTriggered(SanityDialogueTrigger trigger)
-    {
-        triggeredSanityDialogues.Add(trigger);
-    }
+    public bool HasUsedChoice(ChoiceOptionData choice) => usedChoices.Contains(choice);
+    public void MarkChoiceUsed(ChoiceOptionData choice) => usedChoices.Add(choice);
+    public bool HasTriggeredSanityDialogue(SanityDialogueTrigger t) => triggeredSanityDialogues.Contains(t);
+    public void MarkSanityDialogueTriggered(SanityDialogueTrigger t) => triggeredSanityDialogues.Add(t);
 }
