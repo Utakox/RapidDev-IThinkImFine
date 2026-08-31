@@ -11,7 +11,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI speakerNameText;
     public TextMeshProUGUI dialogueText;
 
-    [Header("Typing Settings")]
+    [Header("Typing Settings (ค่า default ใช้เมื่อบรรทัดนั้นไม่ได้ตั้ง override ไว้)")]
     [SerializeField] private float typeSpeed = 0.03f;
     [SerializeField] private float delayBeforeNext = 1f;
 
@@ -64,20 +64,25 @@ public class DialogueManager : MonoBehaviour
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
 
-        typingCoroutine = StartCoroutine(TypeText(currentLines[lineIndex].text));
+        typingCoroutine = StartCoroutine(TypeText(currentLines[lineIndex]));
     }
 
-    private IEnumerator TypeText(string text)
+    private IEnumerator TypeText(DialogueLine line)
     {
         dialogueText.text = "";
 
-        foreach (char c in text)
+        // 0 = ไม่ได้ตั้ง override ไว้ ให้ใช้ค่า default ของ DialogueManager
+        float speed = line.typeSpeedOverride > 0f ? line.typeSpeedOverride : typeSpeed;
+
+        foreach (char c in line.text)
         {
             dialogueText.text += c;
-            yield return new WaitForSeconds(typeSpeed);
+            yield return new WaitForSeconds(speed);
         }
 
-        yield return new WaitForSeconds(delayBeforeNext);
+        // -1 = ไม่ได้ตั้ง override ไว้ ให้ใช้ค่า default ของ DialogueManager
+        float delay = line.delayAfterOverride >= 0f ? line.delayAfterOverride : delayBeforeNext;
+        yield return new WaitForSeconds(delay);
 
         lineIndex++;
         PlayCurrentLine();

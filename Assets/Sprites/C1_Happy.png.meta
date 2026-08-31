@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f4da8932a0717dd41b612dc4bf2fc8b9
+guid: 1daa36eddfff07246bf297c2238f8c03
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4235970982670264726
-    second: Gemini_Generated_Image_narbkynarbkynarb_0
+      213: -3854747056432117878
+    second: C1_Happy_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gemini_Generated_Image_narbkynarbkynarb_0
+      name: C1_Happy_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 960
-        height: 1091
+        x: 64
+        y: 12
+        width: 800
+        height: 977
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a66931b95dec635c0800000000000000
-      internalID: -4235970982670264726
+      spriteID: a87816ab9ff218ac0800000000000000
+      internalID: -3854747056432117878
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Gemini_Generated_Image_narbkynarbkynarb_0: -4235970982670264726
+      C1_Happy_0: -3854747056432117878
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

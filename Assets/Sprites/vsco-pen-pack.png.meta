@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: c5126a3f69ba19d40923f84c96276ed6
+guid: 21e035b5d7ab51b48ad6e0a724909d64
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3034153364746735271
-    second: C1_Sad_0
-  - first:
-      213: -8083703782229955970
-    second: C1_Sad_1
+      213: 108961640928811665
+    second: vsco-pen-pack_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: C1_Sad_0
+      name: vsco-pen-pack_0
       rect:
         serializedVersion: 2
-        x: 22
-        y: 24
-        width: 807
-        height: 982
+        x: 3
+        y: 0
+        width: 221
+        height: 259
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7ae09cbd86a7b1a20800000000000000
-      internalID: 3034153364746735271
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: C1_Sad_1
-      rect:
-        serializedVersion: 2
-        x: 774
-        y: 24
-        width: 88
-        height: 982
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e7aa3b64d3ae0df80800000000000000
-      internalID: -8083703782229955970
+      spriteID: 19a94bdf80c138100800000000000000
+      internalID: 108961640928811665
       vertices: []
       indices: 
       edges: []
@@ -173,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      C1_Sad_0: 3034153364746735271
-      C1_Sad_1: -8083703782229955970
+      vsco-pen-pack_0: 108961640928811665
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
