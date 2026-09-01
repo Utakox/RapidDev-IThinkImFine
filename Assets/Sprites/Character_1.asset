@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Character_1
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Sam
-  startingSanity: 100
+  startingSanity: 50
   introNarration:
     enabled: 1
     lines:
@@ -29,13 +29,13 @@ MonoBehaviour:
 
         Background:
         Raised by a struggling single mother. High academic pressure. Financial instability.'
-      typeSpeedOverride: 0.04
-      delayAfterOverride: 2
+      typeSpeed: 0.04
+      delayAfter: 0.8
       clearBefore: 0
     typingLoopClip: {fileID: 8300000, guid: 9e68f89e38e555b4a993f6b016f87cf9, type: 3}
     typingVolume: 1
     stopSoundBetweenLines: 0
-    holdAfterFinishOverride: -1
+    holdAfterFinish: 2.5
     ambienceOneShot: {fileID: 0}
   faceHigh: {fileID: -3854747056432117878, guid: 1daa36eddfff07246bf297c2238f8c03, type: 3}
   faceMid: {fileID: -4899330942685619882, guid: 65877db9e2a22d049b5015598100c1f0, type: 3}
@@ -52,51 +52,127 @@ MonoBehaviour:
     typingLoopOverride: {fileID: 0}
   sanityDialogueTriggers: []
   goodChoices:
-  - choiceText: Offer a glass of water and guide him to match your breathing rhythm
-    sanityChange: 20
+  - choiceText: You are a human, not a machine. Taking a break is not a betrayal
+      to your mother.
+    sanityChange: 10
     afterDialogue:
-    - text: (He takes a massive gulp, calming down slightly, though his eyes remain
-        highly guarded)
+    - text: (He gulps it down in one go, letting out a long sigh)
       typeSpeedOverride: 0.05
       delayAfterOverride: 4
       shakeText: 0
       shakeIntensity: 6
       typingLoopOverride: {fileID: 0}
-    - text: Thank you... I just need a minute
+    - text: Thank you... I didn't realize how dry my throat was.
       typeSpeedOverride: 0.05
       delayAfterOverride: 4
       shakeText: 0
       shakeIntensity: 6
       typingLoopOverride: {fileID: 0}
-  - choiceText: Very Good
-    sanityChange: 30
+  - choiceText: Give him a quiet moment to collect himself.
+    sanityChange: 10
     afterDialogue:
-    - text: su koi
+    - text: (He lowers his head, letting out a long, weary sigh)
       typeSpeedOverride: 0
       delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Ask gently about his academic pressure.
+    sanityChange: 10
+    afterDialogue:
+    - text: (He pulls nervously on his jacket sleeves)
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 3
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: If I mess up... my mom's hard work means nothing
+      typeSpeedOverride: 0
+      delayAfterOverride: 3
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Reassure him that he is completely safe in this room.
+    sanityChange: 10
+    afterDialogue:
+    - text: (He slowly unclenches his fists, looking down at his lap)
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 3
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: I haven't talked to anyone about this... not even at home.
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 3
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   badChoices:
-  - choiceText: Bad
-    sanityChange: -80
+  - choiceText: Remind him how much money his mother spends on his education each
+      month.
+    sanityChange: -10
     afterDialogue:
-    - text: hate it
-      typeSpeedOverride: 0
-      delayAfterOverride: -1
+    - text: (His face goes pale. He grips his chair)
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
-  - choiceText: Very bad
-    sanityChange: -30
-    afterDialogue:
-    - text: hate it
-      typeSpeedOverride: 0
-      delayAfterOverride: -1
+    - text: I know... I know every single baht she spends on me. I think about it
+        every second.
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
-  sanityThreshold: 20
+  - choiceText: Point out that none of his classmates seem to notice his absence.
+    sanityChange: -5
+    afterDialogue:
+    - text: (He crosses his arms defensively, avoiding your gaze)
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: Why would they care? I'm just the invisible guy who's going to fail anyway
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Slide a blank paper forward and order him to draw his exhausted mother.
+    sanityChange: -5
+    afterDialogue:
+    - text: (His hands shake so violently he drops the pencil)
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: I can't... I don't want to see her face right now. Please, don't make
+        me think about her eyes.
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Maintain absolute silence until the pressure forces him to speak.
+    sanityChange: -5
+    afterDialogue:
+    - text: (He suddenly buries his face in his hands, trembling)
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: I stole money from her purse last night... just to buy coffee to stay
+        awake. What kind of son does that to his own mother?
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  sanityThreshold: 40
   crisisChoices:
   - choiceText: Call a Guard
     sanityChange: 0
@@ -108,12 +184,29 @@ MonoBehaviour:
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   goodEndingChoices:
-  - choiceText: Next Patient
+  - choiceText: Authorize immediate rest leave and offer to talk to his mother together.
     sanityChange: 0
     afterDialogue:
-    - text: Thank you Doc.
-      typeSpeedOverride: 0
-      delayAfterOverride: -1
+    - text: Thank you... I don't remember the last time I didn't feel like I was
+        suffocating.
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
+  - choiceText: Reassure him that taking care of his health is the best way to honor
+      her effort.
+    sanityChange: 0
+    afterDialogue:
+    - text: You're right... If I break down here, all her sacrifices mean nothing
+        anyway. I'll go sleep.
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  mentalStateThreshold: 41
+  mentalStateSoundOverride:
+    clip: {fileID: 0}
+    volume: 0
+  mentalStateEffectOverride: []

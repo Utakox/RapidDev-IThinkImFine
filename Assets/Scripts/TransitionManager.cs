@@ -20,8 +20,10 @@ public class TransitionManager : MonoBehaviour
             return;
         }
 
-        fadeGroup.alpha = 0f;
-        fadeGroup.blocksRaycasts = false;
+        // เริ่มเกมด้วยจอดำสนิททันที ไม่ต้องเฟดเข้า
+        // (จะเฟด "ออก" จากดำก็ต่อเมื่อ narration เล่นเสียง/ข้อความจบแล้วเท่านั้น เรียกผ่าน FadeFromBlack)
+        fadeGroup.alpha = 1f;
+        fadeGroup.blocksRaycasts = true;
         transform.SetAsLastSibling(); // การันตีว่าอยู่บนสุดเสมอ
     }
 
@@ -32,21 +34,7 @@ public class TransitionManager : MonoBehaviour
     transform.SetAsLastSibling();
 }
 
-    // ===== ของเดิม: ดำเข้า -> onBlack -> ดำออก -> onComplete =====
-    public void PlayTransition(System.Action onBlack, System.Action onComplete = null)
-    {
-        StartCoroutine(TransitionRoutine(onBlack, onComplete));
-    }
-
-    private IEnumerator TransitionRoutine(System.Action onBlack, System.Action onComplete)
-    {
-        yield return FadeToBlackRoutine();
-        onBlack?.Invoke();
-        yield return FadeFromBlackRoutine();
-        onComplete?.Invoke();
-    }
-
-    // ===== ใหม่: ดำเข้าแล้ว "ค้างไว้" ให้ NarrationManager ทำงานต่อ =====
+    // ===== ดำเข้าแล้ว "ค้างไว้" ให้ NarrationManager ทำงานต่อ =====
     public void FadeToBlack(System.Action onBlack)
     {
         StartCoroutine(FadeToBlackThen(onBlack));
@@ -56,6 +44,19 @@ public class TransitionManager : MonoBehaviour
     {
         yield return FadeToBlackRoutine();
         onBlack?.Invoke();
+    }
+
+    // ===== เฟด "ออก" จากดำ พร้อม callback ให้เรียกตอนสอง/ข้อความเล่นจบแล้วเท่านั้น =====
+    // ใช้แทนการเฟดเข้าตอนเปิดเกม: จอเริ่มดำสนิททันที (ดู Awake) แล้วค่อยเรียกอันนี้ตอน narration เล่นจบ
+    public void FadeFromBlack(System.Action onClear)
+    {
+        StartCoroutine(FadeFromBlackThen(onClear));
+    }
+
+    private IEnumerator FadeFromBlackThen(System.Action onClear)
+    {
+        yield return FadeFromBlackRoutine();
+        onClear?.Invoke();
     }
 
     public IEnumerator FadeToBlackRoutine()

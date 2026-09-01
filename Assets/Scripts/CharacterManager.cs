@@ -35,8 +35,9 @@ public class CharacterManager : MonoBehaviour
             return;
         }
 
-        // ตัวแรก: จอยังใสอยู่ ให้ NarrationManager เฟดดำเองแล้วเล่า intro
-        BeginCharacter(alreadyBlack: false);
+        // ตัวแรก: จอดำสนิทอยู่แล้วตั้งแต่เปิดเกม (TransitionManager.Awake) ไม่ต้องเฟดดำซ้ำ
+        // ให้ NarrationManager เล่นเสียง/ข้อความไปเลย แล้วค่อยเฟด "ออก" จากดำตอนเล่นจบ
+        BeginCharacter(alreadyBlack: true);
     }
 
     public CharacterRuntime GetCurrent()

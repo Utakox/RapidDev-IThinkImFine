@@ -8,7 +8,7 @@ public class DialogueLine
     [Tooltip("ความเร็วพิมพ์เฉพาะบรรทัดนี้ ใส่ -1 หรือ 0 = ใช้ค่า default")]
     public float typeSpeedOverride = -1f;
 
-    [Tooltip("หน่วงหลังบรรทัดนี้จบ ใส่ -1 = ใช้ค่า default")]
+    [Tooltip("จังหวะหายใจระหว่างประโยค (-1 default)")]
     public float delayAfterOverride = -1f;
 
     [Header("เอฟเฟกต์สั่น")]

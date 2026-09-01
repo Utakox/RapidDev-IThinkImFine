@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daecc414a082f8c4aafa1df04beefc1e, type: 3}
+  m_Name: Character_3
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterName: 
+  startingSanity: 50
+  introNarration:
+    enabled: 1
+    lines: []
+    typingLoopClip: {fileID: 0}
+    typingVolume: 1
+    stopSoundBetweenLines: 0
+    holdAfterFinish: 2.5
+    ambienceOneShot: {fileID: 0}
+  faceHigh: {fileID: 3221805527623481839, guid: ca2aec7fd619b4548811e77b2a8c56ca, type: 3}
+  faceMid: {fileID: -6151947031659395466, guid: 007336539f69eb54ea706f494b354bdb, type: 3}
+  faceLow: {fileID: 7610235241894926666, guid: 9ee5f33b86cf0ed43812b4fb0f542e14, type: 3}
+  faceBroken: {fileID: -2606069812392174807, guid: 1c54fa5b9bd2eeb40b67f3ee7879640a, type: 3}
+  introDialogue: []
+  sanityDialogueTriggers: []
+  goodChoices:
+  - choiceText: Validate him as a victim who was threatened by a corrupt corporate
+      system.
+    sanityChange: 1
+    afterDialogue:
+    - text: (He laughs hollowly, shaking his head frantically)
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 1
+      shakeIntensity: 4
+      typingLoopOverride: {fileID: 0}
+    - text: A victim? Victims are under six feet of concrete, Doctor. I signed my
+        name on the check.
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 0
+      shakeIntensity: 4
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Reassure him that writing the initial warning report proves he has
+      a moral conscience.
+    sanityChange: 1
+    afterDialogue:
+    - text: (He laughs hollowly, shaking his head frantically)
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 1
+      shakeIntensity: 4
+      typingLoopOverride: {fileID: 0}
+    - text: A victim? Victims are under six feet of concrete, Doctor. I signed my
+        name on the check.
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 0
+      shakeIntensity: 4
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Urge him to focus on survival and finding a way to make amends.
+    sanityChange: 1
+    afterDialogue:
+    - text: (He suddenly stops trembling and gives a faint, eerily calm smile)
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 0
+      shakeIntensity: 4
+      typingLoopOverride: {fileID: 0}
+    - text: Amends? Some structural damage cannot be repaired, Doctor. The only way
+        to balance the load... is total removal.
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 0
+      shakeIntensity: 4
+      typingLoopOverride: {fileID: 0}
+  badChoices: []
+  sanityThreshold: 50
+  crisisChoices:
+  - choiceText: Slam the emergency button and call a guard
+    sanityChange: 0
+    afterDialogue:
+    - text: 
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  goodEndingChoices: []

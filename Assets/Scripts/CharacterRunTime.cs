@@ -12,6 +12,12 @@ public class CharacterRuntime : MonoBehaviour
 
     public int Sanity { get; private set; }
 
+    // ไล่ index ว่าตอนนี้ choice ปกติ (goodChoices/badChoices) ไปถึงคู่ที่เท่าไหร่แล้ว
+    // ใช้แทนการสุ่ม: รอบที่ N จะจับคู่ goodChoices[N] กับ badChoices[N] เสมอ
+    public int NormalChoiceIndex { get; private set; }
+
+    public void AdvanceNormalChoiceIndex() => NormalChoiceIndex++;
+
     private Image faceImage;
     private bool initialized;
 

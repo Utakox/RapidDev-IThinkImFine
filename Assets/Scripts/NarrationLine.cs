@@ -1,22 +1,22 @@
 using UnityEngine;
 
-// 1 บรรทัดของ narration จอดำ
+// 1 บรรทัดของ narration จอดำ ตั้งค่าตรงๆ ในแต่ละบรรทัดเลย ไม่มี default แยกที่อื่นแล้ว
 [System.Serializable]
 public class NarrationLine
 {
     [TextArea(2, 6)] public string text;
 
-    [Tooltip("ความเร็วพิมพ์เฉพาะบรรทัดนี้ (วินาที/ตัวอักษร) ใส่ -1 = ใช้ค่า default ของ NarrationManager")]
-    public float typeSpeedOverride = -1f;
+    [Tooltip("วินาที/ตัวอักษร")]
+    public float typeSpeed = 0.04f;
 
-    [Tooltip("หน่วงหลังพิมพ์บรรทัดนี้จบ ใส่ -1 = ใช้ค่า default")]
-    public float delayAfterOverride = -1f;
+    [Tooltip("หน่วงเวลาหลังบรรทัดนี้จบ ก่อนไปบรรทัดถัดไป (บรรทัดสุดท้ายไม่ใช้ค่านี้)")]
+    public float delayAfter = 0.8f;
 
     [Tooltip("ติ๊ก = ล้างจอก่อนพิมพ์บรรทัดนี้ / ไม่ติ๊ก = พิมพ์ต่อท้ายบรรทัดเดิม (ใช้ทำย่อหน้ายาว)")]
     public bool clearBefore = true;
 }
 
-// ชุด narration ทั้งก้อน ตั้งค่าได้ต่อตัวละคร
+// ชุด narration ทั้งก้อน ตั้งค่าได้ต่อตัวละครใน CharacterData
 [System.Serializable]
 public class NarrationSequence
 {
@@ -34,8 +34,8 @@ public class NarrationSequence
     [Tooltip("ติ๊ก = หยุดเสียงระหว่างพักคั่นบรรทัดด้วย / ไม่ติ๊ก = เสียงวิ่งยาวจนกว่าข้อความทั้งชุดจะจบ (ค่าแนะนำ)")]
     public bool stopSoundBetweenLines = false;
 
-    [Header("เวลาค้างจอหลังข้อความขึ้นครบ (วินาที) ใส่ -1 = ใช้ค่า default")]
-    public float holdAfterFinishOverride = -1f;
+    [Header("เวลาค้างจอหลังข้อความขึ้นครบ (วินาที) ก่อนเฟดออก")]
+    public float holdAfterFinish = 2.5f;
 
     [Header("เสียงประกอบฉาก (ไม่ใส่ก็ได้) เล่นครั้งเดียวตอนจอดำเริ่ม")]
     public AudioClip ambienceOneShot;

@@ -53,4 +53,14 @@ public class CharacterData : ScriptableObject
 
     public ChoiceOptionData[] crisisChoices;
     public ChoiceOptionData[] goodEndingChoices;
+
+    [Header("--- Mental State (เพลง/สถานะ Sanity ต่ำ) ---")]
+    [Tooltip("Sanity ของตัวละครนี้ < ค่านี้ = เข้าสถานะ Mental State (เพลง/effect เปลี่ยน)\nแยกจากเกณฑ์ Crisis Choices ด้านบน ตั้งไม่เท่ากันได้ต่อตัวละคร")]
+    public int mentalStateThreshold = 50;
+
+    [Tooltip("เสียง Mental State เฉพาะตัวละครนี้ (ไม่บังคับใส่)\nถ้าไม่ใส่ clip (ปล่อยว่าง) จะใช้เสียง default จาก DialogueManager แทน\nปรับ volume ของตัวละครนี้แยกจากตัวอื่นได้ ใส่ทีหลังได้ ไม่กระทบตัวละครอื่น")]
+    public MentalStateSound mentalStateSoundOverride;
+
+    [Tooltip("Effect (GameObject) เฉพาะตัวละครนี้ ตอนเข้า Mental State จะ SetActive(true) ให้ทุกอันในลิสต์ / ออกแล้ว SetActive(false) ทั้งหมด\nถ้าไม่ใส่ (ปล่อยว่าง) จะใช้ effect default จาก DialogueManager แทน")]
+    public GameObject[] mentalStateEffectOverride;
 }
