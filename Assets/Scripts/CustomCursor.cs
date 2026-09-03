@@ -86,4 +86,10 @@ public class CustomCursor : MonoBehaviour
         if (countdownText != null) countdownText.gameObject.SetActive(false);
         if (cursorImage != null) cursorImage.enabled = true;
     }
+    private void OnDestroy()
+    {
+        Cursor.visible = true;
+        if (Instance == this)
+            Instance = null;
+    }
 }
