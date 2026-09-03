@@ -39,6 +39,9 @@ public class CustomCursor : MonoBehaviour
 
         if (countdownText != null)
             countdownText.gameObject.SetActive(false);
+        if (cursorImage != null)
+            cursorImage.enabled = true;
+        
     }
 
     private void Update()
@@ -67,6 +70,8 @@ public class CustomCursor : MonoBehaviour
             Vector3 worldPoint = canvasRect.TransformPoint(localPoint);
             cursorRect.position = worldPoint;
         }
+        if (cursorImage != null)
+            cursorImage.enabled = true;
     }
 
     public void ShowCountdown()
