@@ -2,28 +2,36 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-// ติดกับ GameObject เปล่าใน Canvas
-// ต้องมี: CanvasGroup ครอบ TMP ของ narration (ลากใส่ textGroup) + AudioSource 1 ตัว
-// จอดำใช้ร่วมกับ TransitionManager ไม่ต้องสร้าง panel ดำซ้อนอีกอัน
-//
-// ค่าต่างๆ (ความเร็วพิมพ์, delay, hold) ตั้งที่ CharacterData ของแต่ละตัวละครทั้งหมดแล้ว
-// ไฟล์นี้เหลือแค่ค่าที่เป็น "ความรู้สึกของจอเปลี่ยนฉาก" ล้วนๆ ไม่ผูกกับเนื้อหาตัวละคร
 public class NarrationManager : MonoBehaviour
 {
     public static NarrationManager Instance;
 
-    [Header("UI References")]
-    [SerializeField] private CanvasGroup textGroup;          // CanvasGroup ที่ครอบ text ของ narration
-    [SerializeField] private TextMeshProUGUI narrationText;  // ต้องใช้ Font Asset ที่มีสระไทยครบ
+    [System.Serializable]
+    public struct UIConfig
+    {
+        public CanvasGroup textGroup;
+        public TextMeshProUGUI narrationText;
+    }
 
-    [Header("Audio")]
-    [SerializeField] private AudioSource typingSource;       // เสียงตอนพิมพ์ (จะถูกตั้ง loop อัตโนมัติ)
-    [SerializeField] private AudioSource ambienceSource;     // (ไม่ใส่ก็ได้) เสียงบรรยากาศ one-shot
+    [System.Serializable]
+    public struct AudioConfig
+    {
+        public AudioSource typingSource;
+        public AudioSource ambienceSource;
+    }
 
-    [Header("--- Fade ของจอ (ค่ากลาง ไม่ผูกกับตัวละคร) ---")]
-    [SerializeField] private float textFadeInDuration = 0.4f;
-    [SerializeField] private float textFadeOutDuration = 0.8f;
-    [SerializeField] private float audioFadeOutDuration = 0.3f;
+    [System.Serializable]
+    public struct FadeConfig
+    {
+        public float textFadeInDuration;
+        public float textFadeOutDuration;
+        public float audioFadeOutDuration;
+    }
+
+    [Header("=== Inspector Groups ===")]
+    [SerializeField] private UIConfig ui;
+    [SerializeField] private AudioConfig audioConfig;
+    [SerializeField] private FadeConfig fade;
 
     private Coroutine routine;
     private bool isPlaying;
@@ -35,36 +43,31 @@ public class NarrationManager : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
 
-        if (textGroup != null)
+        if (ui.textGroup != null)
         {
-            textGroup.alpha = 0f;
-            textGroup.blocksRaycasts = false;
+            ui.textGroup.alpha = 0f;
+            ui.textGroup.blocksRaycasts = false;
         }
-        if (narrationText != null)
+        if (ui.narrationText != null)
         {
-            narrationText.text = string.Empty;
-            narrationText.maxVisibleCharacters = 0;
+            ui.narrationText.text = string.Empty;
+            ui.narrationText.maxVisibleCharacters = 0;
         }
-        if (typingSource != null)
+        if (audioConfig.typingSource != null)
         {
-            typingSource.playOnAwake = false;
-            typingSource.loop = true;
-            typingSource.Stop();
+            audioConfig.typingSource.playOnAwake = false;
+            audioConfig.typingSource.loop = true;
+            audioConfig.typingSource.Stop();
         }
     }
 
-    /// <summary>
-    /// เล่นจอดำ + narration
-    /// alreadyBlack = true เมื่อจอดำอยู่แล้ว (เช่นถูกเรียกจากตอนสลับตัวละคร) จะไม่เฟดดำซ้ำ
-    /// จบแล้วจะเฟดจอดำออกให้เอง แล้วค่อยเรียก onComplete ตอนจอใสสนิท
-    /// </summary>
-    public void PlaySequence(NarrationSequence seq, System.Action onComplete, bool alreadyBlack = false)
+    public void PlaySequence(NarrationSequence seq, System.Action onComplete, bool alreadyBlack = false, bool fadeOutAtEnd = true)
     {
         if (routine != null) StopCoroutine(routine);
-        routine = StartCoroutine(SequenceRoutine(seq, onComplete, alreadyBlack));
+        routine = StartCoroutine(SequenceRoutine(seq, onComplete, alreadyBlack, fadeOutAtEnd));
     }
 
-    private IEnumerator SequenceRoutine(NarrationSequence seq, System.Action onComplete, bool alreadyBlack)
+    private IEnumerator SequenceRoutine(NarrationSequence seq, System.Action onComplete, bool alreadyBlack, bool fadeOutAtEnd)
     {
         isPlaying = true;
 
@@ -73,28 +76,32 @@ public class NarrationManager : MonoBehaviour
         else
             TransitionManager.Instance.SetBlackInstant(true);
 
-        // ไม่มีเนื้อหา = เฟดกลับออกไปเฉยๆ (กันเคสตัวละครที่ไม่ต้องการ intro)
         if (seq == null || !seq.HasContent)
         {
-            yield return TransitionManager.Instance.FadeFromBlackRoutine();
+            if (fadeOutAtEnd)
+                yield return TransitionManager.Instance.FadeFromBlackRoutine();
             isPlaying = false;
             routine = null;
             onComplete?.Invoke();
             yield break;
         }
 
-        if (seq.ambienceOneShot != null && ambienceSource != null)
-            ambienceSource.PlayOneShot(seq.ambienceOneShot);
+        if (seq.ambienceOneShot != null && audioConfig.ambienceSource != null)
+            audioConfig.ambienceSource.PlayOneShot(seq.ambienceOneShot);
 
-        narrationText.text = string.Empty;
-        narrationText.maxVisibleCharacters = 0;
-        narrationText.ForceMeshUpdate(true, true);
-        yield return FadeCanvas(textGroup, 0f, 1f, textFadeInDuration);
+        if (ui.narrationText != null)
+        {
+            ui.narrationText.text = string.Empty;
+            ui.narrationText.maxVisibleCharacters = 0;
+            ui.narrationText.ForceMeshUpdate(true, true);
+        }
+
+        yield return FadeCanvas(ui.textGroup, 0f, 1f, fade.textFadeInDuration);
 
         string accumulated = string.Empty;
 
         if (!seq.stopSoundBetweenLines)
-            StartTypingSound(seq); // เสียงวิ่งยาวคลุมทั้งชุด
+            StartTypingSound(seq);
 
         for (int i = 0; i < seq.lines.Length; i++)
         {
@@ -113,8 +120,8 @@ public class NarrationManager : MonoBehaviour
             bool isLastLine = (i == seq.lines.Length - 1);
 
             yield return Typewriter.TypeLine(
-                narrationText, accumulated, line.typeSpeed,
-                typingSource, seq.typingLoopClip, seq.typingVolume, audioFadeOutDuration,
+                ui.narrationText, accumulated, line.typeSpeed,
+                audioConfig.typingSource, seq.typingLoopClip, seq.typingVolume, fade.audioFadeOutDuration,
                 startVisible, checkSkip: null, unscaled: true,
                 stopSoundAtEnd: seq.stopSoundBetweenLines || isLastLine);
 
@@ -124,11 +131,16 @@ public class NarrationManager : MonoBehaviour
 
         yield return Wait(seq.holdAfterFinish);
 
-        yield return FadeCanvas(textGroup, textGroup.alpha, 0f, textFadeOutDuration);
-        narrationText.text = string.Empty;
-        narrationText.maxVisibleCharacters = 0;
+        yield return FadeCanvas(ui.textGroup, ui.textGroup != null ? ui.textGroup.alpha : 1f, 0f, fade.textFadeOutDuration);
+        
+        if (ui.narrationText != null)
+        {
+            ui.narrationText.text = string.Empty;
+            ui.narrationText.maxVisibleCharacters = 0;
+        }
 
-        yield return TransitionManager.Instance.FadeFromBlackRoutine();
+        if (fadeOutAtEnd)
+            yield return TransitionManager.Instance.FadeFromBlackRoutine();
 
         isPlaying = false;
         routine = null;
@@ -137,21 +149,21 @@ public class NarrationManager : MonoBehaviour
 
     private void StartTypingSound(NarrationSequence seq)
     {
-        if (typingSource == null || seq.typingLoopClip == null) return;
+        if (audioConfig.typingSource == null || seq.typingLoopClip == null) return;
 
-        typingSource.clip = seq.typingLoopClip;
-        typingSource.volume = seq.typingVolume;
-        typingSource.loop = true;
-        if (!typingSource.isPlaying) typingSource.Play();
+        audioConfig.typingSource.clip = seq.typingLoopClip;
+        audioConfig.typingSource.volume = seq.typingVolume;
+        audioConfig.typingSource.loop = true;
+        if (!audioConfig.typingSource.isPlaying) audioConfig.typingSource.Play();
     }
 
     private int CountVisibleChars(string s)
     {
-        if (string.IsNullOrEmpty(s)) return 0;
+        if (string.IsNullOrEmpty(s) || ui.narrationText == null) return 0;
 
-        narrationText.text = s;
-        narrationText.ForceMeshUpdate(true, true);
-        return narrationText.textInfo.characterCount;
+        ui.narrationText.text = s;
+        ui.narrationText.ForceMeshUpdate(true, true);
+        return ui.narrationText.textInfo.characterCount;
     }
 
     private IEnumerator Wait(float seconds)

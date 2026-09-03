@@ -1,13 +1,10 @@
 using UnityEngine;
 using TMPro;
 
-// ติดกับ object เดียวกับ TextMeshProUGUI ที่ใช้โชว์ dialogue (ตัวเดียวกับ dialogueText ใน DialogueManager)
 [RequireComponent(typeof(TMP_Text))]
 public class TextShakeEffect : MonoBehaviour
 {
-    public static TextShakeEffect Instance;
-
-    [Header("ค่า default ถ้าบรรทัดไหนสั่นแต่ไม่ได้ตั้ง intensity เอง")]
+    [Header("ค่า default ถ้าไม่ได้ตั้ง intensity เอง (เช่นตอน Meltdown บังคับสั่น)")]
     public float defaultIntensity = 2f;
     public float shakeSpeed = 25f;
 
@@ -17,26 +14,21 @@ public class TextShakeEffect : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
         tmp = GetComponent<TMP_Text>();
     }
 
-    // เรียกจาก DialogueManager ทุกครั้งที่ขึ้นบรรทัดใหม่ ส่ง intensity มาด้วย (0 = ใช้ default)
     public void SetShaking(bool shake, float customIntensity = 0f)
     {
         isShaking = shake;
         intensity = customIntensity > 0f ? customIntensity : defaultIntensity;
 
         if (!shake)
-            ResetToNormal(); // ปิดแล้วให้ตัวอักษรกลับตำแหน่งปกติทันที ไม่ค้างเบี้ยว
+            ResetToNormal();
     }
 
     private void LateUpdate()
     {
-        if (!isShaking) return;
-
-        // ข้อความว่างอยู่ ไม่ต้องทำอะไรเลย
-        if (tmp == null || string.IsNullOrEmpty(tmp.text)) return;
+        if (!isShaking || tmp == null || string.IsNullOrEmpty(tmp.text)) return;
 
         ShakeText();
     }
@@ -46,9 +38,6 @@ public class TextShakeEffect : MonoBehaviour
         tmp.ForceMeshUpdate();
         TMP_TextInfo textInfo = tmp.textInfo;
 
-        // กันเคสไม่มีตัวอักษรที่มองเห็นได้
-        // ถ้าไม่ return ลูปล่างจะเอา vertices เก่าที่ค้างใน meshInfo อัปโหลดทับ
-        // = ข้อความเดิมเด้งกลับมาบนจอ ทั้งที่ .text = "" ไปแล้ว (ต้นเหตุบั๊กข้อความไม่หาย)
         if (textInfo == null || textInfo.characterCount == 0)
             return;
 
@@ -64,7 +53,6 @@ public class TextShakeEffect : MonoBehaviour
             int vertexIndex = textInfo.characterInfo[i].vertexIndex;
             Vector3[] vertices = textInfo.meshInfo[matIndex].vertices;
 
-            // สุ่มด้วย Perlin noise ต่อตัวอักษร (index i เป็นตัวขยับเฟสให้แต่ละตัวสั่นไม่พร้อมกัน)
             Vector3 offset = new Vector3(
                 (Mathf.PerlinNoise(Time.time * shakeSpeed, i) - 0.5f) * intensity,
                 (Mathf.PerlinNoise(i, Time.time * shakeSpeed) - 0.5f) * intensity,
@@ -89,6 +77,6 @@ public class TextShakeEffect : MonoBehaviour
     private void ResetToNormal()
     {
         if (tmp == null) return;
-        tmp.ForceMeshUpdate(true, true); // rebuild ทั้ง geometry ไม่ให้เหลือ offset ค้าง
+        tmp.ForceMeshUpdate(true, true);
     }
 }

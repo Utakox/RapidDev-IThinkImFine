@@ -2,8 +2,6 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-// ตัวกลางพิมพ์ข้อความทีละตัว + เสียงพิมพ์ที่ตัดพร้อมข้อความจบ ใช้ร่วมกันทั้ง DialogueManager และ NarrationManager
-// (เดิมทั้ง 2 ไฟล์เขียน logic นี้แยกกัน ทำให้แก้ทีต้องแก้ 2 ที่)
 public static class Typewriter
 {
     public static IEnumerator TypeLine(
@@ -11,6 +9,8 @@ public static class Typewriter
         AudioSource audio, AudioClip loopClip, float volume, float fadeOut,
         int startVisible = 0, System.Func<bool> checkSkip = null, bool unscaled = false, bool stopSoundAtEnd = true)
     {
+        if (text == null) yield break;
+
         text.text = fullText;
         text.ForceMeshUpdate(true, true);
         int total = text.textInfo.characterCount;

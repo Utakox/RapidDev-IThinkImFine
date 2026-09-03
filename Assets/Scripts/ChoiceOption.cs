@@ -8,7 +8,8 @@ public class ChoiceOption : HoldInteractable
 
     protected override void Confirm()
     {
-        ChoiceManager.Instance.OnChoiceConfirmed(isLeftSide);
+        if (ChoiceManager.Instance != null)
+            ChoiceManager.Instance.OnChoiceConfirmed(isLeftSide);
     }
 
     // เก็บชื่อเดิมไว้เผื่อ ChoiceManager เรียกอยู่ แค่ส่งต่อไปฟังก์ชันของ base

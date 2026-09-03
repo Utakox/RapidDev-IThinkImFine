@@ -10,6 +10,10 @@ public class CharacterRuntime : MonoBehaviour
     [Header("(ไม่ใส่ก็ได้) TMP โชว์ค่า Sanity ตอนเทส")]
     public TextMeshProUGUI sanityText;
 
+    [Header("Effect (GameObject ในซีน) ตอนเข้า Mental State ของตัวละครนี้")]
+    [Tooltip("เว้นว่าง = ใช้ Default Mental State Effects ของ DialogueManager\n(ต้องไว้ตรงนี้ ไม่ใช่ใน CharacterData เพราะ ScriptableObject ลาก GameObject ในซีนใส่ไม่ได้)")]
+    public GameObject[] mentalStateEffectOverride;
+
     public int Sanity { get; private set; }
 
     // ไล่ index ว่าตอนนี้ choice ปกติ (goodChoices/badChoices) ไปถึงคู่ที่เท่าไหร่แล้ว
@@ -53,7 +57,7 @@ public class CharacterRuntime : MonoBehaviour
 
     private void UpdateFace()
     {
-        if (faceImage == null) return;
+        if (faceImage == null || data == null) return;
 
         if (Sanity > 75)      faceImage.sprite = data.faceHigh;    // 76-100
         else if (Sanity > 50) faceImage.sprite = data.faceMid;     // 51-75
@@ -67,8 +71,8 @@ public class CharacterRuntime : MonoBehaviour
         sanityText.text = $"Sanity: {Sanity}";
     }
 
-    public bool HasUsedChoice(ChoiceOptionData choice) => usedChoices.Contains(choice);
-    public void MarkChoiceUsed(ChoiceOptionData choice) => usedChoices.Add(choice);
-    public bool HasTriggeredSanityDialogue(SanityDialogueTrigger t) => triggeredSanityDialogues.Contains(t);
-    public void MarkSanityDialogueTriggered(SanityDialogueTrigger t) => triggeredSanityDialogues.Add(t);
+    public bool HasUsedChoice(ChoiceOptionData choice) => choice != null && usedChoices.Contains(choice);
+    public void MarkChoiceUsed(ChoiceOptionData choice) { if (choice != null) usedChoices.Add(choice); }
+    public bool HasTriggeredSanityDialogue(SanityDialogueTrigger t) => t != null && triggeredSanityDialogues.Contains(t);
+    public void MarkSanityDialogueTriggered(SanityDialogueTrigger t) { if (t != null) triggeredSanityDialogues.Add(t); }
 }

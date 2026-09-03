@@ -1,27 +1,5 @@
 using UnityEngine;
 
-[System.Serializable]
-public class SanityDialogueTrigger
-{
-    public enum TriggerDirection { AtOrBelow, AtOrAbove }
-
-    [Header("เกณฑ์ Sanity ที่จะ trigger")]
-    public int sanityThreshold = 50;
-
-    [Tooltip("AtOrBelow = trigger เมื่อ Sanity <= ค่านี้\nAtOrAbove = trigger เมื่อ Sanity >= ค่านี้\n\n⚠ ตั้ง AtOrBelow ใกล้ 100 จะ trigger ทันทีตั้งแต่ intro จบ")]
-    public TriggerDirection direction = TriggerDirection.AtOrBelow;
-
-    [Header("บทพูดพิเศษ (เล่นครั้งเดียวต่อคนไข้)")]
-    public DialogueLine[] dialogue;
-
-    public bool IsMet(int currentSanity)
-    {
-        return direction == TriggerDirection.AtOrBelow
-            ? currentSanity <= sanityThreshold
-            : currentSanity >= sanityThreshold;
-    }
-}
-
 [CreateAssetMenu(fileName = "NewCharacter", menuName = "Game/Character")]
 public class CharacterData : ScriptableObject
 {
@@ -43,7 +21,7 @@ public class CharacterData : ScriptableObject
     [Header("--- Dialogue พิเศษตาม Sanity (ครั้งเดียวต่อคน) ---")]
     public SanityDialogueTrigger[] sanityDialogueTriggers;
 
-    [Header("--- Choice ปกติ (สุ่มรวม 2 คลัง ไม่ถ่วงน้ำหนัก) ---")]
+    [Header("--- Choice ปกติ (จับคู่ good[i] กับ bad[i] ตามลำดับ) ---")]
     public ChoiceOptionData[] goodChoices;
     public ChoiceOptionData[] badChoices;
 
@@ -54,13 +32,17 @@ public class CharacterData : ScriptableObject
     public ChoiceOptionData[] crisisChoices;
     public ChoiceOptionData[] goodEndingChoices;
 
-    [Header("--- Mental State (เพลง/สถานะ Sanity ต่ำ) ---")]
-    [Tooltip("Sanity ของตัวละครนี้ < ค่านี้ = เข้าสถานะ Mental State (เพลง/effect เปลี่ยน)\nแยกจากเกณฑ์ Crisis Choices ด้านบน ตั้งไม่เท่ากันได้ต่อตัวละคร")]
-    public int mentalStateThreshold = 50;
+    [Header("=== Mental State (Meltdown) ===")]
+    [Tooltip("Sanity ต่ำกว่าค่านี้ = เข้าสถานะ Mental State (เปลี่ยนเพลง + เปิดเอฟเฟกต์ + dialogue สั่นตลอด)")]
+    [Range(0, 100)] public int mentalStateThreshold = 25;
 
-    [Tooltip("เสียง Mental State เฉพาะตัวละครนี้ (ไม่บังคับใส่)\nถ้าไม่ใส่ clip (ปล่อยว่าง) จะใช้เสียง default จาก DialogueManager แทน\nปรับ volume ของตัวละครนี้แยกจากตัวอื่นได้ ใส่ทีหลังได้ ไม่กระทบตัวละครอื่น")]
-    public MentalStateSound mentalStateSoundOverride;
+    [Tooltip("เสียง Mental State เฉพาะตัวละครนี้ — ไม่ใส่ = ใช้ default ของ DialogueManager")]
+    public AudioClip mentalStateClipOverride;
 
-    [Tooltip("Effect (GameObject) เฉพาะตัวละครนี้ ตอนเข้า Mental State จะ SetActive(true) ให้ทุกอันในลิสต์ / ออกแล้ว SetActive(false) ทั้งหมด\nถ้าไม่ใส่ (ปล่อยว่าง) จะใช้ effect default จาก DialogueManager แทน")]
-    public GameObject[] mentalStateEffectOverride;
+    [Header("=== จอดำสรุปตอนจบตา ===")]
+    [Tooltip("เล่นเมื่อรอบ Ending นี้ไปจบที่ pool goodEndingChoices (Sanity ไม่ต่ำกว่าเกณฑ์ตอนตัดสิน)")]
+    public NarrationSequence goodEndingNarration;
+
+    [Tooltip("เล่นเมื่อรอบ Ending นี้ไปจบที่ pool crisisChoices (Sanity ต่ำกว่าเกณฑ์ตอนตัดสิน)")]
+    public NarrationSequence crisisEndingNarration;
 }

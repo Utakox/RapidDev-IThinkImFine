@@ -17,18 +17,7 @@ MonoBehaviour:
   introNarration:
     enabled: 1
     lines:
-    - text: 'Subject 01
-
-
-        Profile: Male, 17 years old.
-
-
-        Condition:
-        Severe sleep deprivation, acute panic, social isolation.
-
-
-        Background:
-        Raised by a struggling single mother. High academic pressure. Financial instability.'
+    - text: ddd
       typeSpeed: 0.04
       delayAfter: 0.8
       clearBefore: 0
@@ -55,6 +44,7 @@ MonoBehaviour:
   - choiceText: You are a human, not a machine. Taking a break is not a betrayal
       to your mother.
     sanityChange: 10
+    doctorSanityChange: 0
     afterDialogue:
     - text: (He gulps it down in one go, letting out a long sigh)
       typeSpeedOverride: 0.05
@@ -70,6 +60,7 @@ MonoBehaviour:
       typingLoopOverride: {fileID: 0}
   - choiceText: Give him a quiet moment to collect himself.
     sanityChange: 10
+    doctorSanityChange: 0
     afterDialogue:
     - text: (He lowers his head, letting out a long, weary sigh)
       typeSpeedOverride: 0
@@ -79,6 +70,7 @@ MonoBehaviour:
       typingLoopOverride: {fileID: 0}
   - choiceText: Ask gently about his academic pressure.
     sanityChange: 10
+    doctorSanityChange: 0
     afterDialogue:
     - text: (He pulls nervously on his jacket sleeves)
       typeSpeedOverride: 0.08
@@ -94,6 +86,7 @@ MonoBehaviour:
       typingLoopOverride: {fileID: 0}
   - choiceText: Reassure him that he is completely safe in this room.
     sanityChange: 10
+    doctorSanityChange: 0
     afterDialogue:
     - text: (He slowly unclenches his fists, looking down at his lap)
       typeSpeedOverride: 0.08
@@ -110,7 +103,8 @@ MonoBehaviour:
   badChoices:
   - choiceText: Remind him how much money his mother spends on his education each
       month.
-    sanityChange: -10
+    sanityChange: -80
+    doctorSanityChange: 0
     afterDialogue:
     - text: (His face goes pale. He grips his chair)
       typeSpeedOverride: 0.08
@@ -118,7 +112,7 @@ MonoBehaviour:
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
-    - text: I know... I know every single baht she spends on me. I think about it
+    - text: I know... I know every single money she spends on me. I think about it
         every second.
       typeSpeedOverride: 0.08
       delayAfterOverride: 2
@@ -127,6 +121,7 @@ MonoBehaviour:
       typingLoopOverride: {fileID: 0}
   - choiceText: Point out that none of his classmates seem to notice his absence.
     sanityChange: -5
+    doctorSanityChange: 0
     afterDialogue:
     - text: (He crosses his arms defensively, avoiding your gaze)
       typeSpeedOverride: 0.08
@@ -142,6 +137,7 @@ MonoBehaviour:
       typingLoopOverride: {fileID: 0}
   - choiceText: Slide a blank paper forward and order him to draw his exhausted mother.
     sanityChange: -5
+    doctorSanityChange: 0
     afterDialogue:
     - text: (His hands shake so violently he drops the pencil)
       typeSpeedOverride: 0.08
@@ -158,6 +154,7 @@ MonoBehaviour:
       typingLoopOverride: {fileID: 0}
   - choiceText: Maintain absolute silence until the pressure forces him to speak.
     sanityChange: -5
+    doctorSanityChange: 0
     afterDialogue:
     - text: (He suddenly buries his face in his hands, trembling)
       typeSpeedOverride: 0.08
@@ -174,18 +171,32 @@ MonoBehaviour:
       typingLoopOverride: {fileID: 0}
   sanityThreshold: 40
   crisisChoices:
-  - choiceText: Call a Guard
+  - choiceText: Order immediate medical isolation
     sanityChange: 0
+    doctorSanityChange: 0
     afterDialogue:
-    - text: Why are you doing this to me..?
-      typeSpeedOverride: 0
+    - text: I AM GONNA KILL YOU! DO NOT!
+      typeSpeedOverride: 0.07
       delayAfterOverride: -1
-      shakeText: 0
-      shakeIntensity: 0
+      shakeText: 1
+      shakeIntensity: 5
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Tell him he proved himself to be the exact failure his mother sacrificed
+      her life to avoid.
+    sanityChange: 0
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: YES! EXACTLY! I STOLE HER LIFE! WHY AM I STILL BREATHING? WHY WON'T YOU
+        STOP ME?!
+      typeSpeedOverride: 0.07
+      delayAfterOverride: -1
+      shakeText: 1
+      shakeIntensity: 5
       typingLoopOverride: {fileID: 0}
   goodEndingChoices:
   - choiceText: Authorize immediate rest leave and offer to talk to his mother together.
     sanityChange: 0
+    doctorSanityChange: 0
     afterDialogue:
     - text: Thank you... I don't remember the last time I didn't feel like I was
         suffocating.
@@ -197,6 +208,7 @@ MonoBehaviour:
   - choiceText: Reassure him that taking care of his health is the best way to honor
       her effort.
     sanityChange: 0
+    doctorSanityChange: 0
     afterDialogue:
     - text: You're right... If I break down here, all her sacrifices mean nothing
         anyway. I'll go sleep.
@@ -206,7 +218,24 @@ MonoBehaviour:
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   mentalStateThreshold: 41
-  mentalStateSoundOverride:
-    clip: {fileID: 0}
-    volume: 0
-  mentalStateEffectOverride: []
+  mentalStateClipOverride: {fileID: 8300000, guid: 457e223f7fe7ade468e3339b38f86894, type: 3}
+  goodEndingNarration:
+    enabled: 1
+    lines:
+    - text: test
+      typeSpeed: 0
+      delayAfter: 0
+      clearBefore: 0
+    typingLoopClip: {fileID: 0}
+    typingVolume: 1
+    stopSoundBetweenLines: 0
+    holdAfterFinish: 2.5
+    ambienceOneShot: {fileID: 0}
+  crisisEndingNarration:
+    enabled: 1
+    lines: []
+    typingLoopClip: {fileID: 0}
+    typingVolume: 1
+    stopSoundBetweenLines: 0
+    holdAfterFinish: 2.5
+    ambienceOneShot: {fileID: 0}

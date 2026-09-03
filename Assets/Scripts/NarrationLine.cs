@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// 1 บรรทัดของ narration จอดำ ตั้งค่าตรงๆ ในแต่ละบรรทัดเลย ไม่มี default แยกที่อื่นแล้ว
 [System.Serializable]
 public class NarrationLine
 {
@@ -16,7 +15,6 @@ public class NarrationLine
     public bool clearBefore = true;
 }
 
-// ชุด narration ทั้งก้อน ตั้งค่าได้ต่อตัวละครใน CharacterData
 [System.Serializable]
 public class NarrationSequence
 {

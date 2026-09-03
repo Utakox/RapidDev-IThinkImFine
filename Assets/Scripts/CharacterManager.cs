@@ -6,6 +6,10 @@ public class CharacterManager : MonoBehaviour
 
     [SerializeField] private CharacterRuntime[] characters;
 
+    [Header("แฟ้มประวัติคนไข้ (เรียงลำดับให้ตรงกับ characters ด้านบนทุกช่อง)")]
+    [Tooltip("ช่องที่ i คือหน้าประวัติของ characters[i] เอาเมาส์ไปวางที่ไอคอนแฟ้ม (ดู PatientFileHover) จะโชว์ช่องของตัวละครปัจจุบันให้เอง")]
+    [SerializeField] private GameObject[] historyPanels;
+
     [Header("(ไม่ใส่ก็ได้) เรียกตอนเล่นครบทุกตัวละคร")]
     public UnityEngine.Events.UnityEvent onAllCharactersFinished;
 
@@ -16,6 +20,12 @@ public class CharacterManager : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
 
+        if (characters == null || characters.Length == 0)
+        {
+            Debug.LogError("[CharacterManager] ไม่มีตัวละครในระบบ");
+            return;
+        }
+
         for (int i = 0; i < characters.Length; i++)
         {
             if (characters[i] == null)
@@ -25,45 +35,81 @@ public class CharacterManager : MonoBehaviour
             }
             characters[i].gameObject.SetActive(i == 0);
         }
+
+        if (historyPanels != null && historyPanels.Length != characters.Length)
+            Debug.LogError($"[CharacterManager] historyPanels ({historyPanels.Length}) กับ characters ({characters.Length}) จำนวนไม่เท่ากัน เช็ค index ให้ตรงกันด้วย");
+
+        HideAllHistoryPanels();
     }
 
     private void Start()
     {
-        if (characters.Length == 0)
-        {
-            Debug.LogError("[CharacterManager] ไม่มีตัวละครเลย");
-            return;
-        }
+        if (characters == null || characters.Length == 0) return;
 
-        // ตัวแรก: จอดำสนิทอยู่แล้วตั้งแต่เปิดเกม (TransitionManager.Awake) ไม่ต้องเฟดดำซ้ำ
-        // ให้ NarrationManager เล่นเสียง/ข้อความไปเลย แล้วค่อยเฟด "ออก" จากดำตอนเล่นจบ
-        BeginCharacter(alreadyBlack: true);
+        // ตัวแรก: จอยังใสอยู่ ให้ NarrationManager เฟดดำเองแล้วเล่า intro
+        BeginCharacter(alreadyBlack: false);
     }
 
     public CharacterRuntime GetCurrent()
     {
+        if (characters == null || currentIndex < 0 || currentIndex >= characters.Length) return null;
         return characters[currentIndex];
     }
 
-    public void NextCharacter()
+    // แฟ้มประวัติของตัวละครปัจจุบัน (ตาม currentIndex) เรียกจาก PatientFileHover ตอนเอาเมาส์ไปวาง
+    public GameObject GetCurrentHistoryPanel()
     {
-        // เฟดดำเข้า -> สลับตัวละครตอนมองไม่เห็น -> ค้างดำไว้ให้ narration เล่นต่อทันที
+        if (historyPanels == null || currentIndex >= historyPanels.Length) return null;
+        return historyPanels[currentIndex];
+    }
+
+    private void HideAllHistoryPanels()
+    {
+        if (historyPanels == null) return;
+        foreach (var panel in historyPanels)
+        {
+            if (panel == null) continue;
+            panel.SetActive(false);
+        }
+    }
+
+    public void NextCharacter(bool wasCrisisEnding)
+    {
+        // เฟดดำเข้า -> เล่นจอดำสรุปของตัวละครที่เพิ่งจบ (ตาม good/bad ending) -> สลับตัวละครตอนยังดำอยู่ -> ต่อด้วย intro ตัวถัดไปเลย ไม่มีจอสว่างคั่นกลาง
         TransitionManager.Instance.FadeToBlack(() =>
         {
-            characters[currentIndex].gameObject.SetActive(false);
-            currentIndex++;
+            CharacterRuntime finished = characters[currentIndex];
+            NarrationSequence endingNarration = wasCrisisEnding
+                ? finished.data.crisisEndingNarration
+                : finished.data.goodEndingNarration;
 
-            if (currentIndex >= characters.Length)
-            {
-                Debug.Log("ตัวละครหมดแล้ว จบเกม");
-                TransitionManager.Instance.SetBlackInstant(true); // ค้างจอดำตอนจบ
-                onAllCharactersFinished?.Invoke();
-                return;
-            }
-
-            characters[currentIndex].gameObject.SetActive(true);
-            BeginCharacter(alreadyBlack: true);
+            NarrationManager.Instance.PlaySequence(
+                endingNarration,
+                onComplete: () => SwitchToNextCharacterAlreadyBlack(),
+                alreadyBlack: true,
+                fadeOutAtEnd: false);
         });
+    }
+
+    private void SwitchToNextCharacterAlreadyBlack()
+    {
+        if (characters[currentIndex] != null)
+            characters[currentIndex].gameObject.SetActive(false);
+            
+        currentIndex++;
+
+        if (currentIndex >= characters.Length)
+        {
+            Debug.Log("ตัวละครหมดแล้ว จบเกม");
+            TransitionManager.Instance.SetBlackInstant(true); // ค้างจอดำตอนจบ
+            onAllCharactersFinished?.Invoke();
+            return;
+        }
+
+        if (characters[currentIndex] != null)
+            characters[currentIndex].gameObject.SetActive(true);
+            
+        BeginCharacter(alreadyBlack: true);
     }
 
     // เล่น narration จอดำก่อน แล้วค่อยเริ่มบทพูดปกติ "ตอนจอใสสนิทแล้วเท่านั้น"

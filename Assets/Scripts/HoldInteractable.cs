@@ -3,15 +3,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-// Base class สำหรับ "ของที่ต้องเอาเมาส์ไปแตะค้างถึงจะทำงาน" ใช้ได้กับ choice หรือของอื่นในอนาคต
-// วิธีใช้: สร้างคลาสใหม่ที่ : HoldInteractable แล้ว override Confirm() ว่าค้างครบเวลาแล้วให้ทำอะไร
-//
-// เช็ค hover ด้วย EventSystem.RaycastAll ใหม่ "ทุกเฟรม" แบบไม่เชื่อค่าเดิมที่ cache ไว้เลย
-// (เวอร์ชันก่อนหน้าเช็คซ้ำแค่ตอน isPointerOver = false เท่านั้น พอเป็น true แล้วไม่เช็คซ้ำอีก
-//  ถ้า OnPointerExit ของ Unity หลุดไปแม้แค่ครั้งเดียว ค่าจะค้าง true ตลอดไป นี่คือบั๊กที่เจอ)
 public abstract class HoldInteractable : MonoBehaviour
 {
     public float holdDuration = 2f;
+
+    [Header("Sanity หมอต่ำ = เมาส์ฝืด (นับเวลาแตะค้างช้าลงกว่าปกติ)")]
+    [Range(0.05f, 1f)] [SerializeField] private float glitchHoverSpeedMultiplier = 0.4f;
 
     private bool isConfirmed;
     private float hoverTimer;
@@ -20,8 +17,6 @@ public abstract class HoldInteractable : MonoBehaviour
 
     protected virtual void Awake()
     {
-        // ให้ raycast นับเฉพาะจุดที่ "ไม่โปร่งใส" ของรูปจริงๆ ไม่ใช่กรอบ RectTransform เต็มๆ
-        // *** ต้องเปิด Read/Write Enabled ใน Import Settings ของรูปนั้นด้วย ไม่งั้นจะ error ตอนรัน ***
         Image image = GetComponent<Image>();
         if (image != null)
             image.alphaHitTestMinimumThreshold = 0.1f;
@@ -37,18 +32,21 @@ public abstract class HoldInteractable : MonoBehaviour
     {
         if (isConfirmed) return;
 
-        // เช็คสดใหม่ทุกเฟรม ไม่พึ่ง OnPointerEnter/Exit เลย กันปัญหาค้างสถานะผิด
         bool isPointerOverNow = IsPointerActuallyOverThis();
 
         if (isPointerOverNow)
         {
-            if (hoverTimer == 0f)
+            if (hoverTimer == 0f && CustomCursor.Instance != null)
                 CustomCursor.Instance.ShowCountdown();
 
-            hoverTimer += Time.deltaTime;
+            bool isGlitching = DoctorSanityManager.Instance != null && DoctorSanityManager.Instance.IsGlitching;
+            float speedMultiplier = isGlitching ? glitchHoverSpeedMultiplier : 1f;
+
+            hoverTimer += Time.deltaTime * speedMultiplier;
 
             float secondsLeft = Mathf.Max(0f, holdDuration - hoverTimer);
-            CustomCursor.Instance.UpdateCountdown(secondsLeft);
+            if (CustomCursor.Instance != null)
+                CustomCursor.Instance.UpdateCountdown(secondsLeft);
 
             if (hoverTimer >= holdDuration)
                 DoConfirm();
@@ -56,7 +54,8 @@ public abstract class HoldInteractable : MonoBehaviour
         else if (hoverTimer > 0f)
         {
             hoverTimer = 0f;
-            CustomCursor.Instance.HideCountdown();
+            if (CustomCursor.Instance != null)
+                CustomCursor.Instance.HideCountdown();
         }
     }
 
@@ -81,18 +80,18 @@ public abstract class HoldInteractable : MonoBehaviour
     private void DoConfirm()
     {
         isConfirmed = true;
-        CustomCursor.Instance.HideCountdown();
+        if (CustomCursor.Instance != null)
+            CustomCursor.Instance.HideCountdown();
         Confirm();
     }
 
-    // ลูกคลาส implement ตรงนี้ว่า "ค้างครบเวลาแล้วให้ทำอะไร"
     protected abstract void Confirm();
 
-    // เรียกจากภายนอกตอนอยากรีเซ็ตสถานะ (เช่น ตอนโชว์ choice รอบใหม่)
     public void ResetInteractable()
     {
         isConfirmed = false;
         hoverTimer = 0f;
-        CustomCursor.Instance.HideCountdown();
+        if (CustomCursor.Instance != null)
+            CustomCursor.Instance.HideCountdown();
     }
 }

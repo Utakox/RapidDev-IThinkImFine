@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-// ติดกับ GameObject ที่มี CanvasGroup ครอบเต็มจอ (Image สีดำ) วางบนสุดของ Canvas
 public class TransitionManager : MonoBehaviour
 {
     public static TransitionManager Instance;
@@ -20,21 +19,16 @@ public class TransitionManager : MonoBehaviour
             return;
         }
 
-        // เริ่มเกมด้วยจอดำสนิททันที ไม่ต้องเฟดเข้า
-        // (จะเฟด "ออก" จากดำก็ต่อเมื่อ narration เล่นเสียง/ข้อความจบแล้วเท่านั้น เรียกผ่าน FadeFromBlack)
         fadeGroup.alpha = 1f;
         fadeGroup.blocksRaycasts = true;
-        transform.SetAsLastSibling(); // การันตีว่าอยู่บนสุดเสมอ
+        transform.SetAsLastSibling();
     }
 
     private void Start()
-{
-    // TransitionManager.Awake() เรียก SetAsLastSibling()
-    // Start ทำงานทีหลัง Awake เสมอ -> narration ทับจอดำได้ชัวร์
-    transform.SetAsLastSibling();
-}
+    {
+        transform.SetAsLastSibling();
+    }
 
-    // ===== ดำเข้าแล้ว "ค้างไว้" ให้ NarrationManager ทำงานต่อ =====
     public void FadeToBlack(System.Action onBlack)
     {
         StartCoroutine(FadeToBlackThen(onBlack));
@@ -46,8 +40,6 @@ public class TransitionManager : MonoBehaviour
         onBlack?.Invoke();
     }
 
-    // ===== เฟด "ออก" จากดำ พร้อม callback ให้เรียกตอนสอง/ข้อความเล่นจบแล้วเท่านั้น =====
-    // ใช้แทนการเฟดเข้าตอนเปิดเกม: จอเริ่มดำสนิททันที (ดู Awake) แล้วค่อยเรียกอันนี้ตอน narration เล่นจบ
     public void FadeFromBlack(System.Action onClear)
     {
         StartCoroutine(FadeFromBlackThen(onClear));
@@ -61,24 +53,26 @@ public class TransitionManager : MonoBehaviour
 
     public IEnumerator FadeToBlackRoutine()
     {
-        fadeGroup.blocksRaycasts = true;              // กันคนกดอะไรระหว่างจอดำ
-        yield return Fade(fadeGroup.alpha, 1f);
+        if (fadeGroup != null) fadeGroup.blocksRaycasts = true;
+        yield return Fade(fadeGroup != null ? fadeGroup.alpha : 0f, 1f);
     }
 
     public IEnumerator FadeFromBlackRoutine()
     {
-        yield return Fade(fadeGroup.alpha, 0f);
-        fadeGroup.blocksRaycasts = false;
+        yield return Fade(fadeGroup != null ? fadeGroup.alpha : 1f, 0f);
+        if (fadeGroup != null) fadeGroup.blocksRaycasts = false;
     }
 
     public void SetBlackInstant(bool black)
     {
+        if (fadeGroup == null) return;
         fadeGroup.alpha = black ? 1f : 0f;
         fadeGroup.blocksRaycasts = black;
     }
 
     private IEnumerator Fade(float from, float to)
     {
+        if (fadeGroup == null) yield break;
         if (Mathf.Approximately(from, to)) { fadeGroup.alpha = to; yield break; }
 
         float t = 0f;
