@@ -42,32 +42,22 @@ public class CustomCursor : MonoBehaviour
     }
 
     private void Update()
+{
+    if (canvas == null || cursorRect == null) return;
+
+    // เช็ค RenderMode ของ Canvas เพื่อเลือก Camera ที่ถูกต้อง
+    Camera cam = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+
+    // แปลงพิกัดหน้าจอตรงเข้า RectTransform ของ Parent ได้ทันที
+    if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+        cursorRect.parent as RectTransform,
+        Input.mousePosition,
+        cam,
+        out Vector2 localPoint))
     {
-        if (canvas == null || canvasRect == null || cursorRect == null) return;
-
-        Vector2 localPoint;
-        bool ok = RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvasRect,
-            Input.mousePosition,
-            canvas.worldCamera, // Screen Space - Overlay ต้องเป็น null อยู่แล้วโดยอัตโนมัติ / Camera หรือ World Space ต้องมี Render Camera ตั้งไว้ใน Canvas ด้วย
-            out localPoint
-        );
-
-        if (!ok) return;
-
-        // แปลงจากพิกัดของ "Canvas" ไปเป็นพิกัดของ "พ่อจริงๆ ของ cursorRect" อีกที
-        // เดิมโค้ดตั้ง anchoredPosition (ซึ่งอิงพ่อของตัวเอง) ด้วยค่าที่คำนวณเทียบกับ Canvas ตรงๆ
-        // ถ้า cursorRect ไม่ได้เป็นลูกตรงของ Canvas (เช่นอยู่ใต้ panel ลูกอีกที) พิกัดจะเพี้ยน เมาส์ดูเหมือนขยับน้อยมากหรือไม่ขยับเลย
-        if (cursorRect.parent == canvasRect)
-        {
-            cursorRect.anchoredPosition = localPoint;
-        }
-        else
-        {
-            Vector3 worldPoint = canvasRect.TransformPoint(localPoint);
-            cursorRect.position = worldPoint;
-        }
+        cursorRect.anchoredPosition = localPoint;
     }
+}
 
     public void ShowCountdown()
     {

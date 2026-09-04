@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 32822fc3f94a884409405872837912f9
+guid: 48db54ba764c3654d9465dd90fb5f4fa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -952418453795498732
-    second: tmIET-Photoroom_0
+      213: 7701467319694953680
+    second: Case1_ImFine_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tmIET-Photoroom_0
+      name: Case1_ImFine_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1280
-        height: 193
+        x: 225
+        y: 43
+        width: 926
+        height: 657
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4151eff567458c2f0800000000000000
-      internalID: -952418453795498732
+      spriteID: 0dc82bf19bb11ea60800000000000000
+      internalID: 7701467319694953680
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      tmIET-Photoroom_0: -952418453795498732
+      Case1_ImFine_0: 7701467319694953680
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

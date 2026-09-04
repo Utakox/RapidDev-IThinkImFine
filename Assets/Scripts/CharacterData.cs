@@ -9,6 +9,13 @@ public class CharacterData : ScriptableObject
     [Header("=== จอดำเล่าเรื่องก่อนเริ่มตัวละครนี้ ===")]
     public NarrationSequence introNarration;
 
+    [Header("=== รูปแฟ้มประวัติ (ใช้เฉพาะระบบ Patient History / Hold Inspect เท่านั้น) ===")]
+    [Tooltip("รูปที่โชว์ตอนกด Hold Inspect ดูแฟ้มประวัติคนไข้คนนี้")]
+    public Sprite inspectSprite;
+
+    [Header("=== รูปตัวละคร (คนละอันกับ inspectSprite ด้านบน ใช้ที่อื่นได้ตามต้องการ) ===")]
+    public Sprite portraitSprite;
+
     [Header("หน้าตัวละครแต่ละช่วง Sanity")]
     public Sprite faceHigh;   // > 75
     public Sprite faceMid;    // 51 - 75

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class DoctorSanityManager : MonoBehaviour
@@ -18,6 +19,19 @@ public class DoctorSanityManager : MonoBehaviour
     [Header("(ไม่ใส่ก็ได้) TMP โชว์ค่า Sanity หมอตอนเทส")]
     [SerializeField] private TextMeshProUGUI sanityDebugText;
 
+    [Header("Meter (เหมือนของ Patient)")]
+    [Tooltip("ลาก UI Slider ที่จะใช้เป็นแถบมิเตอร์ Sanity หมอ")]
+    [SerializeField] private Slider sanityMeter;
+
+    [Tooltip("สีแถบตอน Sanity ปกติ")]
+    [SerializeField] private Color normalColor = Color.white;
+
+    [Tooltip("สีแถบตอนเข้าเกณฑ์ Glitch (ต่ำกว่า Glitch Threshold)")]
+    [SerializeField] private Color glitchColor = Color.red;
+
+    [Tooltip("ลาก Image ของ Fill Area มาใส่ ถ้าอยากให้แถบเปลี่ยนสีตอน Glitch (ไม่ใส่ก็ได้)")]
+    [SerializeField] private Image meterFillImage;
+
     public int Sanity { get; private set; }
     public bool IsGlitching => Sanity < glitchThreshold;
     public int BaseSanityLossPerChoice => baseSanityLossPerChoice;
@@ -28,7 +42,15 @@ public class DoctorSanityManager : MonoBehaviour
         Instance = this;
 
         Sanity = Mathf.Clamp(startingSanity, 0, 100);
+
+        if (sanityMeter != null)
+        {
+            sanityMeter.minValue = 0;
+            sanityMeter.maxValue = 100;
+        }
+
         UpdateDebugText();
+        UpdateMeter();
 
         if (ScreenShakeEffect.Instance != null)
             ScreenShakeEffect.Instance.SetShaking(IsGlitching);
@@ -41,6 +63,7 @@ public class DoctorSanityManager : MonoBehaviour
         bool wasGlitching = IsGlitching;
         Sanity = Mathf.Clamp(Sanity + amount, 0, 100);
         UpdateDebugText();
+        UpdateMeter();
 
         if (IsGlitching != wasGlitching && ScreenShakeEffect.Instance != null)
             ScreenShakeEffect.Instance.SetShaking(IsGlitching);
@@ -49,6 +72,15 @@ public class DoctorSanityManager : MonoBehaviour
     private void UpdateDebugText()
     {
         if (sanityDebugText == null) return;
-        sanityDebugText.text = $"Doctor Sanity: {Sanity}";
+        sanityDebugText.text = $"Sanity: {Sanity}";
+    }
+
+    private void UpdateMeter()
+    {
+        if (sanityMeter != null)
+            sanityMeter.value = Sanity;
+
+        if (meterFillImage != null)
+            meterFillImage.color = IsGlitching ? glitchColor : normalColor;
     }
 }
