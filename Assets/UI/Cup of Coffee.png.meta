@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 024faee4764bdef4589ed4a37a004c04
+guid: b264a7fa3ba11f14d8dda854532efbf9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3322606477454095991
-    second: Subject 01 (4)-Photoroom_0
+      213: -590895453614479148
+    second: Subject 01 (10)-Photoroom_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -96,40 +96,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Subject 01 (4)-Photoroom_0
+      name: Subject 01 (10)-Photoroom_0
       rect:
         serializedVersion: 2
-        x: 130
-        y: 166
-        width: 1021
-        height: 412
+        x: 0
+        y: 3
+        width: 107
+        height: 108
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 1, z: 0, w: 0}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 989cfee330bb3e1d0800000000000000
-      internalID: -3322606477454095991
+      spriteID: 4d86ae337b7bcc7f0800000000000000
+      internalID: -590895453614479148
       vertices: []
       indices: 
       edges: []
@@ -138,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b58494b144dd8124ab0d81be4d6f7d50
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Subject 01 (4)-Photoroom_0: -3322606477454095991
+      Subject 01 (10)-Photoroom_0: -590895453614479148
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
