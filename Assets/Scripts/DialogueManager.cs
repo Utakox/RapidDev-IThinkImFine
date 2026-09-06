@@ -80,6 +80,11 @@ public class DialogueManager : MonoBehaviour
     private bool lastGoodOnLeft;
     private int sameSideStreak;
 
+    // === เพิ่มสำหรับรองรับ dialogue พิเศษที่แทรกจากภายนอก (เช่น item/image ที่ interact ได้ในฉาก) ===
+    private bool isWaitingForChoice;
+    public bool IsWaitingForChoice => isWaitingForChoice;
+    public bool IsTyping => typingCoroutine != null;
+
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -161,11 +166,25 @@ public class DialogueManager : MonoBehaviour
         currentLines = lines;
         onLinesFinished = onFinished;
 
+        isWaitingForChoice = false; // เคลียร์สถานะรอ choice ทุกครั้งที่เริ่มเล่นบทพูดใหม่
+
         if (ChoiceManager.Instance != null)
             ChoiceManager.Instance.HideBothChoices();
 
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
         typingCoroutine = StartCoroutine(PlayLinesRoutine());
+    }
+
+    // === เมธอดสาธารณะสำหรับให้ระบบภายนอก (เช่น item/image ที่ interact ได้ในฉาก) แทรก dialogue พิเศษ ===
+    // จะไม่แทรกถ้ากำลังพิมพ์บทพูดหลักอยู่ หรือกำลังรอผู้เล่นเลือก choice ค้างอยู่ (กันบทพูด/สถานะชนกัน)
+    // คืนค่า true ถ้าเริ่มเล่นบทพูดสำเร็จ, false ถ้าติดขัดเลยไม่ได้เล่น (ผู้เรียกควรจัดการ fallback เอง เช่น เรียก callback ทันที)
+    public bool TryPlayInterjectDialogue(DialogueLine[] lines, System.Action onFinished = null)
+    {
+        if (lines == null || lines.Length == 0) return false;
+        if (IsTyping || isWaitingForChoice) return false;
+
+        PlayLines(lines, onFinished);
+        return true;
     }
 
     private IEnumerator PlayLinesRoutine()
@@ -329,6 +348,7 @@ public class DialogueManager : MonoBehaviour
 
         ChoiceOptionData right = picker(exclude);
 
+        isWaitingForChoice = true;
         if (ChoiceManager.Instance != null)
             ChoiceManager.Instance.ShowChoices(left, right);
     }
@@ -358,6 +378,7 @@ public class DialogueManager : MonoBehaviour
             right = null;
         }
 
+        isWaitingForChoice = true;
         if (ChoiceManager.Instance != null)
             ChoiceManager.Instance.ShowChoices(left, right);
     }
@@ -383,6 +404,8 @@ public class DialogueManager : MonoBehaviour
 
     public void OnChoicePicked(ChoiceOptionData picked)
     {
+        isWaitingForChoice = false; // ผู้เล่นเลือกแล้ว เลิกอยู่ในสถานะรอ choice
+
         currentCharacter.MarkChoiceUsed(picked);
         currentCharacter.ChangeSanity(picked.sanityChange);
         UpdatePatientSanityUI();
