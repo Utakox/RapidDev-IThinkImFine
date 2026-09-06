@@ -20,6 +20,10 @@ public class ChoiceManager : MonoBehaviour
     [SerializeField] private ChoiceSlot leftSlot;
     [SerializeField] private ChoiceSlot rightSlot;
 
+    [Header("=== UI กรอบ/ฉากหลังของ Choice ทั้งชุด (ไม่ใส่ก็ได้) ===")]
+    [Tooltip("เช่น panel พื้นหลัง, กรอบตกแต่ง, หัวข้อ 'เลือกคำตอบ' ฯลฯ - จะเปิด/ปิดพร้อมกับตอน choice โผล่/หายไปเสมอ")]
+    [SerializeField] private GameObject choiceUIRoot;
+
     private ChoiceOptionData leftData, rightData;
 
     private void Awake()
@@ -37,11 +41,9 @@ public class ChoiceManager : MonoBehaviour
     {
         if (slot.container == null) return;
 
-        // ดึง Component TextMeshProUGUI จากภายใน Container
         slot.text = slot.container.GetComponentInChildren<TextMeshProUGUI>(true);
         slot.option = slot.container.GetComponent<ChoiceOption>();
 
-        // ดึง Effect จากตัว Object Text โดยตรง (ไม่เกี่ยวกับ Container)
         if (slot.text != null)
         {
             slot.shake = slot.text.GetComponent<TextShakeEffect>();
@@ -56,6 +58,8 @@ public class ChoiceManager : MonoBehaviour
 
         if (leftSlot.container != null) leftSlot.container.SetActive(false);
         if (rightSlot.container != null) rightSlot.container.SetActive(false);
+
+        if (choiceUIRoot != null) choiceUIRoot.SetActive(false);
     }
 
     private void ResetSlotEffects(ChoiceSlot slot)
@@ -73,6 +77,9 @@ public class ChoiceManager : MonoBehaviour
         leftData = left;
         rightData = right;
 
+        // เปิด UI กรอบรวมก่อน แล้วค่อยเปิด choice แต่ละฝั่ง
+        if (choiceUIRoot != null) choiceUIRoot.SetActive(true);
+
         bool isPatientMeltdown = DialogueManager.Instance != null && DialogueManager.Instance.IsInMentalState;
         bool isDoctorGlitching = DoctorSanityManager.Instance != null && DoctorSanityManager.Instance.IsGlitching;
 
@@ -81,44 +88,42 @@ public class ChoiceManager : MonoBehaviour
     }
 
     private void ApplySlotChoice(ChoiceSlot slot, ChoiceOptionData data, bool isPatientMeltdown, bool isDoctorGlitching)
-{
-    if (slot.container == null) return;
-
-    if (data == null)
     {
-        slot.container.SetActive(false);
-        ResetSlotEffects(slot);
-        return;
-    }
+        if (slot.container == null) return;
 
-    slot.container.SetActive(true);
-
-    if (slot.text != null)
-        slot.text.text = data.choiceText;
-
-    if (slot.option != null)
-        slot.option.ResetChoice();
-
-    ResetSlotEffects(slot);
-
-    // 1. หมอสติลด = ตัวอักษรมั่ว (Glitch) อย่างเดียว
-    if (isDoctorGlitching)
-    {
-        if (slot.glitch != null)
+        if (data == null)
         {
-            slot.glitch.SetBaseText(data.choiceText);
-            slot.glitch.SetGlitching(true);
+            slot.container.SetActive(false);
+            ResetSlotEffects(slot);
+            return;
         }
-        return;
-    }
 
-    // 2. คนไข้ Meltdown = ตัวอักษรสั่น (Shake) อย่างเดียว
-    if (isPatientMeltdown)
-    {
-        if (slot.shake != null) slot.shake.SetShaking(true);
-        return;
+        slot.container.SetActive(true);
+
+        if (slot.text != null)
+            slot.text.text = data.choiceText;
+
+        if (slot.option != null)
+            slot.option.ResetChoice();
+
+        ResetSlotEffects(slot);
+
+        if (isDoctorGlitching)
+        {
+            if (slot.glitch != null)
+            {
+                slot.glitch.SetBaseText(data.choiceText);
+                slot.glitch.SetGlitching(true);
+            }
+            return;
+        }
+
+        if (isPatientMeltdown)
+        {
+            if (slot.shake != null) slot.shake.SetShaking(true);
+            return;
+        }
     }
-}
 
     public void OnChoiceConfirmed(bool isLeftSide)
     {

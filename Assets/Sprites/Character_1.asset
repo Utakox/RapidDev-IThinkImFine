@@ -26,6 +26,8 @@ MonoBehaviour:
     stopSoundBetweenLines: 0
     holdAfterFinish: 2.5
     ambienceOneShot: {fileID: 0}
+  inspectSprite: {fileID: 7701467319694953680, guid: 48db54ba764c3654d9465dd90fb5f4fa, type: 3}
+  portraitSprite: {fileID: -2900486277599875826, guid: 1da1a0b0a8edb64499591ebde6b62e81, type: 3}
   faceHigh: {fileID: -3854747056432117878, guid: 1daa36eddfff07246bf297c2238f8c03, type: 3}
   faceMid: {fileID: -4899330942685619882, guid: 65877db9e2a22d049b5015598100c1f0, type: 3}
   faceLow: {fileID: 3034153364746735271, guid: c5126a3f69ba19d40923f84c96276ed6, type: 3}

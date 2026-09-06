@@ -14,6 +14,13 @@ public class CharacterRuntime : MonoBehaviour
     [Tooltip("เว้นว่าง = ใช้ Default Mental State Effects ของ DialogueManager\n(ต้องไว้ตรงนี้ ไม่ใช่ใน CharacterData เพราะ ScriptableObject ลาก GameObject ในซีนใส่ไม่ได้)")]
     public GameObject[] mentalStateEffectOverride;
 
+    [Header("Shake ตัว Image คนไข้เองตอนเข้า Mental State")]
+    [Tooltip("ลาก ImageShakeEffect ที่ติดอยู่บน Image ของตัวละครนี้ (object เดียวกับที่มี CharacterRuntime นี่แหละ)")]
+    [SerializeField] private ImageShakeEffect imageShake;
+
+    // true เมื่อ Sanity ต่ำกว่าเกณฑ์ mentalStateThreshold ของตัวละครนี้ (กำหนดใน CharacterData)
+    public bool IsInMentalState => data != null && Sanity < data.mentalStateThreshold;
+
     public int Sanity { get; private set; }
 
     // ไล่ index ว่าตอนนี้ choice ปกติ (goodChoices/badChoices) ไปถึงคู่ที่เท่าไหร่แล้ว
@@ -45,6 +52,7 @@ public class CharacterRuntime : MonoBehaviour
         Sanity = Mathf.Clamp(data.startingSanity, 0, 100);
         UpdateFace();
         UpdateSanityText();
+        UpdateMentalStateShake();
         initialized = true;
     }
 
@@ -53,6 +61,14 @@ public class CharacterRuntime : MonoBehaviour
         Sanity = Mathf.Clamp(Sanity + amount, 0, 100);
         UpdateFace();
         UpdateSanityText();
+        UpdateMentalStateShake();
+    }
+
+    // เรียกทุกครั้งที่ Sanity เปลี่ยน เช็คว่าควรสั่นหรือไม่ตามเกณฑ์ mentalStateThreshold
+    private void UpdateMentalStateShake()
+    {
+        if (imageShake != null)
+            imageShake.SetShaking(IsInMentalState);
     }
 
     private void UpdateFace()
