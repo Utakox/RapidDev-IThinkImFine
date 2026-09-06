@@ -68,7 +68,15 @@ public class CharacterManager : MonoBehaviour
 
             NarrationManager.Instance.PlaySequence(
                 endingNarration,
-                onComplete: () => SwitchToNextCharacterAlreadyBlack(),
+                onComplete: () =>
+                {
+                    // ซ่อนตัวละครที่จบไปเลยทันทีตรงนี้ ก่อนทำอะไรต่อ (สลับ index / โชว์ตัวถัดไป)
+                    // ไม่ต้องพึ่งพาว่าจอจะดำสนิทหรือเปล่า ต่อให้เฟดมีปัญหายังไง ก็ไม่มีตัวละครให้เห็นอยู่ดี
+                    if (finished != null)
+                        finished.gameObject.SetActive(false);
+
+                    SwitchToNextCharacterAlreadyBlack();
+                },
                 alreadyBlack: true,
                 fadeOutAtEnd: false);
         });
@@ -76,9 +84,7 @@ public class CharacterManager : MonoBehaviour
 
     private void SwitchToNextCharacterAlreadyBlack()
     {
-        if (characters[currentIndex] != null)
-            characters[currentIndex].gameObject.SetActive(false);
-            
+        // ตัวเก่าถูกซ่อนไปแล้วใน NextCharacter() ด้านบน ไม่ต้อง SetActive(false) ซ้ำตรงนี้อีก
         currentIndex++;
 
         if (currentIndex >= characters.Length)

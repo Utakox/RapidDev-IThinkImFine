@@ -22,6 +22,8 @@ MonoBehaviour:
     stopSoundBetweenLines: 0
     holdAfterFinish: 2.5
     ambienceOneShot: {fileID: 0}
+  inspectSprite: {fileID: 0}
+  portraitSprite: {fileID: 0}
   faceHigh: {fileID: 3221805527623481839, guid: ca2aec7fd619b4548811e77b2a8c56ca, type: 3}
   faceMid: {fileID: -6151947031659395466, guid: 007336539f69eb54ea706f494b354bdb, type: 3}
   faceLow: {fileID: 7610235241894926666, guid: 9ee5f33b86cf0ed43812b4fb0f542e14, type: 3}
@@ -32,6 +34,7 @@ MonoBehaviour:
   - choiceText: Validate him as a victim who was threatened by a corrupt corporate
       system.
     sanityChange: 1
+    doctorSanityChange: 0
     afterDialogue:
     - text: (He laughs hollowly, shaking his head frantically)
       typeSpeedOverride: 0.08
@@ -49,6 +52,7 @@ MonoBehaviour:
   - choiceText: Reassure him that writing the initial warning report proves he has
       a moral conscience.
     sanityChange: 1
+    doctorSanityChange: 0
     afterDialogue:
     - text: (He laughs hollowly, shaking his head frantically)
       typeSpeedOverride: 0.08
@@ -65,6 +69,7 @@ MonoBehaviour:
       typingLoopOverride: {fileID: 0}
   - choiceText: Urge him to focus on survival and finding a way to make amends.
     sanityChange: 1
+    doctorSanityChange: 0
     afterDialogue:
     - text: (He suddenly stops trembling and gives a faint, eerily calm smile)
       typeSpeedOverride: 0.08
@@ -79,16 +84,125 @@ MonoBehaviour:
       shakeText: 0
       shakeIntensity: 4
       typingLoopOverride: {fileID: 0}
-  badChoices: []
+  badChoices:
+  - choiceText: Emphasize the blood money he willingly accepted to stay quiet.-
+    sanityChange: -10
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (He violently hits his own head with his palms)
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: I traded forty-two lives for a bloody paycheck... You're right. I knew!
+        I always knew!
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Order him to calculate the structural load that crushed the victims.
+    sanityChange: -10
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (His breathing turns into violent hyperventilation, looking frantically
+        around the ceiling)
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: Two thousand tons... two thousand tons of load... and it's all pressing
+        down on my chest right now.
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Question his right to live when forty-two innocent people died.
+    sanityChange: -10
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (His eyes freeze into a total blank stare, all panic instantly vanishing)
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: You're right. A collapsed column shouldn't be standing. It just clutters
+        the ground.
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Declare his mental structure completely collapsed and beyond repair.
+    sanityChange: -10
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (He slowly stands up, staring straight past you with completely lifeless
+        eyes)
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: I'm so tired of hearing them scream, Doctor... I just want it to be quiet.
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
   sanityThreshold: 50
   crisisChoices:
-  - choiceText: Slam the emergency button and call a guard
+  - choiceText: Tell him that survival means carrying the weight of forty-two bodies
+      forever.
     sanityChange: 0
+    doctorSanityChange: 0
     afterDialogue:
-    - text: 
+    - text: Forty-two bodies... multiplied by average weight... plus the concrete...
+        No... I can't hold it anymore! It's falling on me!
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: (His eyes glaze over, staring blankly at the ceiling as his body trembles
+        uncontrollably.)
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Hand him the accident photos and force him to look at the consequences
+      of his silence.
+    sanityChange: 0
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: THE BUILDING IS COLLAPSING! THE BEAMS ARE SNAPPING! GET THEM OUT! I CAN'T
+        HOLD TWO THOUSAND TONS!
       typeSpeedOverride: 0
       delayAfterOverride: 0
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   goodEndingChoices: []
+  mentalStateThreshold: 25
+  mentalStateClipOverride: {fileID: 0}
+  goodEndingNarration:
+    enabled: 1
+    lines: []
+    typingLoopClip: {fileID: 0}
+    typingVolume: 1
+    stopSoundBetweenLines: 0
+    holdAfterFinish: 2.5
+    ambienceOneShot: {fileID: 0}
+  crisisEndingNarration:
+    enabled: 1
+    lines: []
+    typingLoopClip: {fileID: 0}
+    typingVolume: 1
+    stopSoundBetweenLines: 0
+    holdAfterFinish: 2.5
+    ambienceOneShot: {fileID: 0}

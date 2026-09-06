@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b264a7fa3ba11f14d8dda854532efbf9
+guid: 5da989742a111e241a34fe2a2a7dbffb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -590895453614479148
-    second: Subject 01 (10)-Photoroom_0
+      213: -7901941117833382281
+    second: C2_Sad_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Subject 01 (10)-Photoroom_0
+      name: C2_Sad_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 3
-        width: 107
-        height: 108
+        x: 130
+        y: 5
+        width: 651
+        height: 1028
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4d86ae337b7bcc7f0800000000000000
-      internalID: -590895453614479148
+      spriteID: 776fc7b6b6aa65290800000000000000
+      internalID: -7901941117833382281
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Subject 01 (10)-Photoroom_0: -590895453614479148
+      C2_Sad_0: -7901941117833382281
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

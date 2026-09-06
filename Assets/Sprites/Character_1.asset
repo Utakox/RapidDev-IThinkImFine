@@ -13,16 +13,38 @@ MonoBehaviour:
   m_Name: Character_1
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Sam
-  startingSanity: 50
+  startingSanity: 80
   introNarration:
     enabled: 1
     lines:
-    - text: ddd
+    - text: 'The human mind does not break like glass. It melts like wax.
+
+        
+
+        Under
+        intense heat, a soul loses its shape, dripping away into the dark. In this
+        quiet room, your words are the flame.
+
+        
+
+        Across the desk
+        sits Subject 01. Seventeen years old. Hollow eyes, pale skin, shaking hands.
+        He burns himself alive every night, fed by cheap coffee and his mother''s
+        sacrifices.
+
+        
+
+        He is already melting.
+
+        
+
+        Will
+        you cool his mind... or turn up the heat and watch him dissolve?'
       typeSpeed: 0.04
       delayAfter: 0.8
       clearBefore: 0
-    typingLoopClip: {fileID: 8300000, guid: 9e68f89e38e555b4a993f6b016f87cf9, type: 3}
-    typingVolume: 1
+    typingLoopClip: {fileID: 8300000, guid: ab9b8e50d1b25f843a136ef6473c196c, type: 3}
+    typingVolume: 0.724
     stopSoundBetweenLines: 0
     holdAfterFinish: 2.5
     ambienceOneShot: {fileID: 0}
@@ -105,7 +127,7 @@ MonoBehaviour:
   badChoices:
   - choiceText: Remind him how much money his mother spends on his education each
       month.
-    sanityChange: -80
+    sanityChange: -10
     doctorSanityChange: 0
     afterDialogue:
     - text: (His face goes pale. He grips his chair)
@@ -122,7 +144,7 @@ MonoBehaviour:
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   - choiceText: Point out that none of his classmates seem to notice his absence.
-    sanityChange: -5
+    sanityChange: -10
     doctorSanityChange: 0
     afterDialogue:
     - text: (He crosses his arms defensively, avoiding your gaze)
@@ -138,7 +160,7 @@ MonoBehaviour:
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   - choiceText: Slide a blank paper forward and order him to draw his exhausted mother.
-    sanityChange: -5
+    sanityChange: -10
     doctorSanityChange: 0
     afterDialogue:
     - text: (His hands shake so violently he drops the pencil)
@@ -155,8 +177,8 @@ MonoBehaviour:
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   - choiceText: Maintain absolute silence until the pressure forces him to speak.
-    sanityChange: -5
-    doctorSanityChange: 0
+    sanityChange: -10
+    doctorSanityChange: 15
     afterDialogue:
     - text: (He suddenly buries his face in his hands, trembling)
       typeSpeedOverride: 0.08
@@ -224,20 +246,43 @@ MonoBehaviour:
   goodEndingNarration:
     enabled: 1
     lines:
-    - text: test
-      typeSpeed: 0
+    - text: 'The medical leave you authorized halted his rapid mental collapse. Forced
+        into rest, his exhausted brain finally stopped its frantic spiraling. When
+        he confessed his twisted guilt to his mother, she wept realizing her silent
+        sacrifices had inadvertently forged a cage around her son.
+
+
+        The
+        cheap coffee cans vanished from his desk. The delusion that sleep is a betrayal
+        has been permanently severed. For the first time in months, he no longer
+        fights his heavy eyelids. He simply closes his eyes and lets himself rest.'
+      typeSpeed: 0.06
       delayAfter: 0
       clearBefore: 0
-    typingLoopClip: {fileID: 0}
-    typingVolume: 1
+    typingLoopClip: {fileID: 8300000, guid: 9e68f89e38e555b4a993f6b016f87cf9, type: 3}
+    typingVolume: 0.487
     stopSoundBetweenLines: 0
-    holdAfterFinish: 2.5
+    holdAfterFinish: 5
     ambienceOneShot: {fileID: 0}
   crisisEndingNarration:
     enabled: 1
-    lines: []
-    typingLoopClip: {fileID: 0}
-    typingVolume: 1
+    lines:
+    - text: 'Your harsh pressure pushed his fragile psyche past its breaking point.
+        The devastating realization that his relentless effort was utterly useless
+        triggered a total mental meltdown, shattering what little sanity he had left.
+
+
+        He
+        dropped out of school a week later, completely consumed by severe paranoia
+        and crippling insomnia. Now locked away in his dark bedroom, he lies catatonic,
+        unable to look his weeping mother in the eye. Your clinical cruelty confirmed
+        his ultimate nightmare: he is nothing more than a parasite destroying her
+        life.'
+      typeSpeed: 0.06
+      delayAfter: 0
+      clearBefore: 0
+    typingLoopClip: {fileID: 8300000, guid: ab9b8e50d1b25f843a136ef6473c196c, type: 3}
+    typingVolume: 0.47
     stopSoundBetweenLines: 0
-    holdAfterFinish: 2.5
+    holdAfterFinish: 5
     ambienceOneShot: {fileID: 0}

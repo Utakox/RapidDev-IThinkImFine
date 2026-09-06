@@ -11,8 +11,8 @@ public class SanityHoldInteractable : HoldInteractable
     [Tooltip("ถ้ากำลังพิมพ์บทพูดหลักอยู่ หรือกำลังรอผู้เล่นเลือก choice ค้างอยู่ dialogue นี้จะไม่เล่น (กันชนกัน) แล้วข้ามไปทำ Finish ทันที")]
     [SerializeField] private DialogueLine[] specialDialogue;
 
-    [Header("กดครั้งเดียวแล้วปิดตัวเอง (เช่น เก็บของ/ทำลายของ) หรือกดซ้ำได้เรื่อยๆ")]
-    [SerializeField] private bool disableAfterConfirm = true;
+    [Header("คูลดาวน์หลัง Confirm แต่ละครั้ง (ปรับเลขได้ใน Inspector, กดซ้ำได้เรื่อยๆ หลังหมดคูลดาวน์)")]
+    [SerializeField] private float cooldownDuration = 5f;
 
     protected override void Confirm()
     {
@@ -38,9 +38,8 @@ public class SanityHoldInteractable : HoldInteractable
 
     private void FinishInteract()
     {
-        if (disableAfterConfirm)
-            gameObject.SetActive(false);
-        else
-            ResetInteractable(); // เผื่ออยากให้กดซ้ำได้ (เช่นปุ่มกดซ้ำเพื่อลด sanity ทีละนิด)
+        // เดิม: disableAfterConfirm ? gameObject.SetActive(false) : ResetInteractable()
+        // ตอนนี้ไม่มี "ใช้ครั้งเดียวจบ" อีกแล้ว เข้าคูลดาวน์เสมอ กดซ้ำได้ตลอดหลังหมดเวลา
+        StartCooldown(cooldownDuration);
     }
 }

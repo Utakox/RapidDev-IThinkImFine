@@ -21,8 +21,6 @@ public class CustomCursor : MonoBehaviour
         Instance = this;
         Cursor.visible = false; // ซ่อนเมาส์ของระบบ ใช้ Image นี้แทน
 
-        // เดิม cursorRect เป็น field ที่ต้องลากเองใน Inspector ถ้าลืมลาก = Update() จะ return เงียบๆ ทุกเฟรม
-        // ดูเหมือนเมาส์ "ค้าง" ทั้งที่จริงๆ แค่ไม่มี reference ให้ขยับ กันไว้ด้วยการ fallback ไปใช้ตัวเอง
         if (cursorRect == null)
             cursorRect = GetComponent<RectTransform>();
 
@@ -41,36 +39,38 @@ public class CustomCursor : MonoBehaviour
             countdownText.gameObject.SetActive(false);
         if (cursorImage != null)
             cursorImage.enabled = true;
-        
     }
 
     private void Update()
-{
-    if (canvas == null || cursorRect == null) return;
-
-    // เช็ค RenderMode ของ Canvas เพื่อเลือก Camera ที่ถูกต้อง
-    Camera cam = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
-
-    // แปลงพิกัดหน้าจอตรงเข้า RectTransform ของ Parent ได้ทันที
-    if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-        cursorRect.parent as RectTransform,
-        Input.mousePosition,
-        cam,
-        out Vector2 localPoint))
     {
-        if (cursorRect.parent == canvasRect)
+        if (canvas == null || cursorRect == null) return;
+
+        // เช็ค RenderMode ของ Canvas เพื่อเลือก Camera ที่ถูกต้อง
+        Camera cam = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+
+        // แปลงพิกัดหน้าจอตรงเข้า RectTransform ของ Parent ได้ทันที
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            cursorRect.parent as RectTransform,
+            Input.mousePosition,
+            cam,
+            out Vector2 localPoint))
         {
-            cursorRect.anchoredPosition = localPoint;
+            if (cursorRect.parent == canvasRect)
+            {
+                cursorRect.anchoredPosition = localPoint;
+            }
+            else
+            {
+                Vector3 worldPoint = canvasRect.TransformPoint(localPoint);
+                cursorRect.position = worldPoint;
+            }
+
+            // *** เอาบรรทัด "cursorImage.enabled = true;" ที่เคยอยู่ตรงนี้ออกแล้ว ***
+            // ของเดิมบังคับเปิด cursorImage ทุกเฟรมที่คำนวณตำแหน่งสำเร็จ (เกือบทุกเฟรมที่เมาส์อยู่บนจอ)
+            // เลยไปเขียนทับค่าที่ ShowCountdown() เพิ่งสั่งปิดไปเมื่อเฟรมก่อนหน้า -> คอร์เซอร์เลยไม่ยอมหาย
+            // ต่อไปนี้ปล่อยให้ ShowCountdown()/HideCountdown() เป็นจุดเดียวที่คุมการเปิด-ปิด cursorImage
         }
-        else
-        {
-            Vector3 worldPoint = canvasRect.TransformPoint(localPoint);
-            cursorRect.position = worldPoint;
-        }
-        if (cursorImage != null)
-            cursorImage.enabled = true;
     }
-}
 
     public void ShowCountdown()
     {
@@ -84,11 +84,19 @@ public class CustomCursor : MonoBehaviour
             countdownText.text = secondsLeft.ToString("F1");
     }
 
+    // เหมือน UpdateCountdown แต่เปลี่ยนข้อความเป็น "Cooldown: X" ใช้ตอน HoldInteractable อยู่ในสถานะคูลดาวน์
+    public void UpdateCooldownText(float secondsLeft)
+    {
+        if (countdownText != null)
+            countdownText.text = $"Cooldown: {secondsLeft:F1}";
+    }
+
     public void HideCountdown()
     {
         if (countdownText != null) countdownText.gameObject.SetActive(false);
         if (cursorImage != null) cursorImage.enabled = true;
     }
+
     private void OnDestroy()
     {
         Cursor.visible = true;

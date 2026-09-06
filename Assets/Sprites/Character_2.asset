@@ -12,29 +12,252 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daecc414a082f8c4aafa1df04beefc1e, type: 3}
   m_Name: Character_2
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
-  characterName: testhgfhfgd
-  startingSanity: 100
-  faceHigh: {fileID: -4235970982670264726, guid: f4da8932a0717dd41b612dc4bf2fc8b9, type: 3}
-  faceMid: {fileID: -5174173694450231997, guid: 60780214bbf82454dbd5eca83aa19cf1, type: 3}
-  faceLow: {fileID: -4235970982670264726, guid: f4da8932a0717dd41b612dc4bf2fc8b9, type: 3}
-  faceBroken: {fileID: 368930124168800883, guid: b46d15054c6551e4299f2d07f6cdc17d, type: 3}
+  characterName: Sola
+  startingSanity: 40
+  introNarration:
+    enabled: 1
+    lines:
+    - text: 'Silence can be louder than a scream.
+
+        Some people build walls
+        around their minds; others drown in the quiet.
+
+
+
+        Subject 02 sits
+        across from you. Twenty-two years old. Blank eyes. Pale skin stained with
+        dried acrylic paint. She is an orphan of the real world and a ghost in the
+        digital one. She pours her soul onto empty canvases, only to be met with
+        absolute, deafening indifference.
+
+
+
+        Without anything left to drown
+        out the noise of her own insignificance, the silence in the room is suffocating.
+
+
+
+        Will
+        you break through the quiet and give her a voice... or let her sink into
+        the static?'
+      typeSpeed: 0
+      delayAfter: 0
+      clearBefore: 0
+    typingLoopClip: {fileID: 0}
+    typingVolume: 1
+    stopSoundBetweenLines: 0
+    holdAfterFinish: 2.5
+    ambienceOneShot: {fileID: 0}
+  inspectSprite: {fileID: 0}
+  portraitSprite: {fileID: 0}
+  faceHigh: {fileID: -3610208547073541062, guid: 47bce665a7e1d584fb0113654a4853d3, type: 3}
+  faceMid: {fileID: -7146858243547931844, guid: 8531be498a05673449b931367685f8d0, type: 3}
+  faceLow: {fileID: -7901941117833382281, guid: 5da989742a111e241a34fe2a2a7dbffb, type: 3}
+  faceBroken: {fileID: -409418157473551590, guid: 15881f90b2f693e438d0452a5db9c08b, type: 3}
   introDialogue:
   - text: e dok
+    typeSpeedOverride: -1
+    delayAfterOverride: -1
+    shakeText: 0
+    shakeIntensity: 1
+    typingLoopOverride: {fileID: 0}
+  sanityDialogueTriggers: []
   goodChoices:
-  - choiceText: fdgfdg
-    sanityChange: 0
+  - choiceText: Inquire why she chose cerulean blue for the unposted sketch on her
+      tablet.
+    sanityChange: 20
+    doctorSanityChange: 0
     afterDialogue:
-    - text: gdfgdg
+    - text: (She pauses, her paint-stained fingers lightly tracing the screen.)
+      typeSpeedOverride: -1
+      delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 1
+      typingLoopOverride: {fileID: 0}
+    - text: This blue... it's what I saw from the orphanage window. It proves I was
+        actually there.
+      typeSpeedOverride: -1
+      delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 1
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Gently ask her to remove her headphones and be present in the room.
+    sanityChange: 20
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (She slowly pulls one earcup back, letting the static bleed out.)
+      typeSpeedOverride: -1
+      delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 1
+      typingLoopOverride: {fileID: 0}
+    - text: It's the sound of chaos... It's safer than the silence. The silence tells
+        me no one wants me.
+      typeSpeedOverride: -1
+      delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 1
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Request she turn off the screen so you can observe her actual physical
+      canvas instead.
+    sanityChange: 20
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (She slowly turns off the screen, staring at the stubborn paint stains
+        on her fingertips.)
+      typeSpeedOverride: -1
+      delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 1
+      typingLoopOverride: {fileID: 0}
+    - text: It's messy. It's imperfect... But it's real, isn't it, Doctor?
+      typeSpeedOverride: -1
+      delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 1
+      typingLoopOverride: {fileID: 0}
   badChoices:
-  - choiceText: gdfgd
-    sanityChange: 0
-    afterDialogue: []
+  - choiceText: Suggest she analyze popular AI art to adapt her style for better
+      algorithm engagement.
+    sanityChange: -20
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (She grips the tablet until her knuckles turn white, eyes trembling.)
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: Adapt... If my soul isn't enough, and I have to copy a machine... why
+        do I even exist?
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Note that her white noise is just another algorithmically generated
+      sound, same as AI art.
+    sanityChange: -20
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (Her breath hitches. She violently presses the headphones against her
+        skull.)
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: No! This is my hiding place! If even this is fake... where am I supposed
+        to go?!
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Advise her to read the critiques objectively to find actionable data
+      for improvement.
+    sanityChange: -20
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (Her eyes dart across the cruel comments, absorbing every 'trash' and
+        'worthless' until she shrinks back into the abandoned orphan she always was.)
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
   sanityThreshold: 50
   crisisChoices:
-  - choiceText: gdfgd
+  - choiceText: Advise her that true artistic freedom means deleting all her accounts
+      and disappearing completely.
     sanityChange: 0
-    afterDialogue: []
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (Her eyes go dead. After deleting her accounts, she frantically claws
+        the paint off her arms to erase herself entirely.)
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 1
+      shakeIntensity: 8
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Conclude that if she refuses to adapt to the digital age, she should
+      just turn the volume up and accept isolation.
+    sanityChange: 0
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (Cranking the deafening static to the max, she curls into a tight ball,
+        fully accepting her fate as invisible digital trash.
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 1
+      shakeIntensity: 8
+      typingLoopOverride: {fileID: 0}
   goodEndingChoices:
-  - choiceText: gfdgfdg
+  - choiceText: Ask if you can keep one of her physical sketches for your office
+      wall
     sanityChange: 0
-    afterDialogue: []
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (Taking off her headphones, she hands you a torn page.)
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: This... is the first time anyone wanted to keep a part of me.
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Offer to sit in comfortable silence while she draws, proving she
+      doesn't need to perform for an audience.
+    sanityChange: 0
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: This... is the first time anyone wanted to keep a part of me.
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  mentalStateThreshold: 25
+  mentalStateClipOverride: {fileID: 0}
+  goodEndingNarration:
+    enabled: 1
+    lines:
+    - text: "By acknowledging the tangible reality of her paint-stained hands, you
+        grounded her fractured identity. The suffocating silence of her abandonment
+        has finally been broken. She permanently deleted her metric-driven social
+        accounts, no longer screaming into a digital abyss that refuses to look back.
+        \n\nWhile she still carries the deep, lingering scars of an orphaned child,
+        she no longer hides behind a wall of deafening white noise. For the first
+        time, she simply paints not to desperately prove her existence to a phantom
+        audience, but because she finally believes she is real."
+      typeSpeed: 0.05
+      delayAfter: 0
+      clearBefore: 0
+    typingLoopClip: {fileID: 0}
+    typingVolume: 1
+    stopSoundBetweenLines: 0
+    holdAfterFinish: 2.5
+    ambienceOneShot: {fileID: 0}
+  crisisEndingNarration:
+    enabled: 1
+    lines:
+    - text: 'Your calculated apathy confirmed her absolute worst fear: she is entirely
+        invisible to the world. Pushed into total psychological collapse, she systematically
+        wiped every digital trace of her artwork, fully accepting her fate as discarded,
+        worthless data. Now confined to a long-term psychiatric ward, she shrinks
+        into the dark corners of her cell with her headphones blaring maximum static.
+        Her mind has completely dissolved into the noise, and she relentlessly claws
+        at her own arms, frantically trying to scrape away the last physical traces
+        of a girl who was never truly there.'
+      typeSpeed: 0.05
+      delayAfter: 0
+      clearBefore: 0
+    typingLoopClip: {fileID: 0}
+    typingVolume: 1
+    stopSoundBetweenLines: 0
+    holdAfterFinish: 2.5
+    ambienceOneShot: {fileID: 0}
