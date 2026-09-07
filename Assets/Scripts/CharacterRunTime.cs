@@ -77,8 +77,8 @@ public class CharacterRuntime : MonoBehaviour
 
         if (Sanity > 90)      faceImage.sprite = data.faceHigh;    // 91-100
         else if (Sanity > 70) faceImage.sprite = data.faceMid;     // 71-90
-        else if (Sanity > 50) faceImage.sprite = data.faceLow;     // 51-70
-        else                  faceImage.sprite = data.faceBroken;  // 0-50
+        else if (Sanity > 30) faceImage.sprite = data.faceLow;     // 31-70
+        else                  faceImage.sprite = data.faceBroken;  // 0-30
     }
 
     private void UpdateSanityText()

@@ -838,12 +838,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67659baf60e589e47b767fafa7ec1dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoctorSanityManager
-  startingSanity: 80
-  glitchThreshold: 40
-  baseSanityLossPerChoice: 7
+  startingSanity: 100
+  glitchThreshold: 45
+  baseSanityLossPerChoice: 10
   sanityDebugText: {fileID: 965357030}
   sanityMeter: {fileID: 1112986900}
-  normalColor: {r: 0.14901961, g: 0.7411765, b: 0.68235296, a: 1}
+  normalColor: {r: 0.27317187, g: 0.7132075, b: 0.6707478, a: 1}
   glitchColor: {r: 1, g: 0, b: 0, a: 1}
   meterFillImage: {fileID: 580322631}
   lowSanityEffects:
@@ -993,6 +993,7 @@ GameObject:
   - component: {fileID: 397440384}
   - component: {fileID: 397440386}
   - component: {fileID: 397440385}
+  - component: {fileID: 397440387}
   m_Layer: 5
   m_Name: Hour-Glass
   m_TagString: Untagged
@@ -1057,6 +1058,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 397440383}
   m_CullTransparentMesh: 1
+--- !u!114 &397440387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397440383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11e02c84135ba72429444c33906aa501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SanityHoldInteractable
+  holdDuration: 2
+  glitchHoverSpeedMultiplier: 0.4
+  sanityDelta: 25
+  specialDialogue:
+  - text: test
+    typeSpeedOverride: 0
+    delayAfterOverride: 0
+    shakeText: 0
+    shakeIntensity: 0
+    typingLoopOverride: {fileID: 0}
+  disableAfterConfirm: 1
 --- !u!1 &410047443
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,7 +2342,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &715035446
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2498,9 +2522,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SanityHoldInteractable
   holdDuration: 2
   glitchHoverSpeedMultiplier: 0.4
-  sanityDelta: 20
-  specialDialogue: []
-  cooldownDuration: 5
+  sanityDelta: 15
+  specialDialogue:
+  - text: test
+    typeSpeedOverride: 0
+    delayAfterOverride: 0
+    shakeText: 0
+    shakeIntensity: 0
+    typingLoopOverride: {fileID: 0}
+  disableAfterConfirm: 1
 --- !u!1 &794901343
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,7 +2643,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -345, y: 45.302}
+  m_AnchoredPosition: {x: -345, y: 101}
   m_SizeDelta: {x: 524.3585, y: 50.2988}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &817367537
@@ -2702,7 +2732,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -2.6564941, y: 0, z: -4.048462, w: 1.007782}
+  m_margin: {x: 8.233643, y: -14.520264, z: 55.848145, w: -160.85107}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2861,6 +2891,7 @@ RectTransform:
   - {fileID: 1966535060}
   - {fileID: 1073213745}
   - {fileID: 715035446}
+  - {fileID: 1697187915}
   - {fileID: 336113568}
   - {fileID: 1990283475}
   - {fileID: 1492213041}
@@ -3256,6 +3287,7 @@ MonoBehaviour:
   characters:
   - {fileID: 1073213746}
   - {fileID: 715035448}
+  - {fileID: 1697187917}
   onAllCharactersFinished:
     m_PersistentCalls:
       m_Calls: []
@@ -3953,7 +3985,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1073213745
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4356,7 +4388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -627.93, y: 45.302}
+  m_AnchoredPosition: {x: -627.93, y: 89}
   m_SizeDelta: {x: -1552.1467, y: -946.022}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1186598771
@@ -4445,7 +4477,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 2.7001953, y: 0.5093384, z: -11.564697, w: -6.099945}
+  m_margin: {x: -19.080078, y: 0.5093384, z: -67.83069, w: -98.66638}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5791,6 +5823,115 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1650617229}
   m_CullTransparentMesh: 1
+--- !u!1 &1697187914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1697187915}
+  - component: {fileID: 1697187919}
+  - component: {fileID: 1697187918}
+  - component: {fileID: 1697187917}
+  - component: {fileID: 1697187916}
+  m_Layer: 5
+  m_Name: Character_03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1697187915
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697187914}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.14, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 833658048}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -22.546, y: -52}
+  m_SizeDelta: {x: 397.5769, y: 635.1541}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1697187916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697187914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9b2a4df013b7640ac5d01635b47acc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ImageShakeEffect
+  intensity: 20
+  shakeSpeed: 25
+  shakeDuration: 2.5
+  pauseBetweenShakes: 1.4
+--- !u!114 &1697187917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697187914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58301949c1fd3024e83097de49591223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterRuntime
+  data: {fileID: 11400000, guid: cc11698e74f1f7d4499bfd8e526439b4, type: 2}
+  sanityText: {fileID: 1906661086}
+  mentalStateEffectOverride: []
+  imageShake: {fileID: 1697187916}
+--- !u!114 &1697187918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697187914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1697187919
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697187914}
+  m_CullTransparentMesh: 1
 --- !u!1 &1718873370
 GameObject:
   m_ObjectHideFlags: 0
@@ -6989,6 +7130,7 @@ GameObject:
   - component: {fileID: 2128066440}
   - component: {fileID: 2128066442}
   - component: {fileID: 2128066441}
+  - component: {fileID: 2128066443}
   m_Layer: 5
   m_Name: Tissue
   m_TagString: Untagged
@@ -7053,6 +7195,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128066439}
   m_CullTransparentMesh: 1
+--- !u!114 &2128066443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128066439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11e02c84135ba72429444c33906aa501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SanityHoldInteractable
+  holdDuration: 2
+  glitchHoverSpeedMultiplier: 0.4
+  sanityDelta: 15
+  specialDialogue:
+  - text: test
+    typeSpeedOverride: 0
+    delayAfterOverride: 0
+    shakeText: 0
+    shakeIntensity: 0
+    typingLoopOverride: {fileID: 0}
+  disableAfterConfirm: 1
 --- !u!1 &2130365072
 GameObject:
   m_ObjectHideFlags: 0

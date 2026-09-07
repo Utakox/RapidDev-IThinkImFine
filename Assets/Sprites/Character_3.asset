@@ -12,28 +12,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daecc414a082f8c4aafa1df04beefc1e, type: 3}
   m_Name: Character_3
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
-  characterName: 
-  startingSanity: 50
+  characterName: John
+  startingSanity: 100
   introNarration:
     enabled: 1
-    lines: []
+    lines:
+    - text: "Subject 03 is a 45 old engineer. He is thin and exhausted, with messy
+        gray hair and a wrinkled shirt. His fingers rapidly tap the table, counting
+        invisible numbers, while his eyes keep staring up at the ceiling, waiting
+        for it to crush him. He knew a building was unsafe, but stayed silent to
+        keep his job. \n\nMonths later, it collapsed and killed dozens of innocent
+        people. Now, the sound of cracking concrete and screams never stops in his
+        head. \n\nWill you help him face his guilt, or will you let him collapse
+        under the weight?"
+      typeSpeed: 0.06
+      delayAfter: 0
+      clearBefore: 0
     typingLoopClip: {fileID: 0}
     typingVolume: 1
     stopSoundBetweenLines: 0
     holdAfterFinish: 2.5
     ambienceOneShot: {fileID: 0}
-  inspectSprite: {fileID: 0}
-  portraitSprite: {fileID: 0}
+  inspectSprite: {fileID: -8642764726227677547, guid: a873aa2fa718eae41952a85cf0f74f1b, type: 3}
+  portraitSprite: {fileID: -6733820231833881891, guid: 5d69f9deae48782449a485960233f31e, type: 3}
   faceHigh: {fileID: 3221805527623481839, guid: ca2aec7fd619b4548811e77b2a8c56ca, type: 3}
   faceMid: {fileID: -6151947031659395466, guid: 007336539f69eb54ea706f494b354bdb, type: 3}
   faceLow: {fileID: 7610235241894926666, guid: 9ee5f33b86cf0ed43812b4fb0f542e14, type: 3}
   faceBroken: {fileID: -2606069812392174807, guid: 1c54fa5b9bd2eeb40b67f3ee7879640a, type: 3}
-  introDialogue: []
+  introDialogue:
+  - text: Do you hear that? The faint grinding sound... no, of course you don't.
+    typeSpeedOverride: 0
+    delayAfterOverride: 0
+    shakeText: 0
+    shakeIntensity: 0
+    typingLoopOverride: {fileID: 0}
+  - text: It always starts with a micro-fracture. I showed my boss the flaws, but
+      he threatened my pension and told me to sign the paper.
+    typeSpeedOverride: 0
+    delayAfterOverride: 0
+    shakeText: 0
+    shakeIntensity: 0
+    typingLoopOverride: {fileID: 0}
+  - text: So I stayed quiet. Two months later, thousands of tons of concrete came
+      down. Thirty-two people, doctor.
+    typeSpeedOverride: 0
+    delayAfterOverride: 0
+    shakeText: 0
+    shakeIntensity: 0
+    typingLoopOverride: {fileID: 0}
+  - text: When the dust settled, the company forged the memos and pointed the finger
+      right at me. I became the monster on the evening news.
+    typeSpeedOverride: 0
+    delayAfterOverride: 0
+    shakeText: 0
+    shakeIntensity: 0
+    typingLoopOverride: {fileID: 0}
+  - text: 'Every time I close my eyes, I hear the steel snapping. And the same question
+      plays on a loop: ''Why didn''t I just pull the damn fire alarm?'
+    typeSpeedOverride: 0
+    delayAfterOverride: 0
+    shakeText: 0
+    shakeIntensity: 0
+    typingLoopOverride: {fileID: 0}
   sanityDialogueTriggers: []
   goodChoices:
-  - choiceText: Validate him as a victim who was threatened by a corrupt corporate
-      system.
-    sanityChange: 1
+  - choiceText: Point out that he was merely a cog in a corrupt corporate machine.
+    sanityChange: -25
     doctorSanityChange: 0
     afterDialogue:
     - text: (He laughs hollowly, shaking his head frantically)
@@ -49,26 +93,25 @@ MonoBehaviour:
       shakeText: 0
       shakeIntensity: 4
       typingLoopOverride: {fileID: 0}
-  - choiceText: Reassure him that writing the initial warning report proves he has
-      a moral conscience.
-    sanityChange: 1
+  - choiceText: Highlight his initial warning report as proof of his conscience.
+    sanityChange: -25
     doctorSanityChange: 0
     afterDialogue:
-    - text: (He laughs hollowly, shaking his head frantically)
+    - text: (He stares at his trembling hands, tears welling up in his bloodshot
+        eyes)
       typeSpeedOverride: 0.08
       delayAfterOverride: 2
       shakeText: 1
       shakeIntensity: 4
       typingLoopOverride: {fileID: 0}
-    - text: A victim? Victims are under six feet of concrete, Doctor. I signed my
-        name on the check.
+    - text: A piece of paper doesn't dig forty-two bodies out of the dirt...
       typeSpeedOverride: 0.08
       delayAfterOverride: 2
       shakeText: 0
       shakeIntensity: 4
       typingLoopOverride: {fileID: 0}
-  - choiceText: Urge him to focus on survival and finding a way to make amends.
-    sanityChange: 1
+  - choiceText: Propose finding a logical way to balance his moral debt.
+    sanityChange: -25
     doctorSanityChange: 0
     afterDialogue:
     - text: (He suddenly stops trembling and gives a faint, eerily calm smile)
@@ -84,9 +127,26 @@ MonoBehaviour:
       shakeText: 0
       shakeIntensity: 4
       typingLoopOverride: {fileID: 0}
+  - choiceText: Plead with him to let you repair his psychological foundation.
+    sanityChange: -25
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (He slowly stands up, staring straight past you with completely lifeless
+        eyes)
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 0
+      shakeIntensity: 4
+      typingLoopOverride: {fileID: 0}
+    - text: I'm so tired of hearing them scream, Doctor... I just want it to be quiet.
+      typeSpeedOverride: 0.08
+      delayAfterOverride: 2
+      shakeText: 0
+      shakeIntensity: 4
+      typingLoopOverride: {fileID: 0}
   badChoices:
   - choiceText: Emphasize the blood money he willingly accepted to stay quiet.-
-    sanityChange: -10
+    sanityChange: -25
     doctorSanityChange: 0
     afterDialogue:
     - text: (He violently hits his own head with his palms)
@@ -103,7 +163,7 @@ MonoBehaviour:
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   - choiceText: Order him to calculate the structural load that crushed the victims.
-    sanityChange: -10
+    sanityChange: -25
     doctorSanityChange: 0
     afterDialogue:
     - text: (His breathing turns into violent hyperventilation, looking frantically
@@ -121,7 +181,7 @@ MonoBehaviour:
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   - choiceText: Question his right to live when forty-two innocent people died.
-    sanityChange: -10
+    sanityChange: -25
     doctorSanityChange: 0
     afterDialogue:
     - text: (His eyes freeze into a total blank stare, all panic instantly vanishing)
@@ -138,7 +198,7 @@ MonoBehaviour:
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   - choiceText: Declare his mental structure completely collapsed and beyond repair.
-    sanityChange: -10
+    sanityChange: -25
     doctorSanityChange: 0
     afterDialogue:
     - text: (He slowly stands up, staring straight past you with completely lifeless
@@ -154,7 +214,7 @@ MonoBehaviour:
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
-  sanityThreshold: 50
+  sanityThreshold: 29
   crisisChoices:
   - choiceText: Tell him that survival means carrying the weight of forty-two bodies
       forever.
@@ -188,11 +248,20 @@ MonoBehaviour:
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   goodEndingChoices: []
-  mentalStateThreshold: 25
+  mentalStateThreshold: 27
   mentalStateClipOverride: {fileID: 0}
   goodEndingNarration:
     enabled: 1
-    lines: []
+    lines:
+    - text: "Your guidance helped him face his heavy guilt without breaking. He finally
+        stopped tapping his fingers and repeating formulas in his head. While he
+        can never erase the tragic disaster, he accepted that his silence was driven
+        by fear, not evil. \n\nThe phantom sounds of cracking concrete finally quieted
+        down. For the first time in years, he rests his hands, looks straight ahead,
+        and breathes without waiting for the ceiling to fall."
+      typeSpeed: 0.05
+      delayAfter: 0
+      clearBefore: 0
     typingLoopClip: {fileID: 0}
     typingVolume: 1
     stopSoundBetweenLines: 0
@@ -200,8 +269,20 @@ MonoBehaviour:
     ambienceOneShot: {fileID: 0}
   crisisEndingNarration:
     enabled: 1
-    lines: []
-    typingLoopClip: {fileID: 0}
+    lines:
+    - text: 'Your cold words confirmed his worst fear: he was a coward and a murderer.
+        The sound of cracking concrete in his head reached a breaking point right
+        there in your office.
+
+
+        Overwhelmed by panic, he grabbed the pen
+        from your desk and took his own life on the floor in front of you. As his
+        body went limp, the phantom screams in his head finally went silent leaving
+        you alone in the quiet room with the consequences of your words.'
+      typeSpeed: 0.05
+      delayAfter: 0
+      clearBefore: 0
+    typingLoopClip: {fileID: 8300000, guid: ab9b8e50d1b25f843a136ef6473c196c, type: 3}
     typingVolume: 1
     stopSoundBetweenLines: 0
     holdAfterFinish: 2.5

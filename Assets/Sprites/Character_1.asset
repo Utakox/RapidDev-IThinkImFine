@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Character_1
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Sam
-  startingSanity: 80
+  startingSanity: 50
   introNarration:
     enabled: 1
     lines:
@@ -40,13 +40,13 @@ MonoBehaviour:
 
         Will
         you cool his mind... or turn up the heat and watch him dissolve?'
-      typeSpeed: 0.04
-      delayAfter: 0.8
+      typeSpeed: 0.07
+      delayAfter: 0
       clearBefore: 0
     typingLoopClip: {fileID: 8300000, guid: ab9b8e50d1b25f843a136ef6473c196c, type: 3}
-    typingVolume: 0.724
+    typingVolume: 1
     stopSoundBetweenLines: 0
-    holdAfterFinish: 2.5
+    holdAfterFinish: 3
     ambienceOneShot: {fileID: 0}
   inspectSprite: {fileID: 7701467319694953680, guid: 48db54ba764c3654d9465dd90fb5f4fa, type: 3}
   portraitSprite: {fileID: -2900486277599875826, guid: 1da1a0b0a8edb64499591ebde6b62e81, type: 3}
@@ -58,7 +58,30 @@ MonoBehaviour:
   - text: "I didn't even want to come here. My mom gave up a shift at the diner for
       this appointment, which means we\u2019re down eighty bucks just so I can sit
       in this chair. So, I guess I need to get 'fixed' quickly."
-    typeSpeedOverride: 0.06
+    typeSpeedOverride: 0.05
+    delayAfterOverride: 2
+    shakeText: 0
+    shakeIntensity: 6
+    typingLoopOverride: {fileID: 0}
+  - text: "I can\u2019t sleep. Every time I close my eyes, my brain starts running
+      the numbers. Tuition fees, rent, the exact probability of me ending up as a
+      complete failure."
+    typeSpeedOverride: 0.05
+    delayAfterOverride: 2
+    shakeText: 0
+    shakeIntensity: 6
+    typingLoopOverride: {fileID: 0}
+  - text: "Everyone else is talking about dream colleges, and I\u2019m just trying
+      not to throw up in the bathroom."
+    typeSpeedOverride: 0.05
+    delayAfterOverride: 2
+    shakeText: 0
+    shakeIntensity: 6
+    typingLoopOverride: {fileID: 0}
+  - text: "If I don't get a full scholarship, my mom ruined her back working double
+      shifts for nothing. I feel like a rubber band that\u2019s been stretched out
+      for way too long. I can hear the fibers tearing. Tell me how to stop the snap"
+    typeSpeedOverride: 0.05
     delayAfterOverride: 2
     shakeText: 0
     shakeIntensity: 6
@@ -193,7 +216,7 @@ MonoBehaviour:
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
-  sanityThreshold: 40
+  sanityThreshold: 29
   crisisChoices:
   - choiceText: Order immediate medical isolation
     sanityChange: 0
@@ -241,48 +264,48 @@ MonoBehaviour:
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
-  mentalStateThreshold: 41
+  mentalStateThreshold: 29
   mentalStateClipOverride: {fileID: 8300000, guid: 457e223f7fe7ade468e3339b38f86894, type: 3}
   goodEndingNarration:
     enabled: 1
     lines:
     - text: 'The medical leave you authorized halted his rapid mental collapse. Forced
-        into rest, his exhausted brain finally stopped its frantic spiraling. When
-        he confessed his twisted guilt to his mother, she wept realizing her silent
-        sacrifices had inadvertently forged a cage around her son.
+        into mandatory rest, his exhausted brain finally stopped its frantic spiraling.
+        When he confessed his twisted guilt to his mother, she wept realizing her
+        silent sacrifices had inadvertently forged a psychological cage around her
+        son.
 
 
-        The
-        cheap coffee cans vanished from his desk. The delusion that sleep is a betrayal
-        has been permanently severed. For the first time in months, he no longer
-        fights his heavy eyelids. He simply closes his eyes and lets himself rest.'
-      typeSpeed: 0.06
+        The cheap, near-expired coffee cans vanished from his desk.
+        The delusion that sleep is an act of betrayal has been permanently severed.
+        For the first time in months, he no longer fights his heavy eyelids. He simply
+        closes his eyes and lets himself rest.'
+      typeSpeed: 0.05
       delayAfter: 0
       clearBefore: 0
-    typingLoopClip: {fileID: 8300000, guid: 9e68f89e38e555b4a993f6b016f87cf9, type: 3}
-    typingVolume: 0.487
+    typingLoopClip: {fileID: 8300000, guid: ab9b8e50d1b25f843a136ef6473c196c, type: 3}
+    typingVolume: 1
     stopSoundBetweenLines: 0
-    holdAfterFinish: 5
+    holdAfterFinish: 2.5
     ambienceOneShot: {fileID: 0}
   crisisEndingNarration:
     enabled: 1
     lines:
-    - text: 'Your harsh pressure pushed his fragile psyche past its breaking point.
-        The devastating realization that his relentless effort was utterly useless
-        triggered a total mental meltdown, shattering what little sanity he had left.
+    - text: 'Your harsh words confirmed his worst fear: all his hard work was useless,
+        and he is just a burden ruining his mother''s life. Pushed past his breaking
+        point, his mind finally shattered.
 
 
-        He
-        dropped out of school a week later, completely consumed by severe paranoia
-        and crippling insomnia. Now locked away in his dark bedroom, he lies catatonic,
-        unable to look his weeping mother in the eye. Your clinical cruelty confirmed
-        his ultimate nightmare: he is nothing more than a parasite destroying her
-        life.'
-      typeSpeed: 0.06
+        He dropped out of school a few
+        days later. Now, he locks himself in a dark bedroom, drinking nothing but
+        cheap canned coffee. He sits frozen in the corner, staring blankly at the
+        wall. He is trapped in an endless nightmare too afraid to fall asleep, but
+        too broken to keep living.'
+      typeSpeed: 0.05
       delayAfter: 0
       clearBefore: 0
     typingLoopClip: {fileID: 8300000, guid: ab9b8e50d1b25f843a136ef6473c196c, type: 3}
-    typingVolume: 0.47
+    typingVolume: 1
     stopSoundBetweenLines: 0
-    holdAfterFinish: 5
+    holdAfterFinish: 2.5
     ambienceOneShot: {fileID: 0}

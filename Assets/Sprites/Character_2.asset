@@ -12,56 +12,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daecc414a082f8c4aafa1df04beefc1e, type: 3}
   m_Name: Character_2
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
-  characterName: Sola
+  characterName: Hikiko
   startingSanity: 40
   introNarration:
     enabled: 1
     lines:
-    - text: 'Silence can be louder than a scream.
-
-        Some people build walls
-        around their minds; others drown in the quiet.
-
-
-
-        Subject 02 sits
-        across from you. Twenty-two years old. Blank eyes. Pale skin stained with
-        dried acrylic paint. She is an orphan of the real world and a ghost in the
-        digital one. She pours her soul onto empty canvases, only to be met with
-        absolute, deafening indifference.
-
-
-
-        Without anything left to drown
-        out the noise of her own insignificance, the silence in the room is suffocating.
-
-
-
-        Will
-        you break through the quiet and give her a voice... or let her sink into
-        the static?'
-      typeSpeed: 0
+    - text: "Subject 02 sits across from you. \n\nShe is twenty-two years old, with
+        blank eyes and dried paint on her pale fingers. Growing up as an orphan,
+        art was her only way to feel like she had a place in the world. She poured
+        her soul into her paintings and shared them online, begging for someone anyone
+        to notice her. But the internet gave her nothing but pure silence. Zero likes.
+        Zero comments. \n\nNow, the quiet in the room is heavy and suffocating. Will
+        you pull her out of the dark, or let her fade away into nothing?"
+      typeSpeed: 0.07
       delayAfter: 0
       clearBefore: 0
-    typingLoopClip: {fileID: 0}
+    typingLoopClip: {fileID: 8300000, guid: ab9b8e50d1b25f843a136ef6473c196c, type: 3}
     typingVolume: 1
     stopSoundBetweenLines: 0
     holdAfterFinish: 2.5
     ambienceOneShot: {fileID: 0}
-  inspectSprite: {fileID: 0}
-  portraitSprite: {fileID: 0}
+  inspectSprite: {fileID: -5576717459837320655, guid: 7d95762fe86e8ae4ca5797ce4b480f90, type: 3}
+  portraitSprite: {fileID: -1392292194018032339, guid: 5d69f9deae48782449a485960233f31e, type: 3}
   faceHigh: {fileID: -3610208547073541062, guid: 47bce665a7e1d584fb0113654a4853d3, type: 3}
   faceMid: {fileID: -7146858243547931844, guid: 8531be498a05673449b931367685f8d0, type: 3}
   faceLow: {fileID: -7901941117833382281, guid: 5da989742a111e241a34fe2a2a7dbffb, type: 3}
   faceBroken: {fileID: -409418157473551590, guid: 15881f90b2f693e438d0452a5db9c08b, type: 3}
   introDialogue:
-  - text: e dok
-    typeSpeedOverride: -1
+  - text: (She presses the headphones tighter against her ears, her blank eyes staring
+      right through you. Her voice is monotonous, completely hollow.)
+    typeSpeedOverride: 0.06
     delayAfterOverride: -1
     shakeText: 0
     shakeIntensity: 1
     typingLoopOverride: {fileID: 0}
-  sanityDialogueTriggers: []
+  - text: Do you hear it, Doctor? The static? I keep the volume at maximum so I don't
+      have to listen to the silence
+    typeSpeedOverride: 0.06
+    delayAfterOverride: -1
+    shakeText: 0
+    shakeIntensity: 1
+    typingLoopOverride: {fileID: 0}
+  - text: I don't have a family to go back to. I don't have friends who check on
+      me. My canvas was the only place where I actually existed... but when I post
+      my work online, it's just zero.
+    typeSpeedOverride: 0.06
+    delayAfterOverride: -1
+    shakeText: 0
+    shakeIntensity: 1
+    typingLoopOverride: {fileID: 0}
+  - text: "Zero likes. Zero views. Zero comments. It\u2019s like typing a message
+      to an empty universe."
+    typeSpeedOverride: 0.06
+    delayAfterOverride: -1
+    shakeText: 0
+    shakeIntensity: 1
+    typingLoopOverride: {fileID: 0}
+  - text: Millions of people scrolling past me, and not a single one knows I'm breathing.
+    typeSpeedOverride: 0.06
+    delayAfterOverride: -1
+    shakeText: 0
+    shakeIntensity: 1
+    typingLoopOverride: {fileID: 0}
+  - text: If nobody sees what I create, and nobody cares that I'm here... do I even
+      exist? Or am I just a glitch waiting to be deleted?
+    typeSpeedOverride: 0.06
+    delayAfterOverride: -1
+    shakeText: 0
+    shakeIntensity: 1
+    typingLoopOverride: {fileID: 0}
+  sanityDialogueTriggers:
+  - note: 
+    threshold: 0
+    compare: 0
+    dialogue: []
   goodChoices:
   - choiceText: Inquire why she chose cerulean blue for the unposted sketch on her
       tablet.
@@ -111,6 +135,30 @@ MonoBehaviour:
       shakeIntensity: 1
       typingLoopOverride: {fileID: 0}
     - text: It's messy. It's imperfect... But it's real, isn't it, Doctor?
+      typeSpeedOverride: -1
+      delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 1
+      typingLoopOverride: {fileID: 0}
+  - choiceText: Ask her to point out one part of the canvas she would keep, even
+      if no one else ever saw it.
+    sanityChange: 20
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (She studies the canvas quietly, then traces a small blue stroke with
+        her finger.)
+      typeSpeedOverride: -1
+      delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 1
+      typingLoopOverride: {fileID: 0}
+    - text: This part... I painted it because I liked it.
+      typeSpeedOverride: -1
+      delayAfterOverride: -1
+      shakeText: 0
+      shakeIntensity: 1
+      typingLoopOverride: {fileID: 0}
+    - text: I guess that used to be enough.
       typeSpeedOverride: -1
       delayAfterOverride: -1
       shakeText: 0
@@ -166,7 +214,30 @@ MonoBehaviour:
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
-  sanityThreshold: 50
+  - choiceText: Ask her which criticisms were correct and what she should fix first.
+    sanityChange: -20
+    doctorSanityChange: 0
+    afterDialogue:
+    - text: (Her eyes return to the comments. She begins picking apart the painting
+        piece by piece.)
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: The colors are wrong... the composition is weak...
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+    - text: Maybe there really isn't anything here worth keeping.
+      typeSpeedOverride: 0
+      delayAfterOverride: 0
+      shakeText: 0
+      shakeIntensity: 0
+      typingLoopOverride: {fileID: 0}
+  sanityThreshold: 29
   crisisChoices:
   - choiceText: Advise her that true artistic freedom means deleting all her accounts
       and disappearing completely.
@@ -221,19 +292,18 @@ MonoBehaviour:
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
-  mentalStateThreshold: 25
+  mentalStateThreshold: 29
   mentalStateClipOverride: {fileID: 0}
   goodEndingNarration:
     enabled: 1
     lines:
-    - text: "By acknowledging the tangible reality of her paint-stained hands, you
-        grounded her fractured identity. The suffocating silence of her abandonment
-        has finally been broken. She permanently deleted her metric-driven social
-        accounts, no longer screaming into a digital abyss that refuses to look back.
-        \n\nWhile she still carries the deep, lingering scars of an orphaned child,
-        she no longer hides behind a wall of deafening white noise. For the first
-        time, she simply paints not to desperately prove her existence to a phantom
-        audience, but because she finally believes she is real."
+    - text: "By looking at the paint on her hands, you proved to her that she is
+        real. The terrible silence of being unwanted has finally been broken. She
+        deleted all her social media accounts, choosing to stop screaming into an
+        internet that never listens. \n\nWhile she still carries the deep sadness
+        of an orphaned child, she no longer hides from the world. For the first time,
+        she paints simply because she wants to not to prove she exists to strangers,
+        but because she finally believes she matters."
       typeSpeed: 0.05
       delayAfter: 0
       clearBefore: 0
@@ -245,18 +315,17 @@ MonoBehaviour:
   crisisEndingNarration:
     enabled: 1
     lines:
-    - text: 'Your calculated apathy confirmed her absolute worst fear: she is entirely
-        invisible to the world. Pushed into total psychological collapse, she systematically
-        wiped every digital trace of her artwork, fully accepting her fate as discarded,
-        worthless data. Now confined to a long-term psychiatric ward, she shrinks
-        into the dark corners of her cell with her headphones blaring maximum static.
-        Her mind has completely dissolved into the noise, and she relentlessly claws
-        at her own arms, frantically trying to scrape away the last physical traces
-        of a girl who was never truly there.'
+    - text: "Your cold words confirmed her deepest fear: she is completely invisible
+        to the world. Pushed past her breaking point, she deleted every trace of
+        her art online, accepting her fate as worthless digital trash. Now locked
+        in a psychiatric ward, she shrinks into the darkest corner of her room. \n\nHer
+        mind has completely shattered. She sits alone in the dead silence, scratching
+        at her own arms until they bleed, desperately trying to erase the last physical
+        traces of a girl who was never truly there."
       typeSpeed: 0.05
       delayAfter: 0
       clearBefore: 0
-    typingLoopClip: {fileID: 0}
+    typingLoopClip: {fileID: 8300000, guid: ab9b8e50d1b25f843a136ef6473c196c, type: 3}
     typingVolume: 1
     stopSoundBetweenLines: 0
     holdAfterFinish: 2.5

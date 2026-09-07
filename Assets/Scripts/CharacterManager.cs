@@ -78,7 +78,9 @@ public class CharacterManager : MonoBehaviour
                     SwitchToNextCharacterAlreadyBlack();
                 },
                 alreadyBlack: true,
-                fadeOutAtEnd: false);
+
+                fadeOutAtEnd: false); 
+                Destroy(finished.gameObject); // ลบตัวละครที่จบไปแล้วทิ้ง (ไม่ต้องเก็บไว้ในซีน)
         });
     }
 
