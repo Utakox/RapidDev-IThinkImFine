@@ -17,18 +17,18 @@ MonoBehaviour:
   introNarration:
     enabled: 1
     lines:
-    - text: "Subject 03 is a 45 old engineer. He is thin and exhausted, with messy
-        gray hair and a wrinkled shirt. His fingers rapidly tap the table, counting
-        invisible numbers, while his eyes keep staring up at the ceiling, waiting
-        for it to crush him. He knew a building was unsafe, but stayed silent to
-        keep his job. \n\nMonths later, it collapsed and killed dozens of innocent
+    - text: "Subject 03 is a 45 old engineer. \n\nHe is thin and exhausted, with
+        messy gray hair and a wrinkled shirt. His fingers rapidly tap the table,
+        counting invisible numbers, while his eyes keep staring up at the ceiling,
+        waiting for it to crush him. He knew a building was unsafe, but stayed silent
+        to keep his job. \n\nMonths later, it collapsed and killed dozens of innocent
         people. Now, the sound of cracking concrete and screams never stops in his
         head. \n\nWill you help him face his guilt, or will you let him collapse
         under the weight?"
       typeSpeed: 0.06
       delayAfter: 0
       clearBefore: 0
-    typingLoopClip: {fileID: 0}
+    typingLoopClip: {fileID: 8300000, guid: ab9b8e50d1b25f843a136ef6473c196c, type: 3}
     typingVolume: 1
     stopSoundBetweenLines: 0
     holdAfterFinish: 2.5
@@ -262,7 +262,7 @@ MonoBehaviour:
       typeSpeed: 0.05
       delayAfter: 0
       clearBefore: 0
-    typingLoopClip: {fileID: 0}
+    typingLoopClip: {fileID: 8300000, guid: ab9b8e50d1b25f843a136ef6473c196c, type: 3}
     typingVolume: 1
     stopSoundBetweenLines: 0
     holdAfterFinish: 2.5

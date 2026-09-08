@@ -6,76 +6,116 @@ public class CustomCursor : MonoBehaviour
 {
     public static CustomCursor Instance;
 
-    [Header("ตัว Image cursor ที่จะตามเมาส์ (ไม่ใส่ = ใช้ RectTransform ของ object นี้เอง)")]
-    public RectTransform cursorRect;
+    [Header("--- รูปเมาส์ขนนก (Hardware Cursor) ---")]
+    [Tooltip("ลากไฟล์รูปขนนกมาใส่ (ต้องตั้ง Texture Type เป็น Cursor ใน Inspector ก่อน ถ้าจะใช้โหมด Hardware Cursor)")]
+    public Texture2D cursorTexture;
 
-    [Header("เลขนับถอยหลัง โชว์ตอนกำลังชี้ของที่ interact ได้ (ลาก Text ลูกของ cursor มาใส่)")]
+    [Tooltip("จุดคลิกบนรูปเมาส์ (ถ้าปลายขนนกอยู่มุมซ้ายบนให้ใส่ X:0, Y:0) ใช้เฉพาะโหมด Hardware Cursor")]
+    public Vector2 hotSpot = Vector2.zero;
+
+    [Header("--- Software Cursor (แนะนำสำหรับ Build ลง Itch.io/เว็บ) ---")]
+    [Tooltip("เปิดไว้เพื่อให้เกมวาดรูปเมาส์เอง (ผ่าน UI Image) แทนการฝากเบราว์เซอร์วาดให้ " +
+             "วิธีนี้จะได้ขนาด/ตำแหน่งตรงกันทุกเบราว์เซอร์ เพราะ Hardware Cursor บนเว็บถูกเบราว์เซอร์จำกัดขนาดภาพไม่เกิน 128x128 " +
+             "และมักเพี้ยนเรื่อง DPI/การ scale ของหน้าเว็บ")]
+    [SerializeField] private bool useSoftwareCursor = true;
+
+    [Tooltip("ลาก RectTransform ของ UI Image ที่จะใช้แสดงรูปเมาส์แบบ Software " +
+             "ตั้ง Pivot ของ RectTransform นี้ให้ตรงกับจุดคลิกบนภาพ (เช่นปลายขนนกอยู่มุมซ้ายบน ให้ตั้ง Pivot เป็น X:0, Y:1)")]
+    [SerializeField] private RectTransform softwareCursorImage;
+
+    [Tooltip("ระยะห่างเพิ่มเติมของรูปเมาส์ Software จากตำแหน่งเมาส์จริง ปกติปล่อย 0,0 แล้วปรับที่ Pivot ของรูปแทน")]
+    [SerializeField] private Vector2 cursorOffset = Vector2.zero;
+
+    [Header("--- ตัวเลขนับถอยหลัง ---")]
+    [Tooltip("ลาก TextMeshProUGUI ตัวเลขมาใส่")]
     public TextMeshProUGUI countdownText;
 
-    private Canvas canvas;
-    private RectTransform canvasRect;
-    private Image cursorImage;
+    [Tooltip("ระยะห่างของตัวเลขจากปลายเมาส์")]
+    public Vector2 textOffset = new Vector2(25f, -25f);
+
+    private Canvas parentCanvas;
+    private RectTransform textRect;
 
     private void Awake()
     {
         Instance = this;
-        Cursor.visible = false; // ซ่อนเมาส์ของระบบ ใช้ Image นี้แทน
 
-        if (cursorRect == null)
-            cursorRect = GetComponent<RectTransform>();
+        if (useSoftwareCursor)
+        {
+            // ซ่อนเมาส์จริงของระบบ/เบราว์เซอร์ แล้วใช้ Image ในเกมวาดแทน
+            // เพื่อให้ตำแหน่ง/ขนาดตรงกันทุกแพลตฟอร์ม ไม่ขึ้นกับข้อจำกัดของ Hardware Cursor บนเว็บ
+            Cursor.visible = false;
 
-        canvas = GetComponentInParent<Canvas>();
-        canvasRect = canvas != null ? canvas.transform as RectTransform : null;
-        cursorImage = GetComponent<Image>();
+            if (softwareCursorImage != null)
+            {
+                parentCanvas = softwareCursorImage.GetComponentInParent<Canvas>();
 
-        if (cursorRect == null)
-            Debug.LogError("[CustomCursor] หา RectTransform ไม่เจอเลย (ทั้งลากเองและ GetComponent) เมาส์จะไม่ขยับแน่นอน");
-        if (canvas == null)
-            Debug.LogError("[CustomCursor] หา Canvas ใน parent ไม่เจอ — object นี้ต้องอยู่ใต้ Canvas ใน hierarchy เมาส์จะไม่ขยับแน่นอน");
+                // ปิด Raycast Target ของ Image เมาส์ ไม่ให้ไปบล็อกการคลิกของ UI อื่น
+                Image cursorImg = softwareCursorImage.GetComponent<Image>();
+                if (cursorImg != null) cursorImg.raycastTarget = false;
 
-        transform.SetAsLastSibling();
+                softwareCursorImage.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            // 1. ตั้งค่ารูปเมาส์ให้เป็นระบบ Hardware Cursor ของ Unity
+            SetHardwareCursor();
+        }
 
+        // 2. ตั้งค่า Text ตัวเลข
         if (countdownText != null)
+        {
+            textRect = countdownText.GetComponent<RectTransform>();
+
+            if (parentCanvas == null)
+                parentCanvas = countdownText.GetComponentInParent<Canvas>();
+
+            // สำคัญมาก: ปิด Raycast Target เพื่อไม่ให้ข้อความไปบล็อกการคลิกเมาส์
+            countdownText.raycastTarget = false; 
+
             countdownText.gameObject.SetActive(false);
-        if (cursorImage != null)
-            cursorImage.enabled = true;
+        }
+    }
+
+    private void SetHardwareCursor()
+    {
+        if (cursorTexture != null)
+        {
+            Cursor.SetCursor(cursorTexture, hotSpot, CursorMode.Auto);
+        }
+        Cursor.visible = true; // เปิดให้เห็นเมาส์ระบบ
     }
 
     private void Update()
     {
-        if (canvas == null || cursorRect == null) return;
+        if (parentCanvas == null) return;
 
-        // เช็ค RenderMode ของ Canvas เพื่อเลือก Camera ที่ถูกต้อง
-        Camera cam = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+        bool needsCursorMove = useSoftwareCursor && softwareCursorImage != null;
+        bool needsTextMove = countdownText != null && countdownText.gameObject.activeSelf;
 
-        // แปลงพิกัดหน้าจอตรงเข้า RectTransform ของ Parent ได้ทันที
+        if (!needsCursorMove && !needsTextMove) return;
+
+        Camera cam = parentCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : parentCanvas.worldCamera;
+
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            cursorRect.parent as RectTransform,
+            parentCanvas.transform as RectTransform,
             Input.mousePosition,
             cam,
             out Vector2 localPoint))
         {
-            if (cursorRect.parent == canvasRect)
-            {
-                cursorRect.anchoredPosition = localPoint;
-            }
-            else
-            {
-                Vector3 worldPoint = canvasRect.TransformPoint(localPoint);
-                cursorRect.position = worldPoint;
-            }
+            if (needsCursorMove)
+                softwareCursorImage.anchoredPosition = localPoint + cursorOffset;
 
-            // *** เอาบรรทัด "cursorImage.enabled = true;" ที่เคยอยู่ตรงนี้ออกแล้ว ***
-            // ของเดิมบังคับเปิด cursorImage ทุกเฟรมที่คำนวณตำแหน่งสำเร็จ (เกือบทุกเฟรมที่เมาส์อยู่บนจอ)
-            // เลยไปเขียนทับค่าที่ ShowCountdown() เพิ่งสั่งปิดไปเมื่อเฟรมก่อนหน้า -> คอร์เซอร์เลยไม่ยอมหาย
-            // ต่อไปนี้ปล่อยให้ ShowCountdown()/HideCountdown() เป็นจุดเดียวที่คุมการเปิด-ปิด cursorImage
+            if (needsTextMove)
+                textRect.anchoredPosition = localPoint + textOffset;
         }
     }
 
     public void ShowCountdown()
     {
-        if (countdownText != null) countdownText.gameObject.SetActive(true);
-        if (cursorImage != null) cursorImage.enabled = false;
+        if (countdownText != null)
+            countdownText.gameObject.SetActive(true);
     }
 
     public void UpdateCountdown(float secondsLeft)
@@ -84,7 +124,6 @@ public class CustomCursor : MonoBehaviour
             countdownText.text = secondsLeft.ToString("F1");
     }
 
-    // เหมือน UpdateCountdown แต่เปลี่ยนข้อความเป็น "Cooldown: X" ใช้ตอน HoldInteractable อยู่ในสถานะคูลดาวน์
     public void UpdateCooldownText(float secondsLeft)
     {
         if (countdownText != null)
@@ -93,12 +132,14 @@ public class CustomCursor : MonoBehaviour
 
     public void HideCountdown()
     {
-        if (countdownText != null) countdownText.gameObject.SetActive(false);
-        if (cursorImage != null) cursorImage.enabled = true;
+        if (countdownText != null)
+            countdownText.gameObject.SetActive(false);
     }
 
     private void OnDestroy()
     {
+        // คืนค่าเมาส์ปกติเมื่อปิดหรือเปลี่ยนฉาก
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         Cursor.visible = true;
         if (Instance == this)
             Instance = null;

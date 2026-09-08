@@ -10,7 +10,7 @@ public class DoctorSanityManager : MonoBehaviour
     [Range(0, 100)] [SerializeField] private int startingSanity = 100;
 
     [Tooltip("Sanity หมอ < ค่านี้ = เริ่มเกิดอาการ Glitch (จอสั่น/ตัวอักษรเพี้ยน/เมาส์ฝืด/ตัดจบกลางคัน)")]
-    [SerializeField] private int glitchThreshold = 40;
+    [SerializeField] public int glitchThreshold = 40;
 
     [Header("อัตราการลดของ Sanity หมอ")]
     [Tooltip("Sanity หมอที่จะลดลงอัตโนมัติทุกครั้งที่ผู้เล่นเลือกตอบ 1 ข้อ (ใส่ 0 ถ้าไม่ต้องการให้ลดอัตโนมัติ)")]
@@ -50,7 +50,7 @@ public class DoctorSanityManager : MonoBehaviour
     [SerializeField] private EyeBlinkEffect eyeBlink;
     private float originalPitch = 1f;
 
-    public int Sanity { get; private set; }
+    [SerializeField] public int Sanity;
     public bool IsGlitching => Sanity < glitchThreshold;
     public int BaseSanityLossPerChoice => baseSanityLossPerChoice;
 
@@ -87,7 +87,17 @@ public class DoctorSanityManager : MonoBehaviour
         if (ScreenShakeEffect.Instance != null)
             ScreenShakeEffect.Instance.SetShaking(IsGlitching);
     }
-
+    private void Update()
+    {
+        // สำหรับเทสใน Editor (กดปุ่มลด/เพิ่ม Sanity)
+        if (Application.isEditor)
+        {
+            if (Input.GetKeyDown(KeyCode.KeypadMinus))
+                ChangeSanity(-5);
+            else if (Input.GetKeyDown(KeyCode.KeypadPlus))
+                ChangeSanity(5);
+        }
+    }
     public void ChangeSanity(int amount)
     {
         if (amount == 0) return;
@@ -133,17 +143,18 @@ public class DoctorSanityManager : MonoBehaviour
             eyeBlink.SetBlinking(active);
     }
 
-    // เล่น/หยุด Glitch Loop ทุกตัวใน list ตามสถานะ Glitch + ตามว่ากำลัง Transition อยู่รึเปล่า
+   
+   // เล่น/หยุด Glitch Loop ทุกตัวใน list ตามสถานะ Glitch + ตามว่ากำลัง Transition อยู่รึเปล่า
     private void UpdateGlitchLoopPlayback()
     {
         if (glitchLoopSources == null) return;
-
+ 
         bool shouldPlay = IsGlitching && !isGlitchLoopSuppressed;
-
+ 
         foreach (var src in glitchLoopSources)
         {
             if (src == null) continue;
-
+ 
             if (shouldPlay)
             {
                 if (glitchLoopClip != null) src.clip = glitchLoopClip;

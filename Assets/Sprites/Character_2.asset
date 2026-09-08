@@ -106,7 +106,8 @@ MonoBehaviour:
       shakeText: 0
       shakeIntensity: 1
       typingLoopOverride: {fileID: 0}
-  - choiceText: Gently ask her to remove her headphones and be present in the room.
+  - choiceText: Ask her to describe the exact frequency of the white noise she is
+      listening to.
     sanityChange: 20
     doctorSanityChange: 0
     afterDialogue:

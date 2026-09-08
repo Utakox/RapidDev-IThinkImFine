@@ -9,10 +9,10 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance;
 
     [System.Serializable]
-    public struct UIConfig
+    public struct UIConfig //
     {
         public TextMeshProUGUI speakerNameText;
-        public TextMeshProUGUI dialogueText;
+        public TextMeshProUGUI dialogueText; // TextMeshProUGUI สำหรับแสดงบทพูด
         public Image[] dialogueImages;
         public TextShakeEffect dialogueShake;
         public TextGlitchEffect dialogueGlitch;
@@ -106,6 +106,39 @@ public class DialogueManager : MonoBehaviour
         SetImagesActive(false);
         StartNormalMusicImmediate();
     }
+    private void Update()
+    {
+        if(DoctorSanityManager.Instance && DoctorSanityManager.Instance.Sanity > 40)
+        {
+            ui.dialogueShake.SetShaking(false);
+            if (ui.dialogueGlitch != null)
+                ui.dialogueGlitch.SetGlitching(false);
+            
+        }
+        else
+        {
+            if (ui.dialogueShake != null)
+                ui.dialogueShake.SetShaking(true);
+            if (ui.dialogueGlitch != null)
+                ui.dialogueGlitch.SetGlitching(true);
+        }
+        // สำหรับเทสใน Editor (กดปุ่มข้ามบทพูด/choice)
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.F1))
+            SkipDialogueInEditor();
+#endif
+    }
+
+#if UNITY_EDITOR
+    private void SkipDialogueInEditor()
+    {
+        if (typingCoroutine == null) return;
+
+        System.Action onFinished = onLinesFinished;
+        ClearDialogue();
+        onFinished?.Invoke();
+    }
+#endif
 
     private void StartNormalMusicImmediate()
     {

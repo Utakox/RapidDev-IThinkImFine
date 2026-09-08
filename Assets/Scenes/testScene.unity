@@ -858,6 +858,7 @@ MonoBehaviour:
   distortedAudioSource: {fileID: 982482531}
   glitchPitch: 2
   eyeBlink: {fileID: 467475544}
+  Sanity: 0
 --- !u!4 &314394432
 Transform:
   m_ObjectHideFlags: 0
@@ -2800,7 +2801,6 @@ RectTransform:
   - {fileID: 951698786}
   - {fileID: 1186598770}
   - {fileID: 817367536}
-  - {fileID: 1966535060}
   - {fileID: 1073213745}
   - {fileID: 715035446}
   - {fileID: 1697187915}
@@ -2814,6 +2814,7 @@ RectTransform:
   - {fileID: 1991156335}
   - {fileID: 927968268}
   - {fileID: 410047444}
+  - {fileID: 1966535060}
   - {fileID: 102383022}
   - {fileID: 467475543}
   - {fileID: 191574611}
@@ -5915,7 +5916,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.9000015, y: -0.0000076293945}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 135.9082, y: 33.9764}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1718873372
@@ -6582,7 +6583,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50, y: 50}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1966535061
@@ -6597,8 +6598,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef7b664efa92255478fdc482e97d00b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustomCursor
-  cursorRect: {fileID: 1966535060}
+  cursorTexture: {fileID: 2800000, guid: c25c6909216969e42863e479bfcdee09, type: 3}
+  hotSpot: {x: 0, y: 0}
+  useSoftwareCursor: 1
+  softwareCursorImage: {fileID: 1966535060}
+  cursorOffset: {x: 0, y: 0}
   countdownText: {fileID: 1718873372}
+  textOffset: {x: 25, y: -25}
 --- !u!114 &1966535062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6612,14 +6618,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7711160002305375395, guid: c25c6909216969e42863e479bfcdee09, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

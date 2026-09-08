@@ -15,7 +15,7 @@ MonoBehaviour:
   characterName: Sam
   startingSanity: 50
   introNarration:
-    enabled: 1
+    enabled: 0
     lines:
     - text: 'The human mind does not break like glass. It melts like wax.
 

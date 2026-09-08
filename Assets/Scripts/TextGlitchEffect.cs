@@ -43,6 +43,19 @@ public class TextGlitchEffect : MonoBehaviour
 
     private void Update()
     {
+        if (DoctorSanityManager.Instance == null) return;
+        if (DoctorSanityManager.Instance.Sanity >= DoctorSanityManager.Instance.glitchThreshold) 
+        {
+            if (isGlitching)
+                SetGlitching(false);
+            return;
+        }
+        else
+        {
+            if (!isGlitching)
+                SetGlitching(true);
+        }
+
         if (!isGlitching || tmp == null || string.IsNullOrEmpty(cleanText)) return;
 
         timer += Time.unscaledDeltaTime;
@@ -50,6 +63,7 @@ public class TextGlitchEffect : MonoBehaviour
         timer = 0f;
 
         ApplyGlitchFrame();
+        
     }
 
     private void ApplyGlitchFrame()
