@@ -40,7 +40,7 @@ MonoBehaviour:
 
         Will you cool his mind... or turn up the heat
         and watch him dissolve?'
-      typeSpeed: 0.07
+      typeSpeed: 0.06
       delayAfter: 0
       clearBefore: 0
     typingLoopClip: {fileID: 8300000, guid: ab9b8e50d1b25f843a136ef6473c196c, type: 3}
@@ -59,7 +59,7 @@ MonoBehaviour:
       this appointment, which means we\u2019re down eighty bucks just so I can sit
       in this chair. So, I guess I need to get 'fixed' quickly."
     typeSpeedOverride: 0.05
-    delayAfterOverride: 2
+    delayAfterOverride: -1
     shakeText: 0
     shakeIntensity: 6
     typingLoopOverride: {fileID: 0}
@@ -67,14 +67,14 @@ MonoBehaviour:
       the numbers. Tuition fees, rent, the exact probability of me ending up as a
       complete failure."
     typeSpeedOverride: 0.05
-    delayAfterOverride: 2
+    delayAfterOverride: -1
     shakeText: 0
     shakeIntensity: 6
     typingLoopOverride: {fileID: 0}
   - text: "Everyone else is talking about dream colleges, and I\u2019m just trying
       not to throw up in the bathroom."
     typeSpeedOverride: 0.05
-    delayAfterOverride: 2
+    delayAfterOverride: -1
     shakeText: 0
     shakeIntensity: 6
     typingLoopOverride: {fileID: 0}
@@ -82,7 +82,7 @@ MonoBehaviour:
       shifts for nothing. I feel like a rubber band that\u2019s been stretched out
       for way too long. I can hear the fibers tearing. Tell me how to stop the snap"
     typeSpeedOverride: 0.05
-    delayAfterOverride: 2
+    delayAfterOverride: -1
     shakeText: 0
     shakeIntensity: 6
     typingLoopOverride: {fileID: 0}
@@ -95,13 +95,13 @@ MonoBehaviour:
     afterDialogue:
     - text: (He gulps it down in one go, letting out a long sigh)
       typeSpeedOverride: 0.05
-      delayAfterOverride: 4
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 6
       typingLoopOverride: {fileID: 0}
     - text: Thank you... I didn't realize how dry my throat was.
       typeSpeedOverride: 0.05
-      delayAfterOverride: 4
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 6
       typingLoopOverride: {fileID: 0}
@@ -121,13 +121,13 @@ MonoBehaviour:
     afterDialogue:
     - text: (He pulls nervously on his jacket sleeves)
       typeSpeedOverride: 0.08
-      delayAfterOverride: 3
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: If I mess up... my mom's hard work means nothing
       typeSpeedOverride: 0
-      delayAfterOverride: 3
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
@@ -137,13 +137,13 @@ MonoBehaviour:
     afterDialogue:
     - text: (He slowly unclenches his fists, looking down at his lap)
       typeSpeedOverride: 0.08
-      delayAfterOverride: 3
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: I haven't talked to anyone about this... not even at home.
       typeSpeedOverride: 0.08
-      delayAfterOverride: 3
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
@@ -155,14 +155,14 @@ MonoBehaviour:
     afterDialogue:
     - text: (His face goes pale. He grips his chair)
       typeSpeedOverride: 0.08
-      delayAfterOverride: 2
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: I know... I know every single money she spends on me. I think about it
         every second.
       typeSpeedOverride: 0.08
-      delayAfterOverride: 2
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
@@ -172,13 +172,13 @@ MonoBehaviour:
     afterDialogue:
     - text: (He crosses his arms defensively, avoiding your gaze)
       typeSpeedOverride: 0.08
-      delayAfterOverride: 2
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: Why would they care? I'm just the invisible guy who's going to fail anyway
       typeSpeedOverride: 0.08
-      delayAfterOverride: 2
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
@@ -188,35 +188,35 @@ MonoBehaviour:
     afterDialogue:
     - text: (His hands shake so violently he drops the pencil)
       typeSpeedOverride: 0.08
-      delayAfterOverride: 2
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: I can't... I don't want to see her face right now. Please, don't make
         me think about her eyes.
       typeSpeedOverride: 0.08
-      delayAfterOverride: 2
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   - choiceText: Maintain absolute silence until the pressure forces him to speak.
     sanityChange: -10
-    doctorSanityChange: 15
+    doctorSanityChange: 20
     afterDialogue:
     - text: (He suddenly buries his face in his hands, trembling)
       typeSpeedOverride: 0.08
-      delayAfterOverride: 2
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: I stole money from her purse last night... just to buy coffee to stay
         awake. What kind of son does that to his own mother?
       typeSpeedOverride: 0.08
-      delayAfterOverride: 2
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
-  sanityThreshold: 29
+  sanityThreshold: 30
   crisisChoices:
   - choiceText: Order immediate medical isolation
     sanityChange: 0
@@ -248,7 +248,7 @@ MonoBehaviour:
     - text: Thank you... I don't remember the last time I didn't feel like I was
         suffocating.
       typeSpeedOverride: 0.08
-      delayAfterOverride: 2
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
@@ -260,11 +260,11 @@ MonoBehaviour:
     - text: You're right... If I break down here, all her sacrifices mean nothing
         anyway. I'll go sleep.
       typeSpeedOverride: 0.08
-      delayAfterOverride: 2
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
-  mentalStateThreshold: 29
+  mentalStateThreshold: 30
   mentalStateClipOverride: {fileID: 8300000, guid: 457e223f7fe7ade468e3339b38f86894, type: 3}
   goodEndingNarration:
     enabled: 1
@@ -276,7 +276,7 @@ MonoBehaviour:
         son.
 
 
-        The cheap, near-expired coffee cans vanished from his desk.
+        The cheap, near expired coffee cans vanished from his desk.
         The delusion that sleep is an act of betrayal has been permanently severed.
         For the first time in months, he no longer fights his heavy eyelids. He simply
         closes his eyes and lets himself rest.'
@@ -302,7 +302,7 @@ MonoBehaviour:
         wall. He is trapped in an endless nightmare too afraid to fall asleep, but
         too broken to keep living.'
       typeSpeed: 0.05
-      delayAfter: 0
+      delayAfter: -1
       clearBefore: 0
     typingLoopClip: {fileID: 8300000, guid: ab9b8e50d1b25f843a136ef6473c196c, type: 3}
     typingVolume: 1

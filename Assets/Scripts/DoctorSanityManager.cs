@@ -37,7 +37,8 @@ public class DoctorSanityManager : MonoBehaviour
     [SerializeField] private GameObject[] lowSanityEffects;
 
     [Header("เสียง Loop ตอน Glitch (เอฟเฟกต์ ไม่ใช่เพลง)")]
-    [SerializeField] private AudioSource glitchLoopSource;
+    [Tooltip("ลาก AudioSource ที่จะเล่น Loop ตอน Glitch ได้หลายอัน")]
+    [SerializeField] private AudioSource[] glitchLoopSources;
     [SerializeField] private AudioClip glitchLoopClip;
 
     [Header("บิดเสียง AudioSource ที่กำหนดตอน Glitch (เช่น เพลงหลัก)")]
@@ -52,6 +53,16 @@ public class DoctorSanityManager : MonoBehaviour
     [SerializeField] public int Sanity;
     public bool IsGlitching => Sanity < glitchThreshold;
     public int BaseSanityLossPerChoice => baseSanityLossPerChoice;
+
+    // true ระหว่างที่กำลัง Transition (fade to/from black) เพื่อดับเสียง Glitch Loop ชั่วคราว
+    private bool isGlitchLoopSuppressed = false;
+
+    // เรียกจาก TransitionManager ตอนเริ่ม/จบ transition เพื่อดับ/คืนเสียง Glitch Loop
+    public void SetGlitchLoopSuppressed(bool suppressed)
+    {
+        isGlitchLoopSuppressed = suppressed;
+        UpdateGlitchLoopPlayback();
+    }
 
     private void Awake()
     {
@@ -116,19 +127,7 @@ public class DoctorSanityManager : MonoBehaviour
             }
         }
 
-        if (glitchLoopSource != null)
-        {
-            if (active)
-            {
-                if (glitchLoopClip != null) glitchLoopSource.clip = glitchLoopClip;
-                glitchLoopSource.loop = true;
-                if (!glitchLoopSource.isPlaying) glitchLoopSource.Play();
-            }
-            else
-            {
-                glitchLoopSource.Stop();
-            }
-        }
+        UpdateGlitchLoopPlayback();
 
         if (distortedAudioSource != null)
         {
@@ -142,6 +141,30 @@ public class DoctorSanityManager : MonoBehaviour
         // ตัวนี้เคยประกาศไว้แต่ไม่เคยถูกเรียกใช้จริง เลยไม่กระพริบตาเลยตอน Glitch
         if (eyeBlink != null)
             eyeBlink.SetBlinking(active);
+    }
+
+    // เล่น/หยุด Glitch Loop ทุกตัวใน list ตามสถานะ Glitch + ตามว่ากำลัง Transition อยู่รึเปล่า
+    private void UpdateGlitchLoopPlayback()
+    {
+        if (glitchLoopSources == null) return;
+
+        bool shouldPlay = IsGlitching && !isGlitchLoopSuppressed;
+
+        foreach (var src in glitchLoopSources)
+        {
+            if (src == null) continue;
+
+            if (shouldPlay)
+            {
+                if (glitchLoopClip != null) src.clip = glitchLoopClip;
+                src.loop = true;
+                if (!src.isPlaying) src.Play();
+            }
+            else
+            {
+                if (src.isPlaying) src.Stop();
+            }
+        }
     }
 
     private void UpdateDebugText()

@@ -53,6 +53,10 @@ public class TransitionManager : MonoBehaviour
 
     public IEnumerator FadeToBlackRoutine()
     {
+        // ดับเสียง Glitch Loop ตั้งแต่เริ่ม Transition (ใช้ได้ทุกจุดตั้งแต่ Intro ยัน Ending เพราะเรียกผ่านจุดนี้จุดเดียว)
+        if (DoctorSanityManager.Instance != null)
+            DoctorSanityManager.Instance.SetGlitchLoopSuppressed(true);
+
         if (fadeGroup != null) fadeGroup.blocksRaycasts = true;
         yield return Fade(fadeGroup != null ? fadeGroup.alpha : 0f, 1f);
     }
@@ -61,10 +65,17 @@ public class TransitionManager : MonoBehaviour
     {
         yield return Fade(fadeGroup != null ? fadeGroup.alpha : 1f, 0f);
         if (fadeGroup != null) fadeGroup.blocksRaycasts = false;
+
+        // จอสว่างขึ้นแล้ว คืนเสียง Glitch Loop (ถ้ายังอยู่ในเกณฑ์ Glitch ก็จะเล่นต่อเอง)
+        if (DoctorSanityManager.Instance != null)
+            DoctorSanityManager.Instance.SetGlitchLoopSuppressed(false);
     }
 
     public void SetBlackInstant(bool black)
     {
+        if (DoctorSanityManager.Instance != null)
+            DoctorSanityManager.Instance.SetGlitchLoopSuppressed(black);
+
         if (fadeGroup == null) return;
         fadeGroup.alpha = black ? 1f : 0f;
         fadeGroup.blocksRaycasts = black;

@@ -39,15 +39,16 @@ MonoBehaviour:
   faceLow: {fileID: -7901941117833382281, guid: 5da989742a111e241a34fe2a2a7dbffb, type: 3}
   faceBroken: {fileID: -409418157473551590, guid: 15881f90b2f693e438d0452a5db9c08b, type: 3}
   introDialogue:
-  - text: (She presses the headphones tighter against her ears, her blank eyes staring
-      right through you. Her voice is monotonous, completely hollow.)
+  - text: (She wraps her arms tightly around herself, paint-stained fingers digging
+      into her sleeves. Her blank eyes stare right through you. Her voice is monotonous,
+      completely hollow)
     typeSpeedOverride: 0.06
     delayAfterOverride: -1
     shakeText: 0
     shakeIntensity: 1
     typingLoopOverride: {fileID: 0}
-  - text: Do you hear it, Doctor? The static? I keep the volume at maximum so I don't
-      have to listen to the silence
+  - text: Do you hear it, Doctor? The silence? It's so suffocating... like static
+      screaming inside my head.
     typeSpeedOverride: 0.06
     delayAfterOverride: -1
     shakeText: 0
@@ -55,14 +56,14 @@ MonoBehaviour:
     typingLoopOverride: {fileID: 0}
   - text: I don't have a family to go back to. I don't have friends who check on
       me. My canvas was the only place where I actually existed... but when I post
-      my work online, it's just zero.
+      my work online, it's just zero
     typeSpeedOverride: 0.06
     delayAfterOverride: -1
     shakeText: 0
     shakeIntensity: 1
     typingLoopOverride: {fileID: 0}
-  - text: "Zero likes. Zero views. Zero comments. It\u2019s like typing a message
-      to an empty universe."
+  - text: Zero likes. Zero views. Zero comments. It's like typing a message to an
+      empty universe
     typeSpeedOverride: 0.06
     delayAfterOverride: -1
     shakeText: 0
@@ -168,72 +169,72 @@ MonoBehaviour:
   - choiceText: Suggest she analyze popular AI art to adapt her style for better
       algorithm engagement.
     sanityChange: -20
-    doctorSanityChange: 0
+    doctorSanityChange: 15
     afterDialogue:
     - text: (She grips the tablet until her knuckles turn white, eyes trembling.)
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: Adapt... If my soul isn't enough, and I have to copy a machine... why
         do I even exist?
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   - choiceText: Note that her white noise is just another algorithmically generated
       sound, same as AI art.
     sanityChange: -20
-    doctorSanityChange: 0
+    doctorSanityChange: 15
     afterDialogue:
     - text: (Her breath hitches. She violently presses the headphones against her
         skull.)
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: No! This is my hiding place! If even this is fake... where am I supposed
         to go?!
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   - choiceText: Advise her to read the critiques objectively to find actionable data
       for improvement.
     sanityChange: -20
-    doctorSanityChange: 0
+    doctorSanityChange: 15
     afterDialogue:
     - text: (Her eyes dart across the cruel comments, absorbing every 'trash' and
         'worthless' until she shrinks back into the abandoned orphan she always was.)
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   - choiceText: Ask her which criticisms were correct and what she should fix first.
     sanityChange: -20
-    doctorSanityChange: 0
+    doctorSanityChange: 15
     afterDialogue:
     - text: (Her eyes return to the comments. She begins picking apart the painting
         piece by piece.)
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: The colors are wrong... the composition is weak...
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: Maybe there really isn't anything here worth keeping.
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
@@ -247,7 +248,7 @@ MonoBehaviour:
     - text: (Her eyes go dead. After deleting her accounts, she frantically claws
         the paint off her arms to erase herself entirely.)
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 1
       shakeIntensity: 8
       typingLoopOverride: {fileID: 0}
@@ -259,7 +260,7 @@ MonoBehaviour:
     - text: (Cranking the deafening static to the max, she curls into a tight ball,
         fully accepting her fate as invisible digital trash.
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 1
       shakeIntensity: 8
       typingLoopOverride: {fileID: 0}
@@ -271,13 +272,13 @@ MonoBehaviour:
     afterDialogue:
     - text: (Taking off her headphones, she hands you a torn page.)
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: This... is the first time anyone wanted to keep a part of me.
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
@@ -288,7 +289,7 @@ MonoBehaviour:
     afterDialogue:
     - text: This... is the first time anyone wanted to keep a part of me.
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
