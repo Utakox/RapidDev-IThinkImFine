@@ -151,14 +151,14 @@ MonoBehaviour:
     afterDialogue:
     - text: (He violently hits his own head with his palms)
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: I traded forty-two lives for a bloody paycheck... You're right. I knew!
         I always knew!
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
@@ -169,14 +169,14 @@ MonoBehaviour:
     - text: (His breathing turns into violent hyperventilation, looking frantically
         around the ceiling)
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: Two thousand tons... two thousand tons of load... and it's all pressing
         down on my chest right now.
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
@@ -186,14 +186,14 @@ MonoBehaviour:
     afterDialogue:
     - text: (His eyes freeze into a total blank stare, all panic instantly vanishing)
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: You're right. A collapsed column shouldn't be standing. It just clutters
         the ground.
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
@@ -204,17 +204,17 @@ MonoBehaviour:
     - text: (He slowly stands up, staring straight past you with completely lifeless
         eyes)
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: I'm so tired of hearing them scream, Doctor... I just want it to be quiet.
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
-  sanityThreshold: 29
+  sanityThreshold: 30
   crisisChoices:
   - choiceText: Tell him that survival means carrying the weight of forty-two bodies
       forever.
@@ -224,14 +224,14 @@ MonoBehaviour:
     - text: Forty-two bodies... multiplied by average weight... plus the concrete...
         No... I can't hold it anymore! It's falling on me!
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
     - text: (His eyes glaze over, staring blankly at the ceiling as his body trembles
         uncontrollably.)
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
@@ -243,12 +243,12 @@ MonoBehaviour:
     - text: THE BUILDING IS COLLAPSING! THE BEAMS ARE SNAPPING! GET THEM OUT! I CAN'T
         HOLD TWO THOUSAND TONS!
       typeSpeedOverride: 0
-      delayAfterOverride: 0
+      delayAfterOverride: -1
       shakeText: 0
       shakeIntensity: 0
       typingLoopOverride: {fileID: 0}
   goodEndingChoices: []
-  mentalStateThreshold: 27
+  mentalStateThreshold: 30
   mentalStateClipOverride: {fileID: 0}
   goodEndingNarration:
     enabled: 1
